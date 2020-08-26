@@ -57,7 +57,7 @@ export class BaseState {
 
 export class BaseCity {
   id: Object;
-  StateId: number;
+  stateId: number;
   title: string;
   isActive: boolean;
 }

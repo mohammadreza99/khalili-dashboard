@@ -15,16 +15,16 @@ export class CitiesPage implements OnInit {
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseCity[]>;
-  states$: Observable<BaseState[]>;
+  states: BaseState[];
   columnDefs = [
     {
       field: 'title',
       headerName: 'عنوان',
     },
     {
-      field: 'StateId',
+      field: 'stateId',
       headerName: 'استان',
-      cellRenderer: this.stateCellRenderer,
+      cellRenderer: (params) => {return this.stateCellRenderer(params)},
     },
     {
       field: 'isActive',
@@ -44,7 +44,7 @@ export class CitiesPage implements OnInit {
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseCity>('City');
-    this.states$ = this.basicService.select<BaseState>('State');
+    this.basicService.select<BaseState>('State').subscribe(states => this.states = states);
   }
 
   activityCellRenderer(params) {
@@ -52,7 +52,7 @@ export class CitiesPage implements OnInit {
   }
 
   stateCellRenderer(params) {
-    return getByIdCellRenderer(params.data.StateId);
+    return getByIdCellRenderer(params.data.stateId, this.states);
   }
 
   addCity() {
@@ -102,14 +102,15 @@ export class CitiesPage implements OnInit {
 }
 
 function booleanCellRenderer(condtion: any) {
-  console.log('tttttt');
   return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-color:${
     condtion ? 'green' : 'red'
   }"></div> <span>${condtion ? 'فعال' : 'غیرفعال'}</span></div>`;
 }
 
-function getByIdCellRenderer(condtion: any) {
-  console.log('rrrrrrrrrrrrrrr');
-  console.log(this.states$);
-  return 'test';
+function getByIdCellRenderer(condtion: any, items: any) {
+  let value;
+  items.forEach((item) => {
+   if(item.id==condtion) value=item.title;
+  });
+  return value;
 }
