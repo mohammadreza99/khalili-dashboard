@@ -17,10 +17,16 @@ export class CitiesPage implements OnInit {
 
   rowData$: Observable<BaseCity[]>;
   availabeStates: BaseState[];
+  states$: Observable<BaseState[]>;
   columnDefs = [
     {
       field: 'title',
       headerName: 'عنوان',
+    },
+    {
+      field: 'StateId',
+      headerName: 'استان',
+      cellRenderer: this.stateCellRenderer,
     },
     {
       field: 'isActive',
@@ -43,10 +49,15 @@ export class CitiesPage implements OnInit {
     this.basicService.select<BaseState>('State').subscribe((states) => {
       this.availabeStates = states;
     });
+    this.states$ = this.basicService.select<BaseState>('State');
   }
 
   activityCellRenderer(params) {
     return booleanCellRenderer(params.data.isActive);
+  }
+
+  stateCellRenderer(params) {
+    return getByIdCellRenderer(params.data.stateId);
   }
 
   addCity() {
@@ -106,7 +117,14 @@ export class CitiesPage implements OnInit {
 }
 
 function booleanCellRenderer(condtion: any) {
+  console.log('tttttt');
   return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-color:${
     condtion ? 'green' : 'red'
   }"></div> <span>${condtion ? 'فعال' : 'غیرفعال'}</span></div>`;
+}
+
+function getByIdCellRenderer(condtion: any) {
+  console.log('rrrrrrrrrrrrrrr');
+  console.log(this.states$);
+  return 'test';
 }
