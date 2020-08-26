@@ -1,1 +1,14 @@
-<p>cities works!</p>
+<page-container title="شهر ها">
+  <prm-button
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    (click)="addCity()"
+  >
+  </prm-button>
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    (cellValueChanged)="onCellValueChanged($event)"
+  ></ag-table>
+</page-container>
