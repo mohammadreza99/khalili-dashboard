@@ -25,7 +25,8 @@ import { DataService } from '@app/services/data.service';
     },
   ],
 })
-export class SingleImagePickerComponent extends PrimeInputBaseComponent
+export class SingleImagePickerComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
   constructor(private dataService: DataService) {
     super();
@@ -66,15 +67,15 @@ export class SingleImagePickerComponent extends PrimeInputBaseComponent
 
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
-    reader.onload = () => {
-      this.imageToShow = reader.result;
-    };
     if (image) {
       reader.readAsDataURL(image);
     }
-    if (this.hasValueAccessor) {
-      this.controlOnChange(image);
-    }
+    reader.onload = () => {
+      this.imageToShow = reader.result;
+      if (this.hasValueAccessor) {
+        this.controlOnChange(this.imageToShow);
+      }
+    };
   }
 
   clear() {
