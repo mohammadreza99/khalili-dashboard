@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { TableComponent } from '@app/shared/components/table/table.component';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ag-colors',
@@ -39,6 +40,7 @@ export class ColorsPage implements OnInit {
     private basicService: BasicService,
     private dialogFormService: DialogFormService
   ) {}
+  
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseColor>('Color');

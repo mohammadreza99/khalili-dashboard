@@ -1,7 +1,15 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng';
-
+enum ValidationTypes {
+  required = 'required',
+  minlength = 'minlLength',
+  maxlength = 'maxLength',
+  min = 'min',
+  max = 'max',
+  email = 'email',
+  pattern = 'pattern',
+}
 @Component({
   selector: 'dialog-form',
   templateUrl: './dialog-form.component.html',
@@ -21,29 +29,17 @@ export class DialogFormComponent implements OnInit {
       if (item.errors) {
         let validators = [];
         for (const error of item.errors) {
-          switch (error.type) {
-            case 'required':
-              validators.push(Validators.required);
-              break;
-            case 'minlength':
-              validators.push(Validators.minLength);
-              break;
-            case 'maxlength':
-              validators.push(Validators.maxLength);
-              break;
-            case 'min':
-              validators.push(Validators.min);
-              break;
-            case 'max':
-              validators.push(Validators.max);
-              break;
-            case 'email':
-              validators.push(Validators.email);
-              break;
-            case 'pattern':
-              validators.push(Validators.pattern);
-              break;
-          }
+          if (error.type == 'required') validators.push(Validators.required);
+          if (error.type == 'minlength')
+            validators.push(Validators.minLength(error.value));
+          if (error.type == 'maxlength')
+            validators.push(Validators.maxLength(error.value));
+          if (error.type == 'min') validators.push(Validators.min(error.value));
+          if (error.type == 'max') validators.push(Validators.max(error.value));
+          if (error.type == 'email') validators.push(Validators.email);
+          if (error.type == 'pattern')
+            validators.push(Validators.pattern(error.value));
+          validators.push(Validators.pattern(error.value));
           this.form.controls[item.formControlName].setValidators(validators);
         }
       }

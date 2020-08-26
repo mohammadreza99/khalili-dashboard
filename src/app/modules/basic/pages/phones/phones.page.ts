@@ -66,7 +66,14 @@ export class PhonesPage implements OnInit {
         label: 'تلفن',
         labelWidth: 60,
         formControlName: 'telNo',
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+        errors: [
+          { type: 'required', message: 'این فیلد الزامیست' },
+          {
+            type: 'pattern',
+            message: 'شماره وارد شده اشتباه است',
+            value: '[0-9]{10}',
+          },
+        ],
       },
       {
         type: 'text',
@@ -95,9 +102,9 @@ export class PhonesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<SiteTelPhone>('TelPhone', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<SiteTelPhone>('TelPhone', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 
