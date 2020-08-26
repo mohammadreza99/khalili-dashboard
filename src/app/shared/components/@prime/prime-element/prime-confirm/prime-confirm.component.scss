@@ -1,0 +1,23 @@
+p-confirmDialog {
+  &.rtl {
+    ::ng-deep .ui-dialog-titlebar {
+      text-align: right;
+      .ui-dialog-titlebar-icons {
+        float: left;
+      }
+    }
+    ::ng-deep .ui-dialog-content {
+      text-align: right;
+      direction: rtl;
+      .ui-confirmdialog-icon {
+        margin-left: 0.5em;
+        margin-right: 0;
+      }
+    }
+    ::ng-deep p-footer {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+  }
+}

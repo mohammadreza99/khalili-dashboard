@@ -1,0 +1,69 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <ng-container *ngFor="let item of dialogConfig.data">
+    <div [ngSwitch]="item.type" class="mb-2">
+      <input
+        type="hidden"
+        *ngSwitchCase="'hidden'"
+        [formControlName]="item.formControlName"
+      />
+      <prm-input-text
+        *ngSwitchCase="'text'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [placeholder]="item.placeholder ? item.placeholder : ''"
+        [readonly]="item.readonly"
+        [formControlName]="item.formControlName"
+        [errors]="item.errors"
+      ></prm-input-text>
+      <prm-input-dropdown
+        *ngSwitchCase="'dropdown'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [placeholder]="item.placeholder ? item.placeholder : ''"
+        [readonly]="item.readonly"
+        [formControlName]="item.formControlName"
+        [errors]="item.errors"
+        [items]="item.dropdownItems"
+      ></prm-input-dropdown>
+      <prm-input-color-picker
+        *ngSwitchCase="'color-picker'"
+        [label]="item.label ? item.label : ''"
+        [readonly]="true"
+        [labelWidth]="item.labelWidth"
+        [formControlName]="item.formControlName"
+        [inline]="item.inline"
+        [errors]="item.errors"
+      ></prm-input-color-picker>
+      <prm-input-date-time-picker
+        *ngSwitchCase="'date-picker'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [formControlName]="item.formControlName"
+        [errors]="item.errors"
+      ></prm-input-date-time-picker>
+      <prm-input-editor
+        *ngSwitchCase="'editor'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [formControlName]="item.formControlName"
+        [errors]="item.errors"
+      ></prm-input-editor>
+    </div>
+  </ng-container>
+  <div class="d-flex justify-content-end">
+    <prm-button
+      label="ذخیره"
+      icon="fa fa-plus"
+      color="success"
+      class="mr-2"
+      type="submit"
+    ></prm-button>
+    <prm-button
+      label="انصراف"
+      type="button"
+      icon="fa fa-times"
+      color="danger"
+      (click)="onCancel()"
+    ></prm-button>
+  </div>
+</form>

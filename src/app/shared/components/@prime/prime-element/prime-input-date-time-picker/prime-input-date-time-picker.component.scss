@@ -1,0 +1,30 @@
+:host {
+  flex-grow: 1;
+}
+
+prm-input-container {
+  ::ng-deep prm-date-time-picker {
+    flex-grow: 1;
+    .ui-inputtext {
+      width: 100%;
+    }
+  }
+  ::ng-deep prm-date-time-picker {
+    &:not(:last-child) .ui-inputtext {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-width: 0;
+    }
+    &:not(:first-child) .ui-inputtext {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left-width: 0;
+    }
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

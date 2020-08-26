@@ -1,0 +1,26 @@
+<prm-input-container  [config]="containerConfig">
+  <p-chips
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    [allowDuplicate]="false"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [inputId]="id"
+    [(ngModel)]="value"
+    [max]="max"
+    [inputStyle]="inputStyle"
+    [style]="style"
+    [field]="field"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [addOnTab]="addOnTab"
+    [addOnBlur]="addOnBlur"
+    [beforeAfter]="beforeAfterConfig"
+    (onAdd)="_onAdd()"
+    (onRemove)="_onRemove()"
+    (onChipClick)="_onTagClick()"
+    (onBlur)="__onBlur()"
+    (onFocus)="_onFocus()"
+  >
+  </p-chips>
+</prm-input-container>

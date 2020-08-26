@@ -1,0 +1,25 @@
+<prm-input-container [config]="containerConfig">
+  <p-inputMask
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    [(ngModel)]="value"
+    [style]="style"
+    [size]="size"
+    [name]="name"
+    [characterPattern]="characterPattern"
+    [mask]="mask"
+    [type]="type"
+    [autoClear]="autoClear"
+    [slotChar]="slotChar"
+    [maxlength]="maxlength"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [inputId]="id"
+    [beforeAfter]="beforeAfterConfig"
+    (onComplete)="_onComplete()"
+    (onInput)="_onInput()"
+    (onBlur)="_onBlur()"
+    (onFocus)="_onFocus()"
+  ></p-inputMask>
+</prm-input-container>

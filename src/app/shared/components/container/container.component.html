@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row h-100">
+    <div class="col-12 h-100">
+      <toolbar class="page-header">
+        <right>
+          <div class="text-right">
+            <h1 class="mb-2">{{ title }}</h1>
+            <ng-content select="prm-button"></ng-content>
+          </div>
+        </right>
+      </toolbar>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

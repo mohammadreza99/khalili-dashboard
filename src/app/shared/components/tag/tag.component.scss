@@ -1,0 +1,11 @@
+:host {
+    display: block;
+  }
+  
+  i {
+    cursor: pointer;
+    &:hover {
+      color: darken(red, 10%) !important;
+    }
+  }
+  

@@ -1,0 +1,20 @@
+<div class="container-fluid px-0 h-100 main-wrapper">
+  <main class="row no-gutters h-100">
+    <navbar-menu (hambergurClick)="onHambergurClick()"></navbar-menu>
+    <p-sidebar
+      #sidebar
+      [modal]="isModalSidebar"
+      [blockScroll]="true"
+      [showCloseIcon]="false"
+      [(visible)]="showSidebar"
+      position="right"
+    >
+      <sidenav-menu></sidenav-menu>
+    </p-sidebar>
+    <div class="col px-0 mr-278" #mainContent>
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+
+<ag-loading></ag-loading>

@@ -1,0 +1,156 @@
+<p-treeTable
+  #table
+  [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+  [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+  class="table-hover"
+  [value]="items"
+  [columns]="cols"
+  [responsive]="true"
+  [paginator]="paginator"
+  [rows]="paginatorRows"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  [alwaysShowPaginator]="false"
+  [sortMode]="'multiple'"
+  [selectionMode]="selectionMode"
+  [(selection)]="selectedNodes"
+  (onNodeSelect)="nodeSelect()"
+  (onNodeUnselect)="nodeUnselect()"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-caption d-flex align-items-center w-100">
+      <div
+        (click)="onAllNodesClick()"
+        class="text-right header-checkbox"
+        *ngIf="selectionMode == 'checkbox'"
+      >
+        <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+        <span class="mx-2 align-middle">انتخاب همه</span>
+      </div>
+      <prm-input-text
+        *ngIf="hasSearchInput"
+        placeholder="جستجو در جدول"
+        [beforeAfterConfig]="{ before: { type: 'icon', label: 'search' } }"
+        (onInput)="filterTable($event, 'search')"
+      >
+      </prm-input-text>
+    </div>
+    <ng-content select="caption"></ng-content>
+  </ng-template>
+  <ng-template class="header" pTemplate="header" let-rowData let-columns>
+    <tr class="filters-header" *ngIf="hasFilter">
+      <th class="filters" *ngFor="let col of columns" [ngSwitch]="col.field">
+        <div *ngFor="let c of columns">
+          <div *ngSwitchCase="c.field">
+            <table-filter-control
+              *ngIf="col.filterType"
+              [type]="col.filterType"
+              [options]="col.options"
+              [defaultLabel]="col.optionsLabel"
+              (onChange)="filterTable($event, col)"
+            >
+            </table-filter-control>
+            <span *ngIf="!col.filterType">-</span>
+          </div>
+        </div>
+      </th>
+      <th
+        *ngIf="actions && actions.length != 0"
+        [style.width.em]="actionsWidth"
+        class="tools"
+        rowspan="2"
+      >
+        ابزار
+      </th>
+    </tr>
+    <tr class="columns-header">
+      <th
+        class="cols"
+        *ngFor="let col of columns"
+        [ttSortableColumn]="sortable ? col.field : null"
+      >
+        {{ col.header }}
+        <p-treeTableSortIcon *ngIf="sortable" [field]="col.field">
+        </p-treeTableSortIcon>
+      </th>
+      <th
+        [style.width.em]="actionsWidth"
+        class="tools"
+        *ngIf="!hasFilter && actions && actions.length != 0"
+      >
+        ابزار
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template
+    pTemplate="body"
+    let-rowData="rowData"
+    let-rowNode
+    let-columns="columns"
+    let-index="rowIndex"
+  >
+    <tr
+      class="columns-body"
+      [ttRow]="selectionMode == 'checkbox' ? '' : rowNode"
+      [ttSelectableRow]="selectionMode == 'checkbox' ? '' : rowNode"
+    >
+      <td
+        class="columns"
+        [ngSwitch]="col.type"
+        *ngFor="let col of cols; let i = index"
+      >
+        <span class="w-100" *ngSwitchCase="'image'">
+          <img class="w-100" [src]="rowData[col.field]" />
+        </span>
+        <span *ngSwitchCase="'boolean'">
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-check text-success': rowData[col.field],
+              'pi-times text-danger': !rowData[col.field]
+            }"
+          ></i>
+        </span>
+        <span *ngSwitchCase="'string'">
+          <p-treeTableToggler
+            [rowNode]="rowNode"
+            *ngIf="i == 0"
+          ></p-treeTableToggler>
+          <p-treeTableCheckbox
+            *ngIf="i == 0 && selectionMode == 'checkbox'"
+            [value]="rowNode"
+          ></p-treeTableCheckbox>
+          {{ rowData[col.field] }}
+        </span>
+      </td>
+
+      <td
+        *ngIf="actions && actions.length != 0"
+        [style.width.em]="actionsWidth"
+        class="tools"
+      >
+        <div class="d-flex justify-content-around">
+          <btn
+            *ngFor="let t of actions"
+            [pTooltip]="t.tooltip"
+            tooltipPosition="top"
+            [color]="t.color"
+            [icon]="t.icon"
+            (click)="onActionClick(rowData, t.tooltip)"
+          ></btn>
+          <btn
+            *ngIf="showDeleteAction"
+            [pTooltip]="'حذف'"
+            tooltipPosition="top"
+            [color]="'danger'"
+            [icon]="'fas fa-times'"
+            (click)="onNodeDelete(rowData)"
+          ></btn>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <empty *ngIf="isEmpty"></empty>
+  </ng-template>
+</p-treeTable>

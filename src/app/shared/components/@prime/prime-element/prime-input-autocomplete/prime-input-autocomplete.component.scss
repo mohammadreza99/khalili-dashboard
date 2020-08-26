@@ -1,0 +1,77 @@
+:host {
+  flex-grow: 1;
+}
+
+prm-input-container {
+  ::ng-deep p-autoComplete {
+    flex-grow: 1;
+    .ui-autocomplete {
+      display: flex;
+      .ui-inputtext {
+        flex-grow: 1;
+      }
+      .ui-autocomplete-dropdown {
+        height: auto;
+        overflow: hidden;
+      }
+    }
+    &.rtl {
+      .ui-autocomplete {
+        &.ui-autocomplete-dd {
+          .ui-inputtext {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-left-width: 0;
+            border-right-width: 1px;
+          }
+          .ui-autocomplete-dropdown {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+          }
+        }
+      }
+      .ui-autocomplete-list,
+      .ui-autocomplete-list-item {
+        text-align: right;
+      }
+      .ui-autocomplete-multiple-container .ui-autocomplete-token {
+        font-size: 14px;
+        padding: 0.2145em 0.429em;
+        margin: 0 0 0 0.286em;
+      }
+    }
+    &:not(:last-child) {
+      .ui-inputtext {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-right-width: 0;
+        border-left-width: 1px;
+      }
+      .ui-autocomplete-dropdown {
+        border-radius: 0;
+      }
+    }
+    &:not(:first-child) {
+      .ui-inputtext {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-left-width: 0;
+        border-right-width: 1px;
+      }
+    }
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

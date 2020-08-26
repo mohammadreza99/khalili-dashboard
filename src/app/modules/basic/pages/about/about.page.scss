@@ -1,0 +1,9 @@
+p-tabView ::ng-deep {
+  .ui-tabview {
+    height: 100%;
+    &-panels,
+    &-panel {
+      height: 100%;
+    }
+  }
+}

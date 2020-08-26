@@ -1,0 +1,15 @@
+<span class="wrapper">
+  <img [src]="imageToShow" style="height: 34px;" />
+  <label
+    style="cursor: pointer;"
+    class="p-1 mr-2 border bg-light"
+    [for]="'input' + id"
+    >تغییر</label
+  >
+  <input
+    (change)="onSelectImage($event)"
+    [id]="'input' + id"
+    type="file"
+    style="position: fixed; top: -100em;"
+  />
+</span>

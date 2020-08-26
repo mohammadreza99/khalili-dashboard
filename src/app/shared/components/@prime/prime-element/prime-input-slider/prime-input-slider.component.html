@@ -1,0 +1,15 @@
+<prm-input-container [config]="containerConfig">
+  <p-slider
+    [(ngModel)]="value"
+    [style]="style"
+    [orientation]="orientation"
+    [range]="range"
+    [step]="step"
+    [disabled]="disabled"
+    [min]="min"
+    [max]="max"
+    (onChange)="_onChange()"
+    (onSlideEnd)="_onSlideEnd()"
+  ></p-slider>
+
+</prm-input-container>

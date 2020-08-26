@@ -1,0 +1,29 @@
+<div class="ui-g-12 container">
+    <div class="search-container" *ngIf="searchBox">
+        <i class="fa fa-search"></i>
+        <i class="fa fa-close" (click)="search.value=''; onSearchChange('')"></i>
+        <input #search type="text" class="search-box" placeholder="جستجو"
+            (input)="onSearchChange($event.target.value)" />
+    </div>
+    <hr *ngIf="searchBox">
+    <table [id]="id" class="table">
+        <thead>
+            <th>#</th>
+            <th *ngFor="let h of _header">{{h.value}}</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of tdata; let i = index" (click)="onRowClick(i, row)"
+                [ngClass]="{'active': selectedIndex == i}">
+                <th>{{((pageIndex-1)*_pageSize)+i+1}}</th>
+                <td *ngFor="let col of getCols(row)">{{isNumber(col) ? (col | number: '1.0-2') : col }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="paginator" *ngIf="pageCount>1">
+        <li (click)="setPager(false, 0)"><i class="fa fa-angle-double-right"></i></li>
+        <li (click)="setPager(false, -1)"><i class="fa fa-angle-right"></i></li>
+        <li *ngFor="let n of pager" (click)="setPage(n)" [ngClass]="{'active': n == pageIndex}">{{n}}</li>
+        <li (click)="setPager(true, -1)"><i class="fa fa-angle-left"></i></li>
+        <li (click)="setPager(false, pageCount-1)"><i class="fa fa-angle-double-left"></i></li>
+    </ul>
+</div>

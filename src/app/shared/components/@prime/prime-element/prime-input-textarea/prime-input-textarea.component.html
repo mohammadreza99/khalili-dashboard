@@ -1,0 +1,23 @@
+<prm-input-container [labelAlign]="'top'" [config]="containerConfig">
+  <textarea
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    pInputTextarea
+    [(ngModel)]="value"
+    [ngStyle]="style"
+    [rows]="rows"
+    [cols]="cols"
+    [autoResize]="autoResize"
+    [placeholder]="placeholder"
+    [id]="id"
+    [disabled]="disabled"
+    [name]="name"
+    [readonly]="readonly"
+    [placeholder]="placeholder"
+    [maxlength]="maxlength"
+    [beforeAfter]="beforeAfterConfig"
+    (input)="_onInput()"
+    (blur)="_onBlur()"
+    (focus)="_onFocus()"
+  ></textarea>
+</prm-input-container>

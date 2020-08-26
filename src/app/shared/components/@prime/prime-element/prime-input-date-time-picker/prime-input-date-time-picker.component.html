@@ -1,0 +1,18 @@
+<prm-input-container [config]="containerConfig">
+  <prm-date-time-picker
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [clearable]="clearable"
+    [placeholder]="placeholder"
+    [date]="value"
+    [style]="style"
+    [inline]="false"
+    [datePickerMode]="datePickerMode"
+    [beforeAfter]="beforeAfterConfig"
+    [layout]="layout"
+    (onChange)="_onChange($event)"
+    (onBlur)="__onBlur()"
+    (onFocus)="_onFocus()"
+  >
+  </prm-date-time-picker>
+</prm-input-container>

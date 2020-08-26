@@ -1,0 +1,82 @@
+:host {
+  flex-grow: 1;
+}
+prm-input-container {
+  ::ng-deep p-multiSelect {
+    flex-grow: 1;
+    .ui-multiselect {
+      width: 100%;
+      .ui-multiselect-filter-container {
+        width: calc(100% - 40px);
+        .ui-inputtext {
+          border-width: 1px;
+          border-radius: 3px;
+        }
+      }
+    }
+    &.rtl {
+      .ui-multiselect-label-container {
+        .ui-multiselect-label {
+          padding-left: 2em;
+          padding-right: 0.429em;
+        }
+      }
+      .ui-multiselect-trigger {
+        left: 0;
+        right: auto;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      .ui-multiselect-panel {
+        .ui-multiselect-header {
+          .ui-chkbox {
+            margin-right: 0;
+            margin-left: 0.5em;
+          }
+          .ui-multiselect-filter-container {
+            margin-left: 1.5em;
+            width: calc(100% - 55px);
+            .ui-inputtext {
+              padding-left: 2em;
+              padding-right: 0.429em;
+            }
+            .ui-multiselect-filter-icon {
+              left: 0.5em;
+              right: auto;
+            }
+          }
+          .ui-multiselect-close {
+            left: 0.375em;
+            right: auto;
+          }
+        }
+        .ui-multiselect-items {
+          .ui-multiselect-item {
+            text-align: right;
+            .ui-chkbox {
+              margin: 0 0 0 0.5em;
+            }
+          }
+        }
+      }
+    }
+    &:not(:last-child) .ui-multiselect {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-width: 0;
+    }
+    &:not(:first-child) .ui-multiselect {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left-width: 0;
+    }
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

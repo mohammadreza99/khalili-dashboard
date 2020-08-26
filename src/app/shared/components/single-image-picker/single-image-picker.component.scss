@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+prm-input-file {
+  height: 36px;
+  &::ng-deep {
+    .ui-button {
+      width: 100%;
+    }
+  }
+}
+.image-preview {
+  width: 250px;
+  img {
+    width: 100%;
+  }
+}

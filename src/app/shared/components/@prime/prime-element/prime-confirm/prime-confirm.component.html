@@ -1,0 +1,24 @@
+<p-confirmDialog
+  #cd
+  [ngClass]="{ rtl: options.layout == 'rtl' }"
+  [position]="options.position"
+  [closable]="options.closable"
+>
+  <p-footer>
+    <prm-button
+      *ngIf="options.rejectVisible"
+      icon="pi pi-times"
+      [label]="options.rejectLabel"
+      color="danger"
+      [iconPos]="options.layout == 'ltr' ? 'left' : 'right'"
+      (onClick)="cd.reject()"
+    ></prm-button>
+    <prm-button
+      *ngIf="options.acceptVisible"
+      icon="pi pi-check"
+      [label]="options.acceptLabel"
+      [iconPos]="options.layout == 'ltr' ? 'left' : 'right'"
+      (onClick)="cd.accept()"
+    ></prm-button>
+  </p-footer>
+</p-confirmDialog>

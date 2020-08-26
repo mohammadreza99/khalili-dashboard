@@ -1,0 +1,14 @@
+<page-container title="تعطیلات فروشگاه اصلی">
+  <prm-button
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    (click)="addHoliday()"
+  >
+  </prm-button>
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    (cellValueChanged)="onCellValueChanged($event)"
+  ></ag-table>
+</page-container>

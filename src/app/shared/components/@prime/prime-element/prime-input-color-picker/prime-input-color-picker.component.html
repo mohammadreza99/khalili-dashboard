@@ -1,0 +1,26 @@
+<prm-input-container [config]="containerConfig">
+  <div
+    class="color-picker-container w-100 d-flex"
+    [ngClass]="{ rtl: layout == 'rtl' }"
+    [beforeAfter]="beforeAfterConfig"
+  >
+    <prm-input-text
+      [placeholder]="placeholder"
+      [layout]="layout"
+      [readonly]="readonly"
+      (onInput)="_onChange()"
+      (onBlur)="_onBlur()"
+      value="{{ value | json }}"
+    >
+    </prm-input-text>
+    <p-colorPicker
+      [style]="style"
+      [inputId]="id"
+      [disabled]="disabled"
+      [inline]="false"
+      [format]="format"
+      [(ngModel)]="value"
+      (onChange)="_onChange()"
+    ></p-colorPicker>
+  </div>
+</prm-input-container>

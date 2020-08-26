@@ -1,0 +1,30 @@
+<page-container title="درباره ما">
+  <prm-button
+    *ngIf="(rowData$ | async)?.length == 0"
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    (click)="addAbout()"
+  >
+  </prm-button>
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    (cellValueChanged)="onCellValueChanged($event)"
+    [actionsConfig]="[
+    {
+      action: 'delete',
+      icon: 'fa fa-times',
+      color: 'danger',
+      headerName: 'حذف'
+    },
+    {
+      action: 'update',
+      icon: 'fa fa-pen',
+      color: 'primary',
+      headerName: 'ویرایش'
+    }
+  ]"
+    (actionClick)="onActionClick($event)"
+  ></ag-table>
+</page-container>

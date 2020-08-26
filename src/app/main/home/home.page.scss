@@ -1,0 +1,39 @@
+@import "mixins.scss";
+
+.main-wrapper {
+  overflow-x: hidden;
+}
+.col {
+  margin-top: $navbar-responsive-height;
+  transition: margin-right 0.3s;
+  overflow-y: auto;
+  &.mr-278 {
+    margin-right: $sidenav-width;
+  }
+  @media (min-width: 768px) {
+    margin-top: $navbar-height;
+  }
+}
+
+p-breadcrumb {
+  text-align: right;
+  ::ng-deep .pi-chevron-right {
+    @include fa-icon("\f053");
+  }
+  ::ng-deep .ui-breadcrumb {
+    border: 0;
+    background-color: $light-blue;
+  }
+}
+
+p-sidebar {
+  ::ng-deep .ui-sidebar-right {
+    padding: 0;
+    width: $sidenav-width;
+    overflow: auto;
+    margin-top: $navbar-responsive-height;
+    @media (min-width: 768px) {
+      margin-top: $navbar-height;
+    }
+  }
+}

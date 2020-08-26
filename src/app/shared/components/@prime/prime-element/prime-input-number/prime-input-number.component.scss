@@ -1,0 +1,94 @@
+:host {
+  flex-grow: 1;
+}
+prm-input-container {
+  ::ng-deep p-spinner {
+    flex-grow: 1;
+    .ui-spinner {
+      width: 100%;
+      &-input {
+        width: 100%;
+      }
+      &-button {
+        &.ui-spinner-up {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 0;
+        }
+        &.ui-spinner-down {
+          border-bottom-right-radius: 3px;
+          border-top-right-radius: 0;
+        }
+      }
+    }
+    &.rtl {
+      .ui-spinner {
+        .ui-spinner-button {
+          left: 0;
+          right: auto;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 0;
+          &.ui-spinner-up {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          &.ui-spinner-down {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 0;
+          }
+        }
+        .ui-spinner-input {
+          padding-left: 2.429em;
+          padding-right: 0.429em;
+          border-width: 1px;
+          border-radius: 3px;
+        }
+      }
+    }
+    &:not(:last-child) {
+      .ui-spinner {
+        &-button.ui-spinner-up {
+          border-top-right-radius: 0;
+        }
+        &-button.ui-spinner-down {
+          border-bottom-right-radius: 0;
+        }
+      }
+      .ui-spinner-input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-right-width: 0;
+        border-left-width: 1px;
+      }
+    }
+    &:not(:first-child) {
+      .ui-spinner {
+        &-button.ui-spinner-up {
+          border-top-left-radius: 0;
+        }
+        &-button.ui-spinner-down {
+          border-bottom-left-radius: 0;
+        }
+      }
+      .ui-spinner-input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-left-width: 0;
+        border-right-width: 1px;
+      }
+    }
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

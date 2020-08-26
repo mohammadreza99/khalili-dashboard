@@ -1,0 +1,24 @@
+<prm-input-container [config]="containerConfig">
+  <div class="image-preview rounded border border-secondary">
+    <div class="p-2">
+      <img
+        class="mb-3 rounded"
+        [src]="imageToShow"
+      />
+    </div>
+    <div class="d-flex align-content-center">
+      <prm-input-file
+        [disabled]="disabled"
+        [errors]="errors"
+        (onSelect)="onSelectImage($event)"
+      ></prm-input-file>
+      <prm-button
+        class="ml-2"
+        icon="fa fa-times"
+        color="danger"
+        *ngIf="imageToShow"
+        (click)="clear()"
+      ></prm-button>
+    </div>
+  </div>
+</prm-input-container>

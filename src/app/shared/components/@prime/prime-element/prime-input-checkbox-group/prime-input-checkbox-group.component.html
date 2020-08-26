@@ -1,0 +1,31 @@
+<prm-input-container [labelAlign]="'top'" [config]="containerConfig">
+  <div
+    class="checkbox-group-container"
+    [ngClass]="{
+      'flex-row': inline && layout == 'ltr',
+      'flex-row-reverse': inline && layout == 'rtl',
+      'flex-column': !inline
+    }"
+  >
+    <p-checkbox
+      [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+      [ngClass]="{
+        'ui-rtl rtl': layout == 'rtl',
+        'ml-4': inline && layout == 'rtl',
+        'mr-4': inline && layout == 'ltr',
+        'mb-2': !inline
+      }"
+      *ngFor="let item of items"
+      [style]="style"
+      [name]="name"
+      [value]="item"
+      [label]="item[field] || item"
+      [inputId]="id"
+      [readonly]="readonly"
+      [disabled]="disabled"
+      [checkboxIcon]="checkboxIcon"
+      [(ngModel)]="value"
+      (onChange)="_onChange()"
+    ></p-checkbox>
+  </div>
+</prm-input-container>

@@ -1,0 +1,68 @@
+prm-input-container {
+  ::ng-deep .color-picker-container {
+    prm-input-text {
+      width: 100%;
+      .ui-inputtext {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-right-width: 0;
+      }
+    }
+    p-colorpicker {
+      display: flex;
+      .ui-colorpicker {
+        display: flex;
+        align-items: stretch;
+        align-self: stretch;
+
+        .ui-inputtext {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+        }
+      }
+    }
+    &:not(:last-child) .ui-inputtext {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+      border-right-width: 0;
+    }
+    &:not(:first-child) .ui-inputtext {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      border-left-width: 0;
+    }
+    &.rtl {
+      flex-direction: row-reverse;
+      p-colorpicker {
+        .ui-inputtext {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+      prm-input-text {
+        .ui-inputtext {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          border-right-width: 1px;
+          border-left-width: 0;
+        }
+      }
+    }
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

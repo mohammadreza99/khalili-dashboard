@@ -1,0 +1,32 @@
+p-button {
+  ::ng-deep .ui-button {
+    &.ui-button-icon-only {
+      .ui-button-icon-left,
+      .ui-button-icon-right {
+        top: 50%;
+        left: 50%;
+        margin-top: -0.5em;
+        margin-left: -0.5em;
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        right: auto;
+      }
+
+      > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    &.ui-button-light span {
+      color: #333333;
+    }
+    &.ui-button-secondary.bg-secondary span {
+      color: #ffffff;
+    }
+    .ui-button-text {
+      white-space: nowrap;
+    }
+  }
+}

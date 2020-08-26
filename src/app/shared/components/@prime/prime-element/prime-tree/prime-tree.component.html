@@ -1,0 +1,21 @@
+<prm-input-container [labelAlign]="'start'" [config]="containerConfig">
+  <p-tree
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    [value]="items"
+    [filter]="hasFilter"
+    [selectionMode]="selectionMode"
+    [filterMode]="filterMode"
+    [layout]="orientation"
+    [(selection)]="value"
+    [emptyMessage]="emptyMessage"
+    [filterPlaceholder]="filterPlaceholder"
+    [propagateSelectionUp]="propagateSelectionUp"
+    [propagateSelectionDown]="propagateSelectionDown"
+    [metaKeySelection]="metaKeySelection"
+    (onNodeSelect)="_onNodeSelect($event)"
+    (onNodeUnselect)="_onNodeUnselect($event)"
+    (onNodeExpand)="_onNodeExpand($event)"
+    (onNodeCollapse)="_onNodeCollapse($event)"
+  ></p-tree>
+</prm-input-container>

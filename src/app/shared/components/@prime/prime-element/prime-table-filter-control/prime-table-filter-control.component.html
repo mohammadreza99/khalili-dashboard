@@ -1,0 +1,34 @@
+<div [ngSwitch]="type">
+  <prm-input-text
+    *ngSwitchCase="'input'"
+    (onInput)="onValueChange($event)"
+  ></prm-input-text>
+
+  <div *ngSwitchCase="'range'">
+    <div *ngIf="showRange">
+      {{ rangeValues[1] + " - " + rangeValues[0] }}
+      <p-slider
+        [style]="{ width: '100%', 'margin-top': '8px' }"
+        [(ngModel)]="rangeValues"
+        [range]="true"
+        (onChange)="onSliderChange($event)"
+        [min]="rangeValue.min"
+        [max]="rangeValue.max"
+      ></p-slider>
+    </div>
+  </div>
+
+  <prm-input-dropdown
+    *ngSwitchCase="'dropdown'"
+    [items]="options"
+    (onChange)="onValueChange($event)"
+  >
+  </prm-input-dropdown>
+
+  <prm-input-multi-select
+    [items]="options"
+    (onChange)="onValueChange($event)"
+    *ngSwitchCase="'multiSelect'"
+  >
+  </prm-input-multi-select>
+</div>

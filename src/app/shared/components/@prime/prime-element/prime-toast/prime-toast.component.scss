@@ -1,0 +1,28 @@
+p-toast {
+  ::ng-deep .ui-toast {
+    &-close-icon {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  &.rtl {
+    ::ng-deep .ui-toast {
+      &-close-icon {
+        right: auto;
+        left: 0.25em;
+      }
+
+      &-icon {
+        left: auto;
+        right: 0.5em;
+      }
+
+      &-message-text-content {
+        margin-left: 0;
+        margin-right: 2.5em;
+        text-align: right;
+      }
+    }
+  }
+}

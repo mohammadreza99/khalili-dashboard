@@ -1,0 +1,57 @@
+@import "mixins.scss";
+
+:host {
+  display: block;
+  height: calc(100% - #{$navbar-height - 2});
+  background: $light;
+
+  @media (max-width: 767px) {
+    height: calc(100% - #{$navbar-responsive-height - 2});
+  }
+}
+
+p-scrollPanel {
+  width: 100%;
+  height: 100%;
+  ::ng-deep .ui-scrollpanel-bar-y {
+    width: 5px;
+    left: 0;
+    opacity: 0.5 !important;
+  }
+  ::ng-deep .ui-scrollpanel-content {
+    padding: 0px 0 0 0;
+    overflow: scroll;
+  }
+}
+p-panelMenu {
+  ::ng-deep .ui-panelmenu {
+    &-panel {
+      direction: rtl;
+    }
+
+    &-header {
+      &.ui-state-active > a {
+        border: 0;
+      }
+      &:not(.ui-state-active) > a:hover {
+        border: 0;
+      }
+      &-link {
+        border: 0 !important;
+        .ui-panelmenu-icon {
+          &.pi-chevron-right {
+            @include fa-icon("\f053");
+          }
+
+          &.pi-chevron-down {
+            @include fa-icon("\f078");
+          }
+        }
+      }
+    }
+
+    &-content {
+      border: 0;
+    }
+  }
+}

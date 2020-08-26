@@ -1,0 +1,13 @@
+form > div > * {
+  display: block;
+  margin-bottom: 25px;
+}
+
+prm-button {
+  ::ng-deep p-button {
+    width: 100%;
+    .ui-button {
+      width: 100%;
+    }
+  }
+}

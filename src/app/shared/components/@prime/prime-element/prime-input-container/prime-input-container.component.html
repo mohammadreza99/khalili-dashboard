@@ -1,0 +1,71 @@
+<span
+  dir="ltr"
+  [ngClass]="
+    label
+      ? {
+          'flex-column': labelPosition == 'top',
+          'flex-row': labelPosition == 'side' && layout == 'ltr',
+          'flex-row-reverse': labelPosition == 'side' && layout == 'rtl'
+        }
+      : null
+  "
+  class="d-flex"
+>
+  <label
+    #fixLabel
+    *ngIf="label && showLabel"
+    [style.width.px]="labelWidth"
+    [ngClass]="[
+      labelPosition == 'side' ? 'mb-0 align-self-sm-' + labelAlign : '',
+      labelPosition == 'side' && layout == 'ltr' ? 'mr-3' : '',
+      labelPosition == 'side' && layout == 'rtl' ? 'ml-3' : '',
+      labelPosition == 'top' && layout == 'ltr' ? 'align-self-start' : '',
+      labelPosition == 'top' && layout == 'rtl' ? 'align-self-end' : '',
+      disabled ? 'text-muted' : ''
+    ]"
+    [style.direction]="layout"
+    [for]="id"
+  >
+    {{ label }}
+  </label>
+  <div
+    [ngClass]="{
+      'justify-content-start': layout == 'ltr',
+      'justify-content-end': layout == 'rtl',
+      'align-self-stretch': labelPosition == 'top',
+      'align-self-center': labelPosition == 'side'
+    }"
+    [ngStyle]="
+      labelPosition == 'side'
+        ? { width: 'calc(100% - ' + (+labelWidth + 16) + 'px)' }
+        : {}
+    "
+    class="ui-inputgroup flex-grow-1 align-self-stretch"
+  >
+    <ng-content></ng-content>
+  </div>
+</span>
+<div
+  class="w-100"
+  [ngClass]="{ 'text-right': layout == 'rtl', 'text-left': layout == 'ltr' }"
+>
+  <small *ngIf="hint" [ngStyle]="errorStyle" class="form-text text-muted">{{
+    hint
+  }}</small>
+</div>
+<div
+  class="errors-container"
+  [ngStyle]="errorStyle"
+  [ngClass]="{ 'text-right': layout == 'rtl' }"
+>
+  <ng-container *ngFor="let error of errors; let i = index">
+    <p-message
+      [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+      [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+      class="d-inline-block mt-1"
+      *ngIf="hasError(error)"
+      severity="error"
+      [text]="error.message"
+    ></p-message>
+  </ng-container>
+</div>

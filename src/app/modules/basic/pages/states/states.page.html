@@ -1,0 +1,14 @@
+<page-container title="استان ها">
+  <prm-button
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    (click)="addState()"
+  >
+  </prm-button>
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    (cellValueChanged)="onCellValueChanged($event)"
+  ></ag-table>
+</page-container>

@@ -1,0 +1,25 @@
+<prm-input-container [config]="containerConfig">
+  <p-spinner
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    [(ngModel)]="value"
+    [max]="max"
+    [min]="min"
+    [inputStyle]="style"
+    [name]="name"
+    [step]="step"
+    [size]="size"
+    [maxlength]="maxlength"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [inputId]="id"
+    [thosandSeparator]="thosandSeparator"
+    [decimalSeparator]="decimalSeparator"
+    [beforeAfter]="beforeAfterConfig"
+    (onBlur)="_onBlur()"
+    (onFocus)="_onFocus()"
+    (onChange)="_onChange()"
+  >
+  </p-spinner>
+</prm-input-container>

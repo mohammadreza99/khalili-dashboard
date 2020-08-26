@@ -1,0 +1,8 @@
+<prm-input-container [config]="containerConfig">
+  <p-editor
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    [style]="{ height: '320px' }"
+    (onTextChange)="_onTextChange()"
+  ></p-editor>
+</prm-input-container>

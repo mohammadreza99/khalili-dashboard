@@ -1,0 +1,211 @@
+<p-table
+  #table
+  [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+  [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+  [value]="data"
+  [columns]="cols"
+  [responsive]="true"
+  [paginator]="paginator"
+  [rows]="paginatorRows"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  [alwaysShowPaginator]="false"
+  [sortMode]="'multiple'"
+  [selectionMode]="selectionMode"
+  [(selection)]="selectedRows"
+  (onRowSelect)="onRowSelect($event)"
+  (onRowUnselect)="onRowUnselect($event)"
+>
+  <ng-template pTemplate="caption">
+    <prm-input-text
+      [layout]="layout"
+      *ngIf="hasSearchInput"
+      placeholder="جستجو در جدول"
+      [beforeAfterConfig]="{ before: { type: 'icon', icon: 'search' } }"
+      (onInput)="filterTable($event, 'search')"
+    >
+    </prm-input-text>
+    <ng-content select="caption"></ng-content>
+  </ng-template>
+  <ng-template class="header" pTemplate="header" let-rowData let-columns>
+    <tr class="filters-header" *ngIf="hasFilter">
+      <th
+        (click)="onAllRowSelect()"
+        class="selection"
+        *ngIf="selectionMode == 'checkbox'"
+        rowspan="2"
+      >
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th
+        *ngIf="showRowIndex"
+        class="index"
+        (click)="sortIndex()"
+        rowspan="2"
+        [pSortableColumn]="'index'"
+      >
+        #
+        <p-sortIcon *ngIf="sortable" [field]="'index'"></p-sortIcon>
+      </th>
+      <th class="filters" *ngFor="let col of columns" [ngSwitch]="col.field">
+        <div *ngFor="let c of columns">
+          <div *ngSwitchCase="c.field">
+            <prm-table-filter-control
+              *ngIf="col.filterType"
+              [type]="col.filterType"
+              [options]="col.options"
+              [defaultLabel]="col.optionsLabel"
+              (onChange)="filterTable($event, col)"
+            >
+            </prm-table-filter-control>
+            <span *ngIf="!col.filterType">-</span>
+          </div>
+        </div>
+      </th>
+      <th
+        *ngIf="(actions && actions.length != 0) || showDeleteAction"
+        [style.width.em]="actionsWidth"
+        class="tools"
+        rowspan="2"
+      >
+        ابزار
+      </th>
+    </tr>
+    <tr class="columns-header">
+      <th class="selection" *ngIf="selectionMode == 'checkbox' && !hasFilter">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th
+        class="index"
+        *ngIf="!hasFilter && showRowIndex"
+        (click)="sortIndex()"
+        [pSortableColumn]="'index'"
+      >
+        #
+        <p-sortIcon *ngIf="sortable" [field]="'index'"> </p-sortIcon>
+      </th>
+      <th
+        class="cols"
+        *ngFor="let col of columns"
+        [pSortableColumn]="sortable ? col.field : null"
+      >
+        {{ col.header }}
+        <p-sortIcon
+          *ngIf="sortable && !splitProperties(col.field)"
+          [field]="col.field"
+        >
+        </p-sortIcon>
+      </th>
+      <th
+        [style.width.em]="actionsWidth"
+        class="tools"
+        *ngIf="
+          !hasFilter && ((actions && actions.length != 0) || showDeleteAction)
+        "
+      >
+        ابزار
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-rowData
+    let-columns="columns"
+    let-index="rowIndex"
+  >
+    <tr
+      class="columns-body"
+      [pSelectableRow]="rowData"
+      [pSelectableRowIndex]="index"
+      (click)="onRowClick(rowData)"
+    >
+      <td class="selection" *ngIf="selectionMode == 'checkbox'">
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <td class="index" *ngIf="showRowIndex">
+        {{ rowsNumber[index] }}
+      </td>
+      <td
+        class="columns"
+        [ngSwitch]="col.type"
+        *ngFor="let col of columns; let i = index"
+      >
+        <span class="w-100" *ngSwitchCase="'moment'">
+          {{ getDate(rowData[col.field]) }}
+        </span>
+        <span class="w-100" *ngSwitchCase="'image'">
+          <img class="w-100" [src]="rowData[col.field]" />
+        </span>
+        <span *ngSwitchCase="'boolean'">
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-check text-success': rowData[col.field],
+              'pi-times text-danger': !rowData[col.field]
+            }"
+          ></i>
+        </span>
+        <span
+          *ngSwitchCase="'string'"
+          class="column-template"
+          class="d-flex flex-wrap"
+        >
+          <ng-container *ngIf="splitProperties(col.field)">
+            <ng-container
+              *ngIf="isArray(rowData[splitProperties(col.field)[0]])"
+            >
+              <span
+                (click)="
+                  onListItemClick(getField(rowData, col.field, i), rowData)
+                "
+                class="p-2 bg-light rounded border ml-2 array-item"
+                *ngFor="
+                  let r of rowData[splitProperties(col.field)[0]];
+                  let i = index
+                "
+              >
+                {{ getField(rowData, col.field, i) }}
+              </span>
+
+              <span *ngIf="!isArray(rowData[splitProperties(col.field)[0]])">
+                {{ getField(rowData, col.field, null) }}
+              </span>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!splitProperties(col.field)">
+            <span>
+              {{ rowData[col.field] }}
+            </span>
+          </ng-container>
+        </span>
+      </td>
+      <td
+        *ngIf="(actions && actions.length != 0) || showDeleteAction"
+        [style.width.em]="actionsWidth"
+        class="tools"
+      >
+        <div class="d-flex justify-content-around">
+          <prm-button
+            *ngFor="let t of actions"
+            [pTooltip]="t.tooltip"
+            tooltipPosition="top"
+            [color]="t.color"
+            [icon]="t.icon"
+            (click)="onActionClick(rowData, t.tooltip)"
+          ></prm-button>
+          <prm-button
+            *ngIf="showDeleteAction"
+            [pTooltip]="'حذف'"
+            tooltipPosition="top"
+            [color]="'danger'"
+            [icon]="'fas fa-times'"
+            (click)="onRowDelete(rowData)"
+          ></prm-button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <ng-content *ngIf="!isEmpty" select="summary"></ng-content>
+    <empty *ngIf="isEmpty"></empty>
+  </ng-template>
+</p-table>

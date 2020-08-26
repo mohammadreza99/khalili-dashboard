@@ -1,0 +1,19 @@
+<prm-input-container [config]="containerConfig">
+  <input
+    [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+    [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+    pInputText
+    [ngStyle]="style"
+    [id]="id"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [placeholder]="placeholder"
+    [name]="name"
+    [maxlength]="maxlength"
+    [beforeAfter]="beforeAfterConfig"
+    [(ngModel)]="value"
+    (input)="_onInput()"
+    (blur)="_onBlur()"
+    (focus)="_onFocus()"
+  />
+</prm-input-container>

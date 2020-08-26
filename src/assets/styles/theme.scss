@@ -1,0 +1,747 @@
+@import "./variable";
+$positions: left, right, top, bottom;
+$menu-types: "menu", menubar, tieredmenu, contextmenu, megamenu, slidemenu;
+$themes: (
+  light: (
+    //   activation-priamry-100: $color1,
+    //   activation-priamry-200: $color2,
+    //   activation-priamry-300: $color3,
+    //   activation-danger: $color4,
+    //   activation-success: $color5,
+    //   activation-light: $color6,
+    //   bg-100: $color7,
+    //   bg-200: $color8,
+    //   bg-300: $color9,
+    //   bg-400: $color10,
+    //   bg-500: $color11,
+    //   text-color: $color12,
+    //   icon-color: $color13,
+    //   input-placeholder: $color14,,,,,
+  ),
+  dark: (
+    activation-primary-100: $primary-100,
+    activation-primary-200: $primary-200,
+    activation-primary-300: $primary-300,
+    activation-danger: $danger,
+    activation-success: $success,
+    activation-light: $dark-600,
+    bg-100: $dark-500,
+    bg-200: $dark-700,
+    bg-300: $dark-800,
+    bg-400: $dark-900,
+    bg-500: $dark-1000,
+    text-color: $dark-200,
+    icon-color: $dark-400,
+    input-placeholder: $dark-300,
+    sidemenu-active-color: $dark-600,
+  ),
+);
+
+@mixin theme($theme, $color) {
+  $theme-name: map-get($themes, $theme);
+  $input-placeholder: map-get($theme-name, input-placeholder);
+  $text-color: map-get($theme-name, text-color);
+  $icon-color: map-get($theme-name, icon-color);
+  $bg-100: map-get($theme-name, bg-100);
+  $bg-200: map-get($theme-name, bg-200);
+  $bg-300: map-get($theme-name, bg-300);
+  $bg-400: map-get($theme-name, bg-400);
+  $bg-500: map-get($theme-name, bg-500);
+  $activation-primary-100: map-get($theme-name, activation-primary-100);
+  $activation-primary-200: map-get($theme-name, activation-primary-200);
+  $activation-primary-300: map-get($theme-name, activation-primary-300);
+  $activation-danger: map-get($theme-name, activation-danger);
+  $activation-success: map-get($theme-name, activation-success);
+  $activation-light: map-get($theme-name, activation-light);
+  $sidemenu-active-color: map-get($theme-name, sidemenu-active-color);
+
+  ::placeholder {
+    color: $input-placeholder !important;
+  }
+
+  body.#{$theme} {
+    color: $text-color;
+    background: $bg-200;
+
+    .main-wrapper > main.row > .col {
+      background: $bg-200;
+    }
+
+    .ui-breadcrumb {
+      background-color: $bg-200 !important;
+      ul li {
+        .ui-menuitem-link {
+          color: $text-color;
+        }
+        &:first-child a {
+          color: $icon-color;
+        }
+      }
+    }
+
+    navbar-menu {
+      nav {
+        background: $bg-400 !important;
+      }
+    }
+
+    .ui-sidebar {
+      border: 1px solid $bg-500;
+      sidenav-menu {
+        background-color: $bg-500 !important;
+        color: map-get($theme-name, text-color);
+
+        .ui-panelmenu {
+          &-header {
+            &.ui-state-active > a {
+              background-color: map-get(
+                $theme-name,
+                activation-priamry-100
+              ) !important;
+              color: #ffffff !important;
+            }
+            &:not(.ui-state-active) > a:hover {
+              background-color: $bg-500 !important;
+              color: $activation-primary-100 !important;
+              .ui-panelmenu-icon {
+                color: $activation-primary-100;
+              }
+            }
+            &-link {
+              background-color: $bg-500 !important;
+              color: $text-color !important;
+              &.ui-state-active.ng-star-inserted {
+                background-color: $sidemenu-active-color !important;
+              }
+            }
+          }
+          &-content {
+            background-color: $bg-400 !important;
+            .ui-menuitem {
+              &-link {
+                color: $text-color;
+                &.ui-state-active {
+                  background-color: $sidemenu-active-color !important;
+                }
+                &:hover {
+                  background-color: $activation-light;
+                  .ui-menuitem-text {
+                    color: $text-color;
+                  }
+                }
+                .ui-menuitem-text {
+                  color: $text-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .ui-inputtext {
+      color: $text-color;
+      background: $bg-100;
+      border: 1px solid $bg-100 !important;
+      &:enabled:hover:not(.ui-state-error) {
+        border-color: $activation-primary-100 !important;
+      }
+    }
+
+    .ui-autocomplete-panel {
+      border: 1px solid $bg-500;
+      background-color: $bg-300;
+      .ui-autocomplete-items .ui-autocomplete-list-item {
+        color: $text-color;
+        &.ui-state-highlight {
+          color: #ffffff;
+          background-color: $activation-primary-100;
+        }
+      }
+    }
+
+    .ui-listbox {
+      background: $bg-300;
+      border: 1px solid $bg-500;
+      .ui-listbox-list .ui-listbox-item.ui-state-highlight {
+        color: #ffffff;
+        background-color: $activation-primary-100;
+      }
+      &:not(.ui-state-disabled)
+        .ui-listbox-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+        color: $text-color;
+        background-color: $activation-light;
+      }
+      .ui-listbox-header {
+        border-bottom: 1px solid $bg-500;
+        color: $text-color;
+        background-color: $bg-400;
+      }
+    }
+
+    .ui-rating {
+      a {
+        color: $text-color;
+      }
+      &:not(.ui-state-disabled):not(.ui-rating-readonly) a:hover {
+        color: $activation-primary-100;
+      }
+    }
+
+    .ui-accordion {
+      &-header {
+        a {
+          border: 1px solid $bg-500;
+          color: $text-color;
+          background-color: $bg-500;
+        }
+        &:not(.ui-state-disabled).ui-state-active {
+          a {
+            background-color: $activation-primary-100;
+            border: 1px solid $activation-primary-100;
+            color: #ffffff;
+          }
+          &:hover a {
+            border: 1px solid $activation-primary-300;
+            background-color: $activation-primary-300;
+            color: #ffffff;
+          }
+        }
+        &:not(.ui-state-active):not(.ui-state-disabled):hover {
+          .ui-accordion-toggle-icon,
+          .ui-accordion-toggle-text {
+            color: $activation-primary-100;
+          }
+        }
+      }
+      &-content {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        color: $text-color;
+      }
+    }
+
+    .ui-fieldset {
+      border: 1px solid $bg-500;
+      background-color: $bg-300;
+      color: $text-color;
+      &-legend a {
+        border: 1px solid $bg-500;
+        color: $text-color;
+        background-color: $bg-500;
+      }
+      &.ui-fieldset-toggleable .ui-fieldset-legend a:hover {
+        background-color: $bg-500;
+        border: 1px solid $bg-500;
+        color: $activation-primary-100;
+      }
+    }
+
+    .ui-card {
+      background-color: $bg-300;
+      color: $text-color;
+    }
+
+    .ui-panel {
+      &-titlebar {
+        border: 1px solid $bg-500;
+        background-color: $bg-500;
+        color: $text-color;
+      }
+      &-content {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        color: $text-color;
+      }
+      &-footer {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        color: $text-color;
+      }
+    }
+
+    .ui-togglebutton {
+      background-color: $bg-400;
+      border: 1px solid $bg-400;
+      color: $text-color;
+      &:not(.ui-state-disabled):not(.ui-state-active):hover {
+        background-color: $activation-light;
+        border-color: $activation-light;
+        color: $text-color;
+      }
+
+      &.ui-state-active {
+        background-color: $activation-primary-100;
+        border-color: $activation-primary-100;
+        color: #ffffff;
+        &:hover {
+          background-color: $activation-primary-200;
+          border-color: $activation-primary-200;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .ui-button {
+      color: #ffffff;
+      background-color: $activation-primary-100;
+      border: 1px solid $activation-primary-100;
+      &:enabled:hover {
+        background-color: $activation-primary-200;
+        color: #ffffff;
+        border-color: $activation-primary-200;
+      }
+      &:enabled:focus {
+        outline: 0 none;
+        outline-offset: 0px;
+        box-shadow: 0 0 0 0.2em #aed3f3;
+      }
+      &:enabled:active {
+        background-color: $activation-primary-300;
+        color: #ffffff;
+        border-color: $activation-primary-300;
+      }
+    }
+
+    .ui-selectbutton {
+      .ui-button {
+        background-color: $bg-400;
+        border: 1px solid $bg-400;
+        color: $text-color;
+        &:not(.ui-state-disabled):not(.ui-state-active):hover {
+          background-color: $activation-light;
+          border-color: $activation-light;
+          color: $text-color;
+        }
+        &.ui-state-active {
+          background-color: $activation-primary-100;
+          border-color: $activation-primary-100;
+          color: #ffffff;
+          &:not(.ui-state-disabled):hover {
+            background-color: $activation-primary-200;
+            border-color: $activation-primary-200;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .ui-inputswitch {
+      &:not(.ui-state-disabled):hover .ui-inputswitch-slider {
+        background-color: $bg-100;
+      }
+      &.ui-inputswitch-checked:not(.ui-state-disabled):hover
+        .ui-inputswitch-slider {
+        background-color: $activation-primary-200;
+      }
+      .ui-inputswitch-slider:before {
+        background-color: $bg-300;
+      }
+    }
+
+    .ui-chips > ul.ui-inputtext .ui-chips-token {
+      background: $activation-primary-100;
+    }
+
+    p-spinner .ui-spinner-input {
+      border-right: 1px solid $bg-100 !important;
+    }
+
+    .ui-chkbox {
+      &-box {
+        border: 1px solid $bg-100;
+        background-color: $bg-100;
+
+        &.ui-state-active {
+          border-color: $activation-primary-100;
+          background-color: $activation-primary-100;
+        }
+        &:not(.ui-state-disabled):hover {
+          border-color: $activation-primary-100;
+        }
+      }
+    }
+
+    .ui-inputgroup {
+      &-addon {
+        border-color: $bg-500;
+        background-color: $bg-400;
+      }
+      .ui-inputtext:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 0 none !important;
+      }
+    }
+
+    .ui-slider {
+      &-range {
+        background-color: $activation-primary-100;
+      }
+    }
+
+    .ui-radiobutton {
+      &-box {
+        border: 1px solid $bg-100;
+        background-color: $bg-100;
+        &.ui-state-active {
+          border-color: $activation-primary-100;
+          background-color: $activation-primary-100;
+          color: #ffffff;
+        }
+        &:not(.ui-state-disabled):not(.ui-state-active):hover {
+          border-color: $activation-primary-100;
+        }
+      }
+    }
+
+    .ui-table {
+      &-thead > tr > th {
+        border: 1px solid $bg-500;
+        color: $text-color;
+        background-color: $bg-400;
+      }
+
+      &-tbody {
+        > tr {
+          background-color: rgb(50, 50, 50) !important;
+          color: $text-color;
+          &:hover {
+            color: $text-color;
+          }
+          &.ui-state-highlight {
+            background-color: rgb(31, 126, 208) !important;
+            color: rgb(255, 255, 255);
+          }
+          td {
+            background-color: inherit;
+            border: 1px solid $bg-500;
+            span.d-flex {
+              span.bg-light {
+                background-color: $bg-500 !important;
+                border-color: $bg-500 !important;
+                color: $text-color;
+              }
+            }
+          }
+        }
+      }
+
+      &-caption:not(:empty),
+      &-summary:not(:empty) {
+        background-color: $bg-500;
+        color: $text-color;
+        border: 1px solid $bg-500;
+      }
+
+      .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: $activation-light;
+        color: $text-color;
+      }
+
+      &.ui-table-hoverable-rows
+        .ui-table-tbody
+        > tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+        background-color: $activation-light !important;
+        color: $text-color !important;
+      }
+    }
+
+    .ui-treetable {
+      &-thead > tr > th {
+        border: 1px solid $bg-500;
+        color: $text-color;
+        background-color: $bg-400;
+      }
+
+      &-tbody {
+        > tr {
+          background-color: $bg-300;
+          color: $text-color;
+          &:hover {
+            color: $text-color !important;
+          }
+          &:nth-child(even).ui-state-highlight {
+            background-color: $bg-300;
+            color: $text-color;
+          }
+          td {
+            background-color: inherit;
+            border: 1px solid $bg-500;
+          }
+        }
+      }
+
+      &-caption:not(:empty),
+      &-summary:not(:empty) {
+        background-color: $bg-500;
+        color: $text-color;
+        border: 1px solid $bg-500;
+      }
+
+      .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: $activation-light;
+        color: $text-color;
+      }
+
+      &.ui-treetable-hoverable-rows
+        .ui-treetable-tbody
+        > tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+        background-color: $activation-light;
+        color: $text-color;
+      }
+    }
+
+    .ui-contextmenu {
+      background-color: $bg-400;
+      border: 1px solid $bg-500;
+      .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
+        background-color: $activation-primary-100;
+      }
+    }
+
+    .ui-menu {
+      background-color: $bg-400;
+      border: 1px solid $bg-500;
+      .ui-submenu-header {
+        margin: 0;
+        padding: 0.714em 0.857em;
+        color: $text-color;
+        background-color: $bg-500;
+      }
+    }
+
+    @each $type in $menu-types {
+      .ui-#{$type} .ui-menuitem-link {
+        color: $text-color;
+        .ui-menuitem-text,
+        .ui-menuitem-icon {
+          color: $text-color;
+        }
+        &:hover {
+          background-color: $activation-light;
+        }
+      }
+    }
+
+    .ui-dialog {
+      &-titlebar {
+        border: 1px solid $bg-500;
+        background-color: $bg-500;
+        color: $text-color;
+      }
+      &-content {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        color: $text-color;
+      }
+      &-footer {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        color: $text-color;
+      }
+    }
+
+    .ui-overlaypanel {
+      background-color: $bg-300;
+      color: $text-color;
+      padding: 0;
+      border: 1px solid $bg-500;
+      &-close {
+        background-color: $activation-primary-100;
+      }
+    }
+
+    .ui-lightbox {
+      &-content-wrapper {
+        overflow: hidden;
+        background-color: $bg-300;
+      }
+      &-caption {
+        border: 1px solid $bg-500;
+        background-color: $bg-500;
+        color: $text-color;
+      }
+    }
+
+    .ui-paginator {
+      background-color: $bg-400;
+      border: 1px solid $bg-500;
+      padding: 0;
+    }
+
+    .ui-tabview {
+      @each $pos in $positions {
+        &.ui-tabview-#{$pos} {
+          .ui-tabview-nav li {
+            border: 1px solid $bg-500;
+            background-color: $bg-500;
+            a {
+              color: $text-color;
+            }
+
+            &.ui-state-active {
+              background-color: $activation-primary-100;
+              border: 1px solid $activation-primary-100;
+              &:hover {
+                border: 1px solid $activation-primary-300;
+                background-color: $activation-primary-300;
+              }
+            }
+            &:not(.ui-state-active):not(.ui-state-disabled):hover {
+              background-color: $bg-500;
+              border: 1px solid $bg-500;
+              a {
+                color: $activation-primary-100;
+              }
+            }
+          }
+        }
+      }
+
+      &-panels {
+        background-color: $bg-300;
+        border: 1px solid $bg-500;
+        color: $text-color;
+      }
+    }
+
+    .ui-tree {
+      border: 1px solid $bg-500;
+      background-color: $bg-300;
+      color: $text-color;
+      &-container .ui-treenode {
+        &-content {
+          .ui-tree-toggler,
+          .ui-treenode-icon {
+            color: $icon-color;
+          }
+          &.ui-treenode-selectable
+            .ui-treenode-label:not(.ui-state-highlight):hover {
+            background-color: $activation-light !important;
+            color: $text-color !important;
+          }
+          .ui-treenode-label.ui-state-highlight {
+            background-color: $activation-primary-100;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .ui-dropdown {
+      background: $bg-100;
+      border: 1px solid $bg-100;
+      &-trigger {
+        background-color: $bg-100;
+        color: $text-color;
+      }
+
+      &-panel {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+
+        .ui-dropdown-items {
+          .ui-dropdown-item {
+            color: $text-color;
+            background-color: transparent;
+            &:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+              color: $text-color;
+              background-color: $activation-light;
+            }
+          }
+          .ui-dropdown-item-group {
+            color: $text-color;
+            background-color: transparent;
+            &:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+              color: $text-color;
+              background-color: $activation-light;
+            }
+          }
+        }
+      }
+      &:not(.ui-state-disabled):hover {
+        border-color: $activation-primary-100;
+      }
+    }
+
+    .ui-multiselect {
+      background: $bg-100;
+      border: 1px solid $bg-100;
+      &-trigger {
+        background-color: $bg-100;
+        color: $text-color;
+      }
+      &-label {
+        color: $text-color;
+      }
+      &-panel {
+        border: 1px solid $bg-500;
+        background-color: $bg-300;
+        .ui-multiselect-header {
+          border-bottom: 1px solid $bg-500;
+          color: $text-color;
+          background-color: $bg-400;
+        }
+        .ui-multiselect-items {
+          .ui-multiselect-item {
+            color: $text-color;
+            background-color: transparent;
+            &:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+              color: $text-color;
+              background-color: $activation-light;
+            }
+          }
+          .ui-multiselect-item-group {
+            color: $text-color;
+            background-color: transparent;
+            &:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+              color: $text-color;
+              background-color: $activation-light;
+            }
+          }
+        }
+      }
+      &:not(.ui-state-disabled):hover {
+        border-color: $activation-primary-100;
+      }
+    }
+
+    .ui-fileupload {
+      &-buttonbar {
+        background-color: $bg-500;
+        border: 1px solid $bg-500;
+        color: $text-color;
+      }
+      &-content {
+        background-color: $bg-300;
+        border: 1px solid $bg-500;
+        color: $text-color;
+      }
+    }
+
+    .ui-editor-container {
+      .ui-editor-toolbar {
+        border: 1px solid $bg-500;
+        background-color: $bg-500;
+      }
+      .ui-editor-content {
+        border: 1px solid $bg-500;
+        .ql-editor {
+          background-color: $bg-100;
+          color: $text-color;
+        }
+      }
+      .ql-picker-label {
+        color: $text-color;
+      }
+      .ql-stroke {
+        stroke: $text-color;
+      }
+    }
+  }
+}
+
+@each $theme, $values in $themes {
+  @include theme($theme, $values);
+}

@@ -1,0 +1,9 @@
+:host {
+  flex-grow: 1;
+}
+p-slider {
+  width: 100%;
+  ::ng-deep .ui-slider-vertical .ui-slider-handle {
+    left: 50% !important;
+  }
+}

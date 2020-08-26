@@ -1,0 +1,16 @@
+<prm-input-container [showLabel]="false" [config]="containerConfig">
+  <div class="justify-content-center">
+    <p-checkbox
+      [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+      [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
+      [binary]="true"
+      [label]="label"
+      [readonly]="readonly"
+      [disabled]="disabled"
+      [inputId]="id"
+      [checkboxIcon]="checkboxIcon"
+      [(ngModel)]="value"
+      (onChange)="_onChange()"
+    ></p-checkbox>
+  </div>
+</prm-input-container>

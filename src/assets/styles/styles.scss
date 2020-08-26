@@ -1,0 +1,24 @@
+@import "./fonts/fonts.scss";
+@import "bootstrap.scss";
+@import "theme.scss";
+
+html,
+body {
+  height: 100%;
+  .ui-widget {
+    font-family: IRANSans;
+    [class|="ui"]:not([class*="pi"]):not([class*="fa"]):not([class*="ql"]) {
+      font-family: inherit;
+    }
+  }
+
+  .ui-dialog .ui-dialog-content {
+    overflow: visible;
+  }
+
+
+
+  *:focus {
+    outline: none;
+  }
+}

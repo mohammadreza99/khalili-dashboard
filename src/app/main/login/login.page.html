@@ -1,0 +1,26 @@
+<div class="container-fluid h-100">
+  <div class="row align-content-center justify-content-center h-100">
+    <div class="col-12">
+      <form class="form-row justify-content-center" [formGroup]="form">
+        <div class="col-lg-3 text-center">
+          <h2>ورود</h2>
+          <prm-input-text
+            formControlName="email"
+            placeholder="نام کاربری"
+            [errors]="[{type:'required',message:'این فیلد الزامیست'}]"
+          ></prm-input-text>
+          <prm-input-text
+            formControlName="password"
+            placeholder="رمز عبور"
+            [errors]="[{type:'required',message:'این فیلد الزامیست'}]"
+          ></prm-input-text>
+          <prm-input-checkbox-single
+            [formControl]="form.get('remember')"
+            label="مرا بخاطر بسپار"
+          ></prm-input-checkbox-single>
+          <prm-button class="w-100" type="submit" label="ورود"></prm-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

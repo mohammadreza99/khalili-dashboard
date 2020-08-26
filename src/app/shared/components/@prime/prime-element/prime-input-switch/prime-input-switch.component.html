@@ -1,0 +1,11 @@
+<prm-input-container [config]="containerConfig">
+  <p-inputSwitch
+    [disabled]="disabled"
+    [style]="style"
+    [name]="name"
+    [inputId]="id"
+    [readonly]="readonly"
+    [(ngModel)]="value"
+    (onChange)="_onChange()"
+  ></p-inputSwitch>
+</prm-input-container>

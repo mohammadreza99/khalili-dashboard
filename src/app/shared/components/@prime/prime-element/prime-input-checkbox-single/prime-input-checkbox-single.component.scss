@@ -1,0 +1,12 @@
+prm-input-container {
+  ::ng-deep p-checkbox {
+    .ui-chkbox {
+      vertical-align: middle;
+    }
+    &.rtl {
+      .ui-chkbox-label {
+        margin: 0 0.5em 0 0;
+      }
+    }
+  }
+}

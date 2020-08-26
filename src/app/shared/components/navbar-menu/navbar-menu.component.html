@@ -1,0 +1,35 @@
+<nav
+  class="navbar navbar-expand-md fixed-top bg-light shadow-sm flex-column-reverse align-items-stretch flex-md-row"
+>
+  <div class="navbar-inner-wrapper mr-md-3 mt-2 mt-md-0 align-items-center">
+    <div
+      (click)="menu.toggle($event)"
+      class="navbar-brand navbar-avatar d-flex align-items-center"
+    >
+      <i class="fas fa-chevron-down mr-2 fa-xs d-none d-md-block"></i>
+      <small class="font-light font-xs d-none d-md-block">محمدرضا شهبازی</small>
+      <div class="ml-1 avatar">
+        <i class=""></i>
+        <img class="rounded-circle" src="https://via.placeholder.com/100" />
+      </div>
+    </div>
+  </div>
+  <div class="navbar-logo d-flex align-items-center justify-content-between">
+    <div class="d-flex">
+      <span>Light</span>
+      <prm-input-switch
+        class="mx-2"
+        (onChange)="changeTheme()"
+      ></prm-input-switch>
+      <span>Dark</span>
+    </div>
+    <prm-button
+      icon="fa fa-bars"
+      color="lightGray"
+      (onClick)="hambergurClick.emit()"
+    >
+    </prm-button>
+  </div>
+</nav>
+
+<p-menu #menu [popup]="true" [model]="accountItems"></p-menu>

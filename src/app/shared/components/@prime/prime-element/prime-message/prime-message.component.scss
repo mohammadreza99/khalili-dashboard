@@ -1,0 +1,26 @@
+p-messages {
+  ::ng-deep .ui-messages {
+    margin: 0 1em;
+    > ul {
+      flex-direction: column;
+    }
+  }
+  &.rtl {
+    ::ng-deep .ui-messages {
+      display: flex;
+      flex-direction: row-reverse;
+      > ul > li > * {
+        float: right;
+      }
+      &-close {
+        left: 0.5em;
+        right: auto;
+      }
+      &-detail,
+      &-summary {
+        margin-left: 0;
+        margin-right: 0.25em;
+      }
+    }
+  }
+}

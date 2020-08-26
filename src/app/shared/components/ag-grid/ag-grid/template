@@ -1,0 +1,509 @@
+﻿@using Salamat.Business.Shared;
+
+@model vmcAgGrid
+
+<ul id="treeBreadCrumb" class="breadcrumb" style="display:none"><li class='breadcrumb-item nodeBreadCrumb' data-id="0" data-title="@blNetworkInformation.GetTitle(Language.Id,SessionManagement.IdNetwork())"><i class="fa fa-home"></i></li><span class="pull-left breadcrumb-back"><i class="fa fa-arrow-right"></i>&nbsp;@rsDisplay.Back</span></ul>
+
+<div id="agGrid" class="ag-theme-balham"></div>
+
+<script src="~/Scripts/Plugins/moment.js/moment.min.js"></script>
+<script src="~/Scripts/Plugins/moment.js/moment-jalaali.js"></script>
+<link href="~/Scripts/dapa-switch/main.css" rel="stylesheet" />
+
+<script src="~/Scripts/Plugins/agGrid/ag-grid-enterprise.min.noStyle.js?version=1.1"></script>
+<link href="~/Scripts/Plugins/agGrid/ag-grid.css" rel="stylesheet" />
+<link href="~/Scripts/Plugins/agGrid/ag-theme-balham.css" rel="stylesheet" />
+<style>
+    div#agGrid {
+        width: 100%;
+        height: 100%;
+        /*display: flex;
+        flex-direction: row;
+        flex: 1;
+        overflow-x: auto;
+        border-left: 1px solid #bdc3c7;
+        border-bottom: 1px solid #bdc3c7;*/
+    }
+
+    .ag-theme-balham {
+        margin-top: 20px !important;
+    }
+
+    .ag-header-cell-label {
+        justify-content: center;
+    }
+
+    .ag-header-group-text {
+        margin: 0 auto;
+        float: none;
+    }
+
+    .breadcrumb {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        font-size: 12px !important;
+    }
+
+    div[role="gridcell"].text-center {
+        text-align: center;
+    }
+
+    div[role="gridcell"].text-right {
+        text-align: right;
+    }
+
+    div[role="gridcell"].text-left {
+        text-align: left;
+    }
+</style>
+<script type='text/javascript'>
+    // subcategory button
+    function getNodes(id, title) {
+        let crumb = $('#treeBreadCrumb');
+
+        let li = $('<li>')
+            .text(title)
+            .click(function () {
+                getNodes(id, title);
+                let lis = $(crumb).find('li');
+                for (let i = $(lis).length; i >= 0; i--) {
+                    let _id = $(lis[i]).attr('data-id');
+                    if (typeof _id === 'undefined') {
+                        continue;
+                    }
+                    if (id == _id) {
+                        break;
+                    } else {
+                        $(lis[i]).remove();
+                    }
+                }
+            })
+            .attr('data-id', id)
+            .addClass(...['breadcrumb-item', 'nodeBreadCrumb']);
+
+        if ($(crumb).has(`li[data-id=${id}]`).length < 1) {
+            $(crumb).append(li);
+        }
+        $(crumb).show();
+        loadChildNodesJqGrid(id);
+
+        if($('#btnIranMapModal').length > 0)
+        {
+            $('#btnIranMapModal').attr('data-map-parentId',id);
+        }
+    }
+
+    // reload grid to subcategory
+    function loadChildNodesJqGrid(conditionNetwork) {
+        let url = $('#hidden_urlLoadData').val();
+        let networkPosition = $("#treeBreadCrumb").find('li').length - 1;
+
+        let data = JSON.parse($("#loadData_items").attr("data"));
+        data.ConditionNetwork = conditionNetwork;
+        data.NetworkPosition = networkPosition;
+        $("#loadData_items").attr("data", JSON.stringify(data));
+
+        loadDataJqGrid(url, JSON.parse($("#loadData_items").attr("data")));
+    }
+
+    // init crumb home & back button
+    function initCrumb() {
+        let crumb = $('#treeBreadCrumb');
+
+        $(crumb).find('span.breadcrumb-back').click(function () {
+            $('#treeBreadCrumb').find('li:last').prevAll('li:first').click();
+        });
+
+        let li = $(crumb).find('li:first');
+        $(li).click(function () {
+            getNodes(0, '');
+            $(crumb).find('li').not(':first').remove();
+            $(crumb).hide();
+        });
+    }
+    initCrumb();
+
+    let gridOptions = null;
+    let gridDiv = document.querySelector('#agGrid');
+    function loadjqGrid(data) {
+        let wrapper = document.querySelector('#agGrid .ag-root-wrapper');
+        if (wrapper !== null) {
+            wrapper.remove();
+        }
+
+        let columns = @Html.Raw(Json.Encode(Model.Groups));
+        if (typeof data.Groups !== 'undefined') {
+            columns = data.Groups;
+        }
+
+        let colModel = [];
+        let colAgg = {};
+
+        let sumTitle = null;
+        let _columnKeys = [];
+
+        $.each(columns, function (i, group) {
+            let grp = [];
+
+            $.each(group.Columns, function (j, col) {
+                let obj = {};
+
+                if (col.HeaderName) obj.headerName = col.HeaderName;
+                if (col.Field) obj.field = col.Field;
+                if (col.Width) obj.width = col.Width;
+                if (col.SuppressToolPanel) obj.suppressToolPanel = col.SuppressToolPanel;
+                if (col.SuppressSizeToFit) obj.suppressSizeToFit = col.SuppressSizeToFit;
+                if (col.CellRenderer) obj.cellRenderer = eval(col.CellRenderer);
+
+                obj.sortable = col.Sortable;
+                obj.resizable = true;
+
+                if (col.Align) {
+                    let align;
+                    switch (col.Align) {
+                        case 1: { align = 'right'; break; }
+                        case 2: { align = 'left'; break; }
+                        case 3: { align = 'center'; break; }
+                    }
+                    obj.cellStyle = { 'text-align': align };
+                }
+
+                if (col.Hide) {
+                    obj.hide = col.Hide;
+                }
+                else {
+                    _columnKeys.push(obj.field);
+                }               
+
+                if (col.Pinned === 1) {
+                    obj.pinned = 'right';
+                } else if (col.Pinned === 2) {
+                    obj.pinned = 'left';
+                }
+
+                if (col.Type === 1) { // number
+                    obj.type = 'numericColumn';
+                    obj.comparator = numberComparator;
+                    obj.cellStyle = Object.assign({ 'font-weight': 'bold', 'text-align': 'center' }, obj.cellStyle);
+                    obj.valueGetter = function aPlusBValueGetter(params) {
+                        let val = params.data[obj.field];
+                        return Math.floor(val).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                    }
+                }
+
+                if (col.SummaryType) {
+                    let val = 0;
+                    data.Details.forEach(x => { val += x[obj.field]; });
+                    colAgg[obj.field] = val;
+
+                    // find 'مجموع' field index
+                    if (sumTitle == null) {
+                        if (j > 0) {
+                            sumTitle = group.Columns[j - 1].Field;
+                        } else {
+                            let len = columns[i - 1].Columns.length;
+                            sumTitle = columns[i - 1].Columns[len - 1].Field;
+                        }
+                    }
+                }
+
+                if (getUrlVars()['id_report'] == 10219 && (col.Field === 'Sum_100' || col.Field === 'Sum_101' || col.Field === 'Sum_102' || col.Field === 'Sum_201' || col.Field === 'Sum_0' || col.Field === 'Sum_All')) {
+                    obj.valueGetter = function aPlusBValueGetter(params) {
+                        return '%' + params.data[col.Field];
+                    }
+                }
+
+                if (col.Field == 'btnSubCategory') {
+                    grp.push({
+                        headerName: ' ',
+                        field: 'Position',
+                        width: 50,
+                        suppressToolPanel: true,
+                        suppressSizeToFit: true,
+                        valueGetter: function aPlusBValueGetter(params) { return col.SubCategoryCondition; },
+                        cellRenderer: 'subCategoryCellRenderer'
+                    });
+                } else grp.push(obj);
+            });
+            if (group.HeaderName) {
+                colModel.push({
+                    headerName: group.HeaderName,
+                    children: grp,
+                    headerClass: 'text-center'
+                });
+            } else colModel.push(...grp);
+        });
+
+        Object.assign(customizeSummary(colAgg), { [sumTitle]: '@rsDisplay.Total' });
+
+        gridOptions = {
+            localeText: {
+                // for filter panel
+                page: 'صفحه',
+                more: 'بیشتر',
+                to: 'به',
+                of: 'از',
+                next: 'بعدی',
+                last: 'آخر',
+                first: 'اولین',
+                previous: 'قبلی',
+                loadingOoo: 'در حال بارگذاری...',
+                totalrows: 'مجموع ردیف ها',
+                // for set filter
+                selectAll: 'انتخاب همه',
+                searchOoo: 'جستجو...',
+                blanks: 'خالی',
+
+                // for number filter and text filter
+                filterOoo: 'فیلتر کردن...',
+                applyFilter: 'اعمال محدودیت...',
+                equals: 'برابر',
+                notEqual: 'نا برابر',
+
+                // for number filter
+                lessThan: 'کمتر از',
+                greaterThan: 'بزرگتر از',
+                lessThanOrEqual: 'کمتر از یا برابر',
+                greaterThanOrEqual: 'بزرگتر یا مساوی',
+                inRange: 'رنج',
+
+                // for text filter
+                contains: 'حاوی',
+                notContains: 'بدون محتوا',
+                startsWith: 'شروع می شود با',
+                endsWith: 'به پایان می رسد با',
+
+                // the header of the default group column
+                group: 'گروه',
+
+                // tool panel
+                filters: 'فیلتر ها',
+                groups: 'گروه ها',
+                pivots: 'محورها',
+                toolPanelButton: 'پانل ابزار',
+
+                // other
+                noRowsToShow: 'هیچ ردیفی برای نمایش وجود ندارد',
+
+                // enterprise menu
+                pinColumn: 'چسباندن ستون',
+                valueAggregation: 'value Aggregation',
+                autosizeThiscolumn: 'اندازه خودکار این ستون',
+                autosizeAllColumns: 'اندازه خودکار تمام ستونها',
+                groupBy: 'دسته بندی بر اساس',
+                ungroupBy: 'بدون دسته بندی',
+                resetColumns: 'تنظیم مجدد',
+                expandAll: 'باز کردن همه',
+                collapseAll: 'بستن همه',
+                toolPanel: 'پنل ابزار',
+                export: 'خروجی',
+                csvExport: 'خروجی CSV',
+                excelExport: 'خروجی اکسل',
+
+                // enterprise menu pinning
+                pinLeft: 'چسباندن به سمت چپ',
+                pinRight: 'چسباندن به سمت راست',
+                noPin: 'حذف',
+
+                // enterprise menu aggregation and status bar
+                sum: 'جمع',
+                min: 'حداقل',
+                max: 'حداکثر',
+                none: 'هیچ یک',
+                count: 'تعداد',
+                average: 'میانگین',
+
+                // standard menu
+                copy: 'کپی',
+                copyWithHeaders: 'کپی با سربرگ',
+                ctrlC: 'ctrl + C',
+                paste: 'الصاق',
+                ctrlV: 'ctrl + V'
+            },
+            defaultColDef: {
+                filter: true,
+            },
+            components: {
+                'subCategoryCellRenderer': subCategoryButtonCellRenderer
+            },
+            sortingOrder: ['desc', 'asc', null],
+            columnDefs: colModel,
+            rowDragManaged: true,
+            animateRows: true,
+            enableRtl: true,
+            excelStyles: [{
+                id: 'stringType',
+                dataType: 'string'
+            }],
+            defaultExportParams: {
+                skipHeader: false,
+                columnGroups: true,
+                skipFooters: false,
+                skipGroups: false,
+                skipPinnedTop: false,
+                skipPinnedBottom: false,
+                allColumns: true,
+                onlySelected: false,
+                columnKeys: _columnKeys,
+                fileName: `SIBReport${getUrlVars()['id_Condition1']}_${moment().format('jYYYYjMMjDD')}_${@SessionManagement.Id_RoleUser()}`,
+                sheetName: `SIBReport${getUrlVars()['id_Condition1']}_${moment().format('jYYYYjMMjDD')}_${@SessionManagement.Id_RoleUser()}`,
+                exportMode: 'xlsx',
+                //customHeader: [
+                //    [{
+                //        data: {
+                //            type: 'String',
+                //            value: 'تست'
+                //        }
+                //    }],
+                //    []
+                //],
+            },
+            pinnedBottomRowData: [colAgg],
+            sideBar: {
+                toolPanels: [
+                    {
+                        id: 'columns',
+                        labelDefault: '',
+                        labelKey: 'columns',
+                        iconKey: 'columns',
+                        toolPanel: 'agColumnsToolPanel',
+                        toolPanelParams: {
+                            suppressRowGroups: true,
+                            suppressValues: true,
+                            suppressPivots: true,
+                            suppressPivotMode: true,
+                            suppressSideButtons: true,
+                            suppressColumnFilter: false,
+                            suppressColumnSelectAll: false,
+                            suppressColumnExpandAll: false
+                        }
+                    }
+                ]
+            },
+            getRowStyle: function (params) {
+                if (params.node.rowPinned) {
+                    return { 'font-weight': 'bold', 'color': '#1E4E6A', 'background-color': '#ECF0F1', 'font-size': '10pt' };
+                }
+            },
+            onGridReady: function (params) {
+                params.api.sizeColumnsToFit();
+            }
+        };
+
+        let dataDetail = data.Details;
+        let grid = new agGrid.Grid(gridDiv, gridOptions);
+        gridOptions.api.destroy();
+
+        grid = new agGrid.Grid(gridDiv, gridOptions);
+        gridOptions.api.setRowData(dataDetail);
+
+        let e1 = $(window).height();
+        let e2 = $('#agGrid').offset();
+
+        setWidthAndHeight('100%', (e1 - e2.top - 140) + 'px');
+    }
+
+    $(window).bind('resize', function () {
+        let e1 = $(window).height();
+        let e2 = $('#agGrid').offset();
+        setWidthAndHeight('100%', (e1 - e2.top - 145) + 'px');
+    }).trigger('resize');
+
+    function setWidthAndHeight(width, height, gridOptions) {
+        var eGridDiv = document.querySelector('#agGrid');
+        eGridDiv.style.width = width;
+        eGridDiv.style.height = height;
+    }
+
+    // Renderers -->
+
+    function subCategoryButtonCellRenderer(params) {
+        if (eval(`params.data.${params.value}`)) {
+            let title = params.data.NetworkTitle;
+            if (!title) {
+                title = params.data.Title;
+            }
+            return `<a class="btn btn-xs btn-default btn-subcategory" onclick="getNodes(${params.data.Id}, '${title}')"><i class="fa fa-sitemap"></i></a>`;
+        } else {
+            return '-';
+        }
+    }
+
+    moment.loadPersian({ dialect: 'persian-modern' });
+    function LanguageDate(params) {
+        if (params.value) {
+            let lId = @Html.Raw(@Language.Id);
+            let date = moment(params.value);
+            if (isNaN(Date.parse(params.value))) {
+                if (lId === 100) {
+                    date = date.format('jYYYY/jMM/jDD');
+                } else {
+                    date = date.format('MM/DD/YYYY');
+                }
+                return date;
+            }
+            return params.value;
+        }
+        return '';
+    }
+
+    // <-- Renderers
+
+    function aqGridHideColumn(cols) {
+        setTimeout(function () {
+            gridOptions.columnApi.setColumnsVisible(cols, false);
+            gridOptions.api.sizeColumnsToFit();
+        }, 0);
+    }
+
+    function getUrlVars() {
+        let vars = {};
+        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key.toLowerCase()] = value;
+        });
+        return vars;
+    }
+
+    function customizeSummary(colAgg) {
+        let idReport = Number(getUrlVars()['id_report']);
+        switch (idReport) {
+            case 10219: {
+                colAgg['Sum_100'] = ((Number(colAgg['M_100']) * 100) / Number(colAgg['F_100'])).toFixed(2);
+                colAgg['Sum_101'] = ((Number(colAgg['M_101']) * 100) / Number(colAgg['F_101'])).toFixed(2);
+                colAgg['Sum_102'] = ((Number(colAgg['M_102']) * 100) / Number(colAgg['F_102'])).toFixed(2);
+                colAgg['Sum_201'] = ((Number(colAgg['M_201']) * 100) / Number(colAgg['F_201'])).toFixed(2);
+                colAgg['Sum_0'] = ((Number(colAgg['M_0']) * 100) / Number(colAgg['F_0'])).toFixed(2);
+                colAgg['Sum_All'] = ((Number(colAgg['Sum_M']) * 100) / Number(colAgg['Sum_F'])).toFixed(2);
+
+                break;
+            }
+            case 10263: {
+                let M_101 = Number(colAgg['M_101']);
+                let M_102 = Number(colAgg['M_102']);
+                let M_201 = Number(colAgg['M_201']);
+                let M_0 = Number(colAgg['M_0']);
+                let F_0 = Number(colAgg['F_0']);
+
+                M_101 = isNaN(M_101) ? 0 : M_101;
+                M_102 = isNaN(M_102) ? 0 : M_102;
+                M_201 = isNaN(M_201) ? 0 : M_201;
+                M_0 = isNaN(M_0) ? 0 : M_0;
+                F_0 = isNaN(F_0) ? 0 : F_0;
+
+                colAgg['Sum_102'] = Math.round(M_102 / (M_101 * 480.0) * 100.0);
+                colAgg['Sum_201'] = Math.round(M_201 / (M_101 * 10.0) * 100.0);
+                colAgg['Sum_0'] = Math.round((M_0 * 100.0) / (306.0 * M_101 - F_0));
+
+                break;
+            }
+        }
+        return colAgg;
+    }
+
+    function numberComparator(valueA, valueB, nodeA, nodeB, isInverted) {
+        valueA = valueA.replace(',', '');
+        valueB = valueB.replace(',', '');
+
+        return valueA - valueB;
+    }
+
+</script>

@@ -1,0 +1,31 @@
+<prm-input-container [labelAlign]="'top'" [config]="containerConfig">
+  <div
+    class="radio-group-container"
+    [ngClass]="{
+      'flex-row': inline && layout == 'ltr',
+      'flex-row-reverse': inline && layout == 'rtl',
+      'flex-column': !inline
+    }"
+  >
+    <p-radioButton
+      [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+      [ngClass]="{
+        'ui-rtl rtl': layout == 'rtl',
+        'ml-4': inline && layout == 'rtl',
+        'mr-4': inline && layout == 'ltr',
+        'mb-2': !inline
+      }"
+      *ngFor="let item of items; let i = index"
+      [class]="inline ? 'd-inline-block ml-2' : 'd-block mb-2'"
+      [name]="name"
+      [value]="item"
+      [label]="item[field] || item"
+      [readonly]="readonly"
+      [disabled]="disabled"
+      [inputId]="name + i"
+      [(ngModel)]="value"
+      [style]="style"
+      (onClick)="_onChange()"
+    ></p-radioButton>
+  </div>
+</prm-input-container>

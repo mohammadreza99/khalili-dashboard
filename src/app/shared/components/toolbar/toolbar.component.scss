@@ -1,0 +1,22 @@
+:host.page-header {
+  height: 100px;
+  display: block;
+  ::ng-deep .ui-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // height: 55px;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    border: 0;
+    h1 {
+      margin-bottom: 0;
+      font-size: 1.25rem;
+    }
+    &:after,
+    &:before {
+      content: none;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<input
+  [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
+  [ngClass]="{
+    'ui-rtl rtl': layout == 'rtl',
+    'text-left': layout == 'ltr',
+    'text-right': layout == 'rtl'
+  }"
+  *ngIf="!inline"
+  pInputText
+  autocomplete="false"
+  theme="dp-material"
+  [dpDayPicker]="config"
+  [(ngModel)]="_date"
+  [mode]="datePickerMode"
+  [placeholder]="placeholder"
+  [disabled]="disabled"
+  [readonly]="readonly"
+  [style]="style"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [minTime]="minTime"
+  [maxTime]="maxTime"
+  (onChange)="_onChange($event)"
+  (open)="_onOpen()"
+  (close)="_onClose()"
+  (onGoToCurrent)="_onGoToCurrent()"
+  (onLeftNav)="_onLeftNav()"
+  (onRightNav)="_onRightNav()"
+  (focus)="_onFocus()"
+  (blur)="_onBlur()"
+/>
+<i
+  *ngIf="clearable && !inline"
+  (click)="clearInput()"
+  [ngClass]="{ disabled: disabled }"
+  class="fal fa-1x fa-times position-absolute border rounded-circle d-flex justify-content-center align-items-center bg-light text-muted"
+></i>
+<dp-day-time-calendar
+  *ngIf="inline"
+  [(ngModel)]="_date"
+  dir="rtl"
+  theme="dp-material"
+></dp-day-time-calendar>

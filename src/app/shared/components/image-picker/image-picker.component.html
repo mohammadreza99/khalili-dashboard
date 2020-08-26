@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <div
+      (click)="onImageClick(i)"
+      class="image-item"
+      *ngFor="let item of list; let i = index"
+      [ngClass]="{ active: coverImage == item }"
+    >
+      <div class="image-item-image" [style.backgroundImage]="item"></div>
+      <i
+        class="image-item-trash fal fa-trash-alt"
+        (click)="onDeleteImageClick($event, i)"
+      ></i>
+    </div>
+    <div
+      (click)="uploader.click()"
+      class="image-uploader d-flex align-items-center justify-content-center"
+    >
+      <i class="fas fa-2x fa-camera-retro"></i>
+      <input type="file" #uploader (change)="uploadFile($event)" />
+    </div>
+  </div>
+  
