@@ -15,7 +15,7 @@ export class CitiesPage implements OnInit {
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseCity[]>;
-  states: BaseState[];
+  availabeStates: BaseState[];
   columnDefs = [
     {
       field: 'title',
@@ -44,7 +44,7 @@ export class CitiesPage implements OnInit {
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseCity>('City');
-    this.basicService.select<BaseState>('State').subscribe(states => this.states = states);
+    this.basicService.select<BaseState>('State').subscribe(states => this.availabeStates = states);
   }
 
   activityCellRenderer(params) {
@@ -52,7 +52,7 @@ export class CitiesPage implements OnInit {
   }
 
   stateCellRenderer(params) {
-    return getByIdCellRenderer(params.data.stateId, this.states);
+    return getByIdCellRenderer(params.data.stateId, this.availabeStates);
   }
 
   addCity() {
@@ -73,6 +73,16 @@ export class CitiesPage implements OnInit {
         label: 'عنوان',
         labelWidth: 60,
         formControlName: 'title',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'dropdown',
+        dropdownItems: this.availabeStates.map((state) => {
+          return { label: state.title, value: state.id };
+        }),
+        label: 'شهر',
+        labelWidth: 60,
+        formControlName: 'stateId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
     ] as DialogFormConfig[];
