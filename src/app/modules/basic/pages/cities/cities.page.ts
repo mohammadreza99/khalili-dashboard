@@ -1,21 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableComponent } from '@app/shared/components/table/table.component';
 import { Observable } from 'rxjs';
-import { BaseCity } from '../../model/basic.model';
+import { BaseCity, BaseState } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
+import { SelectItem } from 'primeng';
 
 @Component({
   selector: 'cities',
   templateUrl: './cities.page.html',
-  styleUrls: ['./cities.page.scss']
+  styleUrls: ['./cities.page.scss'],
 })
 export class CitiesPage implements OnInit {
-
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseCity[]>;
+  availabeStates: BaseState[];
   columnDefs = [
     {
       field: 'title',
@@ -39,6 +40,9 @@ export class CitiesPage implements OnInit {
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseCity>('City');
+    this.basicService.select<BaseState>('State').subscribe((states) => {
+      this.availabeStates = states;
+    });
   }
 
   activityCellRenderer(params) {
@@ -65,6 +69,16 @@ export class CitiesPage implements OnInit {
         formControlName: 'title',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'dropdown',
+        dropdownItems: this.availabeStates.map((state) => {
+          return { label: state.title, value: state.id };
+        }),
+        label: 'شهر',
+        labelWidth: 60,
+        formControlName: 'stateId',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
     ] as DialogFormConfig[];
   }
 
@@ -85,9 +99,9 @@ export class CitiesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseCity>('City', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseCity>('City', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 
