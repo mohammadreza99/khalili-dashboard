@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableComponent } from '@app/shared/components/table/table.component';
 import { Observable } from 'rxjs';
-import { BaseCity } from '../../model/basic.model';
+import { BaseCity, BaseState } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
@@ -9,17 +9,22 @@ import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 @Component({
   selector: 'cities',
   templateUrl: './cities.page.html',
-  styleUrls: ['./cities.page.scss']
+  styleUrls: ['./cities.page.scss'],
 })
 export class CitiesPage implements OnInit {
-
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseCity[]>;
+  states$: Observable<BaseState[]>;
   columnDefs = [
     {
       field: 'title',
       headerName: 'عنوان',
+    },
+    {
+      field: 'StateId',
+      headerName: 'استان',
+      cellRenderer: this.stateCellRenderer,
     },
     {
       field: 'isActive',
@@ -39,10 +44,15 @@ export class CitiesPage implements OnInit {
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseCity>('City');
+    this.states$ = this.basicService.select<BaseState>('State');
   }
 
   activityCellRenderer(params) {
     return booleanCellRenderer(params.data.isActive);
+  }
+
+  stateCellRenderer(params) {
+    return getByIdCellRenderer(params.data.StateId);
   }
 
   addCity() {
@@ -85,14 +95,21 @@ export class CitiesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseCity>('City', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseCity>('City', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 
 function booleanCellRenderer(condtion: any) {
+  console.log('tttttt');
   return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-color:${
     condtion ? 'green' : 'red'
   }"></div> <span>${condtion ? 'فعال' : 'غیرفعال'}</span></div>`;
+}
+
+function getByIdCellRenderer(condtion: any) {
+  console.log('rrrrrrrrrrrrrrr');
+  console.log(this.states$);
+  return 'test';
 }
