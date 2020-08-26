@@ -77,8 +77,18 @@ export class AttributeCategoriesPage implements OnInit {
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
-      updatedData.isActive = value === 'فعال' ? true : false;
-    }
+      if (value === 'فعال') {
+        updatedData.isActive = true;
+        this.basicService
+          .activate('AttributeCategory', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      } else if (value === 'غیرفعال') {
+        updatedData.isActive = false;
+        this.basicService
+          .deactivate('AttributeCategory', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      }
+    } else
     this.basicService
       .update<BaseAttributeCategory>('AttributeCategory', updatedData)
       .subscribe(() => this.table.updateTransaction(updatedData));

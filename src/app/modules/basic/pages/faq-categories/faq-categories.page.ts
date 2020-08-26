@@ -83,8 +83,18 @@ export class FaqCategoriesPage implements OnInit {
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
-      updatedData.isActive = value === 'فعال' ? true : false;
-    }
+      if (value === 'فعال') {
+        updatedData.isActive = true;
+        this.basicService
+          .activate('FAQCategory', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      } else if (value === 'غیرفعال') {
+        updatedData.isActive = false;
+        this.basicService
+          .deactivate('FAQCategory', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      }
+    } else
     this.basicService
       .update<SiteFAQCategory>('FAQCategory', updatedData)
       .subscribe(() => this.table.updateTransaction(updatedData));

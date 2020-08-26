@@ -83,8 +83,18 @@ export class InsurancesPage implements OnInit {
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
-      updatedData.isActive = value === 'فعال' ? true : false;
-    }
+      if (value === 'فعال') {
+        updatedData.isActive = true;
+        this.basicService
+          .activate('Insurance', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      } else if (value === 'غیرفعال') {
+        updatedData.isActive = false;
+        this.basicService
+          .deactivate('Insurance', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      }
+    } else
     this.basicService
       .update<BaseInsurance>('Insurance', updatedData)
       .subscribe(() => this.table.updateTransaction(updatedData));

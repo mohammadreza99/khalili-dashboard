@@ -95,17 +95,28 @@ export class AttributesPage implements OnInit {
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
-      updatedData.isActive = value === 'فعال' ? true : false;
+      if (value === 'فعال') {
+        updatedData.isActive = true;
+        this.basicService
+          .activate('Attribute', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      } else if (value === 'غیرفعال') {
+        updatedData.isActive = false;
+        this.basicService
+          .deactivate('Attribute', updatedData)
+          .subscribe(() => this.table.updateTransaction(updatedData));
+      }
+    } else{
+      if (field == 'isRequired') {
+        updatedData.isRequired = value === 'فعال' ? true : false;
+      }
+      if (field == 'isSystem') {
+        updatedData.isSystem = value === 'فعال' ? true : false;
+      }
+      this.basicService
+        .update<BaseAttribute>('Attribute', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
     }
-    if (field == 'isRequired') {
-      updatedData.isRequired = value === 'فعال' ? true : false;
-    }
-    if (field == 'isSystem') {
-      updatedData.isSystem = value === 'فعال' ? true : false;
-    }
-    this.basicService
-      .update<BaseAttribute>('Attribute', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
   }
 
   formConfig(): DialogFormConfig[] {
