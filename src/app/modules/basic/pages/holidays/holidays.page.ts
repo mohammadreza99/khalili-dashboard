@@ -6,6 +6,7 @@ import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import * as moment from 'jalali-moment';
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'holidays',
@@ -16,7 +17,7 @@ export class HolidaysPage implements OnInit {
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseHoliday[]>;
-  columnDefs = [
+  columnDefs: ColDef[] = [
     {
       field: 'title',
       headerName: 'عنوان',
@@ -26,6 +27,9 @@ export class HolidaysPage implements OnInit {
       headerName: 'تاریخ',
       editable: true,
       cellEditor: 'datepickerEditor',
+      cellEditorParams: {
+        value: 'salam',
+      },
       // filter: 'agDateColumnFilter',
       // filterParams: {
       // comparator: (filterLocalDateAtMidnight, cellValue) => {
