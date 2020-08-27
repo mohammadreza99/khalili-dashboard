@@ -24,13 +24,15 @@ export class CitiesPage implements OnInit {
     private dialogFormService: DialogFormService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.generateColumns();
+  }
+
+  async generateColumns() {
     this.rowData$ = this.basicService.select<BaseCity>('City');
-    // this.
-    await this.basicService
+    this.availabeStates = await this.basicService
       .select<BaseState>('State')
-      .subscribe((states) => (this.availabeStates = states));
-    console.log(this.availabeStates);
+      .toPromise();
 
     this.columnDefs = [
       {
@@ -45,7 +47,7 @@ export class CitiesPage implements OnInit {
         },
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
-          value: this.availabeStates.map((state) => state.title),
+          values: this.availabeStates.map((state) => state.title),
         },
       },
       {
@@ -65,6 +67,10 @@ export class CitiesPage implements OnInit {
   }
 
   stateCellRenderer(params) {
+    // var color = this.availabeStates.find(
+    //   (color) => color.title == params.value
+    // );
+    // return color.title;
     return getByIdCellRenderer(params.data.stateId, this.availabeStates);
   }
 
