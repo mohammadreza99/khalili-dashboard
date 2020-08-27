@@ -146,6 +146,7 @@ function getByIdCellRenderer(condtion: any, items: any) {
   });
   return value;
 }
+
 function getByTitleCellRenderer(condtion: any, items: any) {
   let value;
   items.forEach((item) => {

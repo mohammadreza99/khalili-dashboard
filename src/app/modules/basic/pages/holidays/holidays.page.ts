@@ -24,6 +24,8 @@ export class HolidaysPage implements OnInit {
     {
       field: 'date',
       headerName: 'تاریخ',
+      editable: true,
+      cellEditor: 'datepickerEditor',
       // filter: 'agDateColumnFilter',
       // filterParams: {
       // comparator: (filterLocalDateAtMidnight, cellValue) => {
@@ -72,10 +74,10 @@ export class HolidaysPage implements OnInit {
     this.dialogFormService
       .show('افزودن تعطیلی', this.formConfig())
       .onClose.subscribe((holiday: BaseHoliday) => {
-        let holidayObj={
-          title:holiday.title,
-          date:holiday.date['dateObj'],
-        }
+        let holidayObj = {
+          title: holiday.title,
+          date: holiday.date['dateObj'],
+        };
         if (holiday)
           this.basicService
             .insert<any>('Holiday', holidayObj)

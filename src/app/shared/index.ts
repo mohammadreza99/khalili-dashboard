@@ -11,6 +11,7 @@ import { TableComponent } from './components/table/table.component';
 import { ContainerComponent } from './components/container/container.component';
 import { CellButtonComponent } from './components/table/cell-button/cell-button.component';
 import { CellImageComponent } from './components/table/cell-image/cell-image.component';
+import { CellDatepickerComponent } from './components/table/cell-datepicker/cell-datepicker.component';
 export const COMPONENTS: Type<any>[] = [
   DialogFormComponent,
   ImagePickerComponent,
@@ -24,4 +25,5 @@ export const COMPONENTS: Type<any>[] = [
   ContainerComponent,
   CellButtonComponent,
   CellImageComponent,
+  CellDatepickerComponent,
 ];

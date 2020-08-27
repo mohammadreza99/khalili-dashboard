@@ -37,7 +37,10 @@
 ></i>
 <dp-day-time-calendar
   *ngIf="inline"
+  [config]="config"
   [(ngModel)]="_date"
   dir="rtl"
   theme="dp-material"
+  (onChange)="_onInlineChange($event)"
+  [mode]="datePickerMode"
 ></dp-day-time-calendar>

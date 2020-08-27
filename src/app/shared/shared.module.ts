@@ -12,6 +12,7 @@ import { PrimeModule } from '@prime/prime.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CellButtonComponent } from './components/table/cell-button/cell-button.component';
 import { CellImageComponent } from './components/table/cell-image/cell-image.component';
+import { CellDatepickerComponent } from './components/table/cell-datepicker/cell-datepicker.component';
 
 @NgModule({
   declarations: [...COMPONENTS],
@@ -20,7 +21,11 @@ import { CellImageComponent } from './components/table/cell-image/cell-image.com
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    AgGridModule.withComponents([CellButtonComponent, CellImageComponent]),
+    AgGridModule.withComponents([
+      CellButtonComponent,
+      CellImageComponent,
+      CellDatepickerComponent,
+    ]),
     PrimeModule.forRoot(),
   ],
   exports: [

@@ -32,7 +32,7 @@ export class PrimeDateTimePickerComponent implements OnInit {
   @Input() maxDate: moment.Moment | string = undefined;
   @Input() minTime: moment.Moment | string = undefined;
   @Input() maxTime: moment.Moment | string = undefined;
-  @Input() date: moment.Moment;
+  @Input() date: moment.Moment = moment();
   @Output() dateChange = new EventEmitter();
   @Output() onChange = new EventEmitter();
   @Output() onOpen = new EventEmitter();
@@ -177,6 +177,10 @@ export class PrimeDateTimePickerComponent implements OnInit {
     }
   }
 
+  _onInlineChange(event) {
+    console.log(event);
+  }
+  
   _onOpen() {
     this.onOpen.emit();
   }
