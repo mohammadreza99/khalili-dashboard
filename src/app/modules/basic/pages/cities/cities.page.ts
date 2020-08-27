@@ -70,10 +70,6 @@ export class CitiesPage implements OnInit {
   }
 
   stateCellRenderer(params) {
-    // var color = this.availabeStates.find(
-    //   (color) => color.title == params.value
-    // );
-    // return color.title;
     return getByIdCellRenderer(params.data.stateId, this.availabeStates);
   }
 
@@ -102,7 +98,7 @@ export class CitiesPage implements OnInit {
         dropdownItems: this.availabeStates.map((state) => {
           return { label: state.title, value: state.id };
         }),
-        label: 'شهر',
+        label: 'استان',
         labelWidth: 60,
         formControlName: 'stateId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
