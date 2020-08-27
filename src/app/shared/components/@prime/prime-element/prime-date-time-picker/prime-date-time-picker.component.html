@@ -1,4 +1,4 @@
-<input
+<!-- <input
   [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
   [ngClass]="{
     'ui-rtl rtl': layout == 'rtl',
@@ -43,4 +43,26 @@
   theme="dp-material"
   (onChange)="_onInlineChange($event)"
   [mode]="datePickerMode"
+></dp-day-time-calendar> -->
+
+
+<dp-day-time-calendar
+  [(ngModel)]="_date"
+  dir="rtl"
+  theme="dp-material"
+  (onChange)="_onInlineChange($event)"
 ></dp-day-time-calendar>
+
+<dp-day-calendar
+  [(ngModel)]="_date"
+  dir="rtl"
+  theme="dp-material"
+  (onSelect)="_onInlineChange($event)"
+></dp-day-calendar>
+
+<dp-time-select
+  [(ngModel)]="_date"
+  dir="rtl"
+  theme="dp-material"
+  (onChange)="_onInlineChange($event)"
+></dp-time-select>

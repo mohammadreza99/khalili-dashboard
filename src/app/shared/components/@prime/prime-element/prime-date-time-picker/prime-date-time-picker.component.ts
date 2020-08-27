@@ -178,9 +178,10 @@ export class PrimeDateTimePickerComponent implements OnInit {
   }
 
   _onInlineChange(event) {
+    console.log('iiiiiiiiiiiiiiiiii');
     console.log(event);
   }
-  
+
   _onOpen() {
     this.onOpen.emit();
   }
