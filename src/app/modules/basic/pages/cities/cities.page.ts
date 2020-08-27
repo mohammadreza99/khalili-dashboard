@@ -109,6 +109,8 @@ export class CitiesPage implements OnInit {
 
   onCellValueChanged(event) {
     let updatedData: BaseCity = event.data;
+    console.log(updatedData);
+    updatedData.stateId=getByTitleCellRenderer(updatedData.stateId,this.availabeStates);
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
@@ -140,6 +142,13 @@ function getByIdCellRenderer(condtion: any, items: any) {
   let value;
   items.forEach((item) => {
     if (item.id == condtion) value = item.title;
+  });
+  return value;
+}
+function getByTitleCellRenderer(condtion: any, items: any) {
+  let value;
+  items.forEach((item) => {
+    if (item.title == condtion) value = item.id;
   });
   return value;
 }
