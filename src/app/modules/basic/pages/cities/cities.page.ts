@@ -49,6 +49,9 @@ export class CitiesPage implements OnInit {
         cellEditorParams: {
           values: this.availabeStates.map((state) => state.title),
         },
+        onCellValueChanged: (params) => {
+          console.log(params);
+        },
       },
       {
         field: 'isActive',
