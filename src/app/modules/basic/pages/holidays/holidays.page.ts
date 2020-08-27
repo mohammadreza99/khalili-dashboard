@@ -27,8 +27,8 @@ export class HolidaysPage implements OnInit {
       headerName: 'تاریخ',
       editable: true,
       cellEditor: 'datepickerEditor',
-      cellEditorParams: {
-        value: 'salam',
+      cellEditorParams: (data) => {
+        return { value : moment(data.value).format('jYYYY/jMM/jDD') };
       },
       // filter: 'agDateColumnFilter',
       // filterParams: {
@@ -47,7 +47,9 @@ export class HolidaysPage implements OnInit {
       // browserDatePicker: true,
       // },
       cellRenderer: (data) => {
-        return moment(data.value).format('jMM/jDD/jYYYY');
+
+
+        return moment(data.value).format('jYYYY/jMM/jDD');
       },
     },
     {

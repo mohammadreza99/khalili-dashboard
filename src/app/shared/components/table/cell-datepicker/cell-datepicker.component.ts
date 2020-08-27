@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { ICellEditorParams, IAfterGuiAttachedParams } from 'ag-grid-community';
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'cell-datepicker',
@@ -14,31 +15,18 @@ import { ICellEditorParams, IAfterGuiAttachedParams } from 'ag-grid-community';
   styleUrls: ['./cell-datepicker.component.scss'],
 })
 export class CellDatepickerComponent implements ICellEditorAngularComp {
-  private params: any;
+  params: any;
   public happy: boolean = false;
 
   agInit(params: any): void {
-    this.params = params;
-    console.log(params);
-
-    this.setHappy(params.value === 'Happy');
+    this.params = moment(params.value, 'YYYY/MM/DD').locale('fa');
   }
 
   getValue(): any {
-    return this.happy ? 'Happy' : 'Sad';
   }
 
   isPopup(): boolean {
     return true;
-  }
-
-  setHappy(happy: boolean): void {
-    this.happy = happy;
-  }
-
-  onClick(happy: boolean) {
-    this.setHappy(happy);
-    this.params.api.stopEditing();
   }
 
   onChange(event) {
