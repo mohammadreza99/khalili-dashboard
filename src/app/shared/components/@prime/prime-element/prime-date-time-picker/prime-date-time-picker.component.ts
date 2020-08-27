@@ -53,7 +53,7 @@ export class PrimeDateTimePickerComponent implements OnInit {
     showTwentyFourHours: true,
     showGoToCurrent: true,
     hideOnOutsideClick: true,
-    locale: moment.locale('en'),
+    locale: moment.locale('fa'),
   };
 
   _miladiMonths = [

@@ -5,7 +5,7 @@ import { BaseCity, BaseState } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
-import { SelectItem } from 'primeng';
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'cities',
@@ -17,35 +17,47 @@ export class CitiesPage implements OnInit {
 
   rowData$: Observable<BaseCity[]>;
   availabeStates: BaseState[];
-  columnDefs = [
-    {
-      field: 'title',
-      headerName: 'عنوان',
-    },
-    {
-      field: 'stateId',
-      headerName: 'استان',
-      cellRenderer: (params) => {return this.stateCellRenderer(params)},
-    },
-    {
-      field: 'isActive',
-      headerName: 'وضعیت',
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: ['فعال', 'غیرفعال'],
-      },
-      cellRenderer: this.activityCellRenderer,
-    },
-  ];
+  columnDefs: ColDef[];
 
   constructor(
     private basicService: BasicService,
     private dialogFormService: DialogFormService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.rowData$ = this.basicService.select<BaseCity>('City');
-    this.basicService.select<BaseState>('State').subscribe(states => this.availabeStates = states);
+    // this.
+    await this.basicService
+      .select<BaseState>('State')
+      .subscribe((states) => (this.availabeStates = states));
+    console.log(this.availabeStates);
+
+    this.columnDefs = [
+      {
+        field: 'title',
+        headerName: 'عنوان',
+      },
+      {
+        field: 'stateId',
+        headerName: 'استان',
+        cellRenderer: (params) => {
+          return this.stateCellRenderer(params);
+        },
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          value: this.availabeStates.map((state) => state.title),
+        },
+      },
+      {
+        field: 'isActive',
+        headerName: 'وضعیت',
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          values: ['فعال', 'غیرفعال'],
+        },
+        cellRenderer: this.activityCellRenderer,
+      },
+    ];
   }
 
   activityCellRenderer(params) {
@@ -121,7 +133,7 @@ function booleanCellRenderer(condtion: any) {
 function getByIdCellRenderer(condtion: any, items: any) {
   let value;
   items.forEach((item) => {
-   if(item.id==condtion) value=item.title;
+    if (item.id == condtion) value = item.title;
   });
   return value;
 }

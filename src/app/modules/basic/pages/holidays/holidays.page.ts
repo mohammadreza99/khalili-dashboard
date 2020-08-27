@@ -72,6 +72,8 @@ export class HolidaysPage implements OnInit {
     this.dialogFormService
       .show('افزودن تعطیلی', this.formConfig())
       .onClose.subscribe((holiday: BaseHoliday) => {
+        console.log(holiday);
+
         if (holiday)
           this.basicService
             .insert<BaseHoliday>('Holiday', holiday)
@@ -115,9 +117,9 @@ export class HolidaysPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseHoliday>('Holiday', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseHoliday>('Holiday', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

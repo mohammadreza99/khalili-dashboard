@@ -25,7 +25,8 @@ import { PrimeDatePickerMode } from '../../prime-type/prime-date-picker';
     },
   ],
 })
-export class PrimeInputDateTimePickerComponent extends PrimeInputBaseComponent
+export class PrimeInputDateTimePickerComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
   // constructor() { super() }
 
@@ -52,7 +53,7 @@ export class PrimeInputDateTimePickerComponent extends PrimeInputBaseComponent
   }
 
   _onChange(args) {
-    this.value = args.dateObj;
+    this.value = args;
     if (this.hasValueAccessor) this.controlOnChange(this.value);
     this.onChange.emit(this.value);
   }
