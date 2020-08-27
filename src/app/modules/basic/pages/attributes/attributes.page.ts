@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableComponent } from '@app/shared/components/table/table.component';
 import { Observable } from 'rxjs';
-import { BaseAttribute } from '../../model/basic.model';
+import { BaseAttribute, BaseAttachmentType } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
@@ -54,6 +54,8 @@ export class AttributesPage implements OnInit {
     },
   ];
 
+  availableFieldTypes: BaseAttributeType[];
+  availableFieldCategories: BaseAttachmentCategory[];
   constructor(
     private basicService: BasicService,
     private dialogFormService: DialogFormService
@@ -82,7 +84,7 @@ export class AttributesPage implements OnInit {
   addAttribute() {
     this.dialogFormService
       .show('افزودن فیلد', this.formConfig())
-      .onClose.subscribe((attribute: BaseAttribute) => {
+      .onClose.subscribe((attribute: any) => {
         if (attribute)
           this.basicService
             .insert<BaseAttribute>('Attribute', attribute)
@@ -106,7 +108,7 @@ export class AttributesPage implements OnInit {
           .deactivate('Attribute', updatedData)
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
-    } else{
+    } else {
       if (field == 'isRequired') {
         updatedData.isRequired = value === 'فعال' ? true : false;
       }
@@ -127,6 +129,28 @@ export class AttributesPage implements OnInit {
         labelWidth: 60,
         formControlName: 'title',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'dropdown',
+        label: 'دسته بندی',
+        labelWidth: 60,
+        dropdownItems: [{ label: '1', value: '1' }],
+        formControlName: 'category',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'dropdown',
+        label: 'نوع',
+        dropdownItems: [{ label: '1', value: '1' }],
+        labelWidth: 60,
+        formControlName: 'type',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'checkbox',
+        label: 'الزامی باشد',
+        labelWidth: 60,
+        formControlName: 'isRequired',
       },
     ];
     return config;

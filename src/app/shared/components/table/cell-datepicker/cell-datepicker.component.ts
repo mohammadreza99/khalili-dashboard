@@ -6,7 +6,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
-import { ICellEditorParams, IAfterGuiAttachedParams } from 'ag-grid-community';
 
 @Component({
   selector: 'cell-datepicker',
@@ -20,7 +19,6 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   agInit(params: any): void {
     this.params = params;
     console.log(params);
-
     this.setHappy(params.value === 'Happy');
   }
 

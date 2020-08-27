@@ -9,7 +9,7 @@ export type DialogFormConfig =
       readonly?: boolean;
       placeholder?: string;
       formControlName: string;
-      errors: PrimeError[];
+      errors?: PrimeError[];
       value?: any;
     }
   | {
@@ -19,7 +19,7 @@ export type DialogFormConfig =
       placeholder?: string;
       readonly?: boolean;
       formControlName: string;
-      errors: PrimeError[];
+      errors?: PrimeError[];
       dropdownItems: SelectItem[];
       value?: any;
     }
@@ -28,7 +28,7 @@ export type DialogFormConfig =
       label?: string;
       labelWidth?: number;
       formControlName: string;
-      errors: PrimeError[];
+      errors?: PrimeError[];
       value?: any;
       inline?: boolean;
     }
@@ -37,7 +37,7 @@ export type DialogFormConfig =
       label?: string;
       labelWidth?: number;
       formControlName: string;
-      errors: PrimeError[];
+      errors?: PrimeError[];
       value?: any;
     }
   | {
@@ -45,7 +45,15 @@ export type DialogFormConfig =
       label?: string;
       labelWidth?: number;
       formControlName: string;
-      errors: PrimeError[];
+      errors?: PrimeError[];
+      value?: any;
+    }
+  | {
+      type: 'checkbox';
+      label?: string;
+      labelWidth?: number;
+      formControlName: string;
+      errors?: PrimeError[];
       value?: any;
     }
   | {

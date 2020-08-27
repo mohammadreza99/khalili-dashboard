@@ -27,8 +27,8 @@ export class HolidaysPage implements OnInit {
       headerName: 'تاریخ',
       editable: true,
       cellEditor: 'datepickerEditor',
-      cellEditorParams: {
-        value: 'salam',
+      cellEditorParams: (params) => {
+        return { value: 'salam' };
       },
       // filter: 'agDateColumnFilter',
       // filterParams: {
