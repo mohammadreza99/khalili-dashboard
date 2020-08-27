@@ -72,12 +72,14 @@ export class HolidaysPage implements OnInit {
     this.dialogFormService
       .show('افزودن تعطیلی', this.formConfig())
       .onClose.subscribe((holiday: BaseHoliday) => {
-        console.log(holiday);
-
+        let holidayObj={
+          title:holiday.title,
+          date:holiday.date['dateObj'],
+        }
         if (holiday)
           this.basicService
-            .insert<BaseHoliday>('Holiday', holiday)
-            .subscribe((res) => this.table.addTransaction(holiday));
+            .insert<any>('Holiday', holidayObj)
+            .subscribe((res) => this.table.addTransaction(holidayObj));
       });
   }
 
