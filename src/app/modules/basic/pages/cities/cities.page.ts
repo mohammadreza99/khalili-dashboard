@@ -50,7 +50,7 @@ export class CitiesPage implements OnInit {
           values: this.availabeStates.map((state) => state.title),
         },
         onCellValueChanged: (params) => {
-          console.log(params);
+          params.data.stateId=getByTitleCellRenderer(params.data.stateId,this.availabeStates);
         },
       },
       {
@@ -112,7 +112,6 @@ export class CitiesPage implements OnInit {
 
   onCellValueChanged(event) {
     let updatedData: BaseCity = event.data;
-    updatedData.stateId=getByTitleCellRenderer(updatedData.stateId,this.availabeStates);
     let field: string = event.colDef.field;
     let value: string = event.value;
     if (field == 'isActive') {
