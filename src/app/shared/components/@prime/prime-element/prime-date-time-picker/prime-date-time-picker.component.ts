@@ -99,7 +99,10 @@ export class PrimeDateTimePickerComponent implements OnInit {
       this.config.openOnClick = false;
       this.config.openOnFocus = false;
     }
+
     setTimeout(() => {
+      console.log(moment());
+      console.log(this.date);
       if (this.date) this._date = this.date;
     }, 0);
   }
