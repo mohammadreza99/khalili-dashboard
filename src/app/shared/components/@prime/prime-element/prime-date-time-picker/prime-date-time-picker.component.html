@@ -48,12 +48,13 @@
 
 <dp-day-time-calendar
   [(ngModel)]="_date"
+  [config]="config"
   dir="rtl"
   theme="dp-material"
   (onChange)="_onInlineChange($event)"
 ></dp-day-time-calendar>
 
-<dp-day-calendar
+ <dp-day-calendar
   [(ngModel)]="_date"
   dir="rtl"
   theme="dp-material"
@@ -65,4 +66,4 @@
   dir="rtl"
   theme="dp-material"
   (onChange)="_onInlineChange($event)"
-></dp-time-select>
+></dp-time-select> 
