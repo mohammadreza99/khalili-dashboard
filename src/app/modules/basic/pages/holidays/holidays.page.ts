@@ -43,7 +43,7 @@ export class HolidaysPage implements OnInit {
       // browserDatePicker: true,
       // },
       cellRenderer: (data) => {
-        return moment(data.value).format('MM/DD/YYYY');
+        return moment(data.value).format('jMM/jDD/jYYYY');
       },
     },
     {
