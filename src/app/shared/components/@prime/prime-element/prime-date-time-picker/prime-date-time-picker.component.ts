@@ -5,8 +5,10 @@ import {
   Input,
   Output,
   EventEmitter,
+  AfterViewInit,
+  ViewChild,
 } from '@angular/core';
-import { IDatePickerConfig } from 'ng2-jalali-date-picker';
+import { IDatePickerConfig, DatePickerComponent } from 'ng2-jalali-date-picker';
 import * as moment from 'jalali-moment';
 
 import { PrimeDatePickerMode } from '../../prime-type/prime-date-picker';
@@ -19,7 +21,6 @@ import { PrimeDirection } from '../../prime-type/prime-direction';
 })
 export class PrimeDateTimePickerComponent implements OnInit {
   constructor(public el: ElementRef) {}
-
   @Input() datePickerMode: PrimeDatePickerMode = 'day';
   @Input() inline: boolean = false;
   @Input() disabled: boolean = false;
@@ -99,10 +100,7 @@ export class PrimeDateTimePickerComponent implements OnInit {
       this.config.openOnClick = false;
       this.config.openOnFocus = false;
     }
-
     setTimeout(() => {
-      console.log(moment());
-      console.log(this.date);
       if (this.date) this._date = this.date;
     }, 0);
   }
@@ -181,8 +179,7 @@ export class PrimeDateTimePickerComponent implements OnInit {
   }
 
   _onInlineChange(event) {
-    console.log('iiiiiiiiiiiiiiiiii');
-    console.log(event);
+    this.onChange.emit(event)
   }
 
   _onOpen() {

@@ -19,7 +19,7 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   public happy: boolean = false;
 
   agInit(params: any): void {
-    this.params = moment(params.value, 'YYYY/MM/DD').locale('fa');
+    this.params =moment(moment(params.value, 'jYYYY/jMM/jDD').format('jYYYY-jMM-jDD'));
   }
 
   getValue(): any {
@@ -30,7 +30,7 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   }
 
   onChange(event) {
-    console.log(event);
+
   }
 }
 

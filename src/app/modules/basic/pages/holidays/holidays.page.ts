@@ -28,7 +28,15 @@ export class HolidaysPage implements OnInit {
       editable: true,
       cellEditor: 'datepickerEditor',
       cellEditorParams: (data) => {
-        return { value : moment(data.value).format('jYYYY/jMM/jDD') };
+        return {
+          value : moment(data.value).format('jYYYY/jMM/jDD'),
+          onChange: (data) =>{
+            console.log(data);
+
+          }
+         };
+      },
+      onCellValueChanged: (params) => {
       },
       // filter: 'agDateColumnFilter',
       // filterParams: {
@@ -111,6 +119,8 @@ export class HolidaysPage implements OnInit {
   }
 
   onCellValueChanged(event) {
+    console.log(event);
+
     let updatedData: BaseHoliday = event.data;
     let field: string = event.colDef.field;
     let value: string = event.value;
