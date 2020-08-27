@@ -19,6 +19,8 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
 
   agInit(params: any): void {
     this.params = params;
+    console.log(params);
+
     this.setHappy(params.value === 'Happy');
   }
 
