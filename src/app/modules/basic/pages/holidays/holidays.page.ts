@@ -29,34 +29,24 @@ export class HolidaysPage implements OnInit {
       cellEditor: 'datepickerEditor',
       cellEditorParams: (data) => {
         return {
-          value : moment(data.value).format('jYYYY/jMM/jDD'),
-          onChange: (data) =>{
-            console.log(data);
-
+          onChange: (params) => {
+            const holiday: BaseHoliday = {
+              id: params.rowData.id,
+              date: params.selectedDate,
+              isActive: params.rowData.isActive,
+              title: params.rowData.title,
+            };
+            this.basicService
+            .update<BaseHoliday>('Holiday', holiday)
+            .subscribe(() => this.table.updateTransaction(holiday));
           }
-         };
+        };
       },
-      onCellValueChanged: (params) => {
-      },
-      // filter: 'agDateColumnFilter',
-      // filterParams: {
-      // comparator: (filterLocalDateAtMidnight, cellValue) => {
-      //   var cellDate = new Date(cellValue);
-      //   if (filterLocalDateAtMidnight.getTime() == cellDate.getTime()) {
-      //     return 0;
-      //   }
-      //   if (cellDate < filterLocalDateAtMidnight) {
-      //     return -1;
-      //   }
-      //   if (cellDate > filterLocalDateAtMidnight) {
-      //     return 1;
-      //   }
-      // },
-      // browserDatePicker: true,
-      // },
       cellRenderer: (data) => {
-
-
+        if (data && data.value.selectedDate) {
+          console.log(data.value.selectedDate);
+          return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
+        }
         return moment(data.value).format('jYYYY/jMM/jDD');
       },
     },
@@ -119,8 +109,6 @@ export class HolidaysPage implements OnInit {
   }
 
   onCellValueChanged(event) {
-    console.log(event);
-
     let updatedData: BaseHoliday = event.data;
     let field: string = event.colDef.field;
     let value: string = event.value;

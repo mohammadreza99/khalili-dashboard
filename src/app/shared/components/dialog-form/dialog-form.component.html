@@ -48,6 +48,12 @@
         [formControlName]="item.formControlName"
         [errors]="item.errors"
       ></prm-input-editor>
+      <prm-input-checkbox-single
+        *ngSwitchCase="'checkbox'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [formControl]="form.get(item.formControlName)"
+      ></prm-input-checkbox-single>
     </div>
   </ng-container>
   <div class="d-flex justify-content-end">

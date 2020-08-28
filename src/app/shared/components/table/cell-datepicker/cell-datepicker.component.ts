@@ -16,13 +16,19 @@ import * as moment from 'jalali-moment';
 })
 export class CellDatepickerComponent implements ICellEditorAngularComp {
   params: any;
-  public happy: boolean = false;
-
+  a = {};
+  value;
   agInit(params: any): void {
-    this.params =moment(moment(params.value, 'jYYYY/jMM/jDD').format('jYYYY-jMM-jDD'));
+    this.params = params;
+    // this.value = moment(
+    //   moment(params.value, 'jYYYY/jMM/jDD').format('jYYYY-jMM-jDD')
+    // );
+    // console.log(this.params);
+    // console.log(this.value);
   }
 
   getValue(): any {
+    return this.a;
   }
 
   isPopup(): boolean {
@@ -30,7 +36,11 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   }
 
   onChange(event) {
-
+    this.a={
+      selectedDate: event.date._d,
+      rowData: this.params.data,
+    }
+    this.params.onChange(this.a);
   }
 }
 
