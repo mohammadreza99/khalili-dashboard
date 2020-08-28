@@ -36,18 +36,20 @@ export class ShippingHoursPage implements OnInit {
             // this.basicService
             // .update<BaseHoliday>('Holiday', holiday)
             // .subscribe(() => this.table.updateTransaction(holiday));
-          }
+          },
         };
       },
       cellRenderer: (params) => {
-        return params.data.startTime.minute + ' : ' + params.data.startTime.hour ;
+        return (
+          params.data.startTime.minute + ' : ' + params.data.startTime.hour
+        );
       },
     },
     {
       field: 'endTime',
       headerName: 'ساعت پایان',
       cellRenderer: (params) => {
-        return params.data.endTime.minute + ' : ' + params.data.endTime.hour ;
+        return params.data.endTime.minute + ' : ' + params.data.endTime.hour;
       },
     },
     {
@@ -82,19 +84,30 @@ export class ShippingHoursPage implements OnInit {
     this.dialogFormService
       .show('افزودن ساعت تحویل', this.formConfig())
       .onClose.subscribe((shippingHour: BaseShippingHour) => {
-        shippingHour.endTime=new Date(2020,0,1, shippingHour.endTime['hour'], shippingHour.endTime['minute'])
-        shippingHour.startTime=new Date(2020,0,1, shippingHour.startTime['hour'], shippingHour.startTime['minute'])
+        shippingHour.endTime = new Date(
+          2020,
+          0,
+          1,
+          shippingHour.endTime['hour'],
+          shippingHour.endTime['minute']
+        );
+        shippingHour.startTime = new Date(
+          2020,
+          0,
+          1,
+          shippingHour.startTime['hour'],
+          shippingHour.startTime['minute']
+        );
         console.log(shippingHour);
         if (shippingHour)
           this.basicService
             .insert<BaseShippingHour>('ShippingHour', shippingHour)
             .subscribe((res) => {
               console.log(res);
-              this.table.addTransaction(shippingHour)
+              this.table.addTransaction(shippingHour);
             });
       });
   }
-
 
   formConfig(): DialogFormConfig[] {
     return [

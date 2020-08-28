@@ -21,9 +21,13 @@ export class AttributesPage implements OnInit {
 
   rowData$: Observable<BaseAttribute[]>;
   columnDefs: ColDef[];
+
   availableAttributeTypes: BaseAttributeType[];
   availableAttributeCategories: BaseAttributeCategory[];
+
   showAttributeValueDialog = false;
+  attributeType: string;
+  attributeValue: any;
 
   constructor(
     private basicService: BasicService,
@@ -179,10 +183,10 @@ export class AttributesPage implements OnInit {
 
   onActionClick(event) {
     this.showAttributeValueDialog = true;
-    // this.dialogFormService.show(
-    //   'افزودن مقدار اولیه فیلد',
-    //   this.addFieldFormConfig('')
-    // );
+    this.attributeType = this.availableAttributeTypes.find(
+      (a) => a.id == event.rowData.attributeTypeId
+    ).title;
+    this.attributeValue = event
   }
 
   formConfig(): DialogFormConfig[] {
@@ -238,13 +242,6 @@ export class AttributesPage implements OnInit {
       },
     ];
     return config;
-  }
-
-  addFieldFormConfig(fieldType: string): DialogFormConfig[] {
-    switch (fieldType) {
-      case '':
-        return [];
-    }
   }
 }
 

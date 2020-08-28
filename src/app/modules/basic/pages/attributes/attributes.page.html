@@ -26,7 +26,17 @@
   [blockScroll]="true"
   [style]="{width:'800px'}"
 >
-  Content
+  <div [ngSwitch]="attributeType">
+    <div *ngSwitchCase="'Text'">
+      
+    </div>
+    <div *ngSwitchCase="'Text Area'">output</div>
+    <div *ngSwitchCase="'Number'">output</div>
+    <div *ngSwitchCase="'Date'">output</div>
+    <div *ngSwitchCase="'Select'">output</div>
+    <div *ngSwitchCase="'Multi Select'">output</div>
+    <div *ngSwitchCase="'Checkbox'">output</div>
+  </div>
   <p-footer>
     <prm-button label="ثبت" color="success"></prm-button>
     <prm-button label="انصراف" color="danger"></prm-button>
