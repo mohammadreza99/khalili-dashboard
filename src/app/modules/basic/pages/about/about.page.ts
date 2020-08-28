@@ -54,18 +54,22 @@ export class AboutPage implements OnInit {
   formConfig(value?: SiteAbout): DialogFormConfig[] {
     return [
       {
+        type: 'hidden',
+        value: value?.id,
+      },
+      {
         type: 'editor',
         label: 'متن درباره ما',
         labelWidth: 100,
         formControlName: 'description',
-        value: value.description,
+        value: value?.description,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
         label: 'متن کوتاه',
         labelWidth: 100,
-        value: value.shortDescription,
+        value: value?.shortDescription,
         formControlName: 'shortDescription',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },

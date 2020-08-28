@@ -19,10 +19,12 @@ export class TermsPage implements OnInit {
     {
       field: 'title',
       headerName: 'عنوان',
+      editable: false,
     },
     {
       field: 'description',
       headerName: 'توضیحات',
+      editable: false,
     },
     {
       field: 'isActive',
@@ -50,7 +52,7 @@ export class TermsPage implements OnInit {
 
   addTerms() {
     this.dialogFormService
-      .show('افزودن مقررات', this.formConfig())
+      .show('افزودن مقررات', this.formConfig(), '1000px')
       .onClose.subscribe((terms: SiteTerms) => {
         if (terms)
           this.basicService
@@ -59,20 +61,22 @@ export class TermsPage implements OnInit {
       });
   }
 
-  formConfig(): DialogFormConfig[] {
+  formConfig(value?: SiteTerms): DialogFormConfig[] {
     return [
       {
         type: 'text',
         label: 'عنوان',
         labelWidth: 60,
         formControlName: 'title',
+        value: value.title,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'text',
+        type: 'editor',
         label: 'توضیحات',
         labelWidth: 60,
         formControlName: 'description',
+        value: value.description,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
     ] as DialogFormConfig[];
@@ -95,9 +99,26 @@ export class TermsPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<SiteTerms>('Terms', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<SiteTerms>('Terms', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
+  }
+
+  onActionClick(event) {
+    const data = event.rowData as SiteTerms;
+    switch (event.action) {
+      case 'update':
+        this.dialogFormService
+          .show('ویرایش حریم شخصی', this.formConfig(data), '1500px')
+          .onClose.subscribe((terms: SiteTerms) => {
+            this.basicService
+              .update<SiteTerms>('Terms', terms)
+              .subscribe((res) => {
+                this.table.updateTransaction(terms);
+              });
+          });
+        break;
+    }
   }
 }
 

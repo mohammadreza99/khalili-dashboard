@@ -32,8 +32,10 @@ p-sidebar {
     width: $sidenav-width;
     overflow: auto;
     margin-top: $navbar-responsive-height;
+    background-color: #f4f4f4;
     @media (min-width: 768px) {
       margin-top: $navbar-height;
+      height: calc(100% - #{$navbar-height});
     }
   }
 }

@@ -50,7 +50,10 @@ export class CitiesPage implements OnInit {
           values: this.availabeStates.map((state) => state.title),
         },
         onCellValueChanged: (params) => {
-          params.data.stateId=getByTitleCellRenderer(params.data.stateId,this.availabeStates);
+          params.data.stateId = getByTitleCellRenderer(
+            params.data.stateId,
+            this.availabeStates
+          );
         },
       },
       {
