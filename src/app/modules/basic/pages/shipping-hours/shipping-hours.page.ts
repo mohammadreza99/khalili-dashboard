@@ -27,6 +27,8 @@ export class ShippingHoursPage implements OnInit {
       cellEditorParams: (data) => {
         return {
           onChange: (params) => {
+            console.log(params);
+
             // const holiday: BaseHoliday = {
             //   id: params.rowData.id,
             //   date: params.selectedDate,
@@ -40,16 +42,14 @@ export class ShippingHoursPage implements OnInit {
         };
       },
       cellRenderer: (params) => {
-        return (
-          params.data.startTime.minute + ' : ' + params.data.startTime.hour
-        );
+        return params.value;
       },
     },
     {
       field: 'endTime',
       headerName: 'ساعت پایان',
       cellRenderer: (params) => {
-        return params.data.endTime.minute + ' : ' + params.data.endTime.hour;
+        return params.value;
       },
     },
     {
@@ -84,31 +84,39 @@ export class ShippingHoursPage implements OnInit {
     this.dialogFormService
       .show('افزودن ساعت تحویل', this.formConfig())
       .onClose.subscribe((shippingHour: BaseShippingHour) => {
-        shippingHour.endTime = new Date(
-          2020,
-          0,
-          1,
-          shippingHour.endTime['hour'],
-          shippingHour.endTime['minute']
-        );
-        shippingHour.startTime = new Date(
-          2020,
-          0,
-          1,
-          shippingHour.startTime['hour'],
-          shippingHour.startTime['minute']
-        );
-        console.log(shippingHour);
-        console.log({a:new Date()});
-
+        let _shippingHour = this.getTime(shippingHour);
         if (shippingHour)
           this.basicService
-            .insert<BaseShippingHour>('ShippingHour', shippingHour)
+            .insert<any>('ShippingHour', _shippingHour)
             .subscribe((res) => {
-              console.log(res);
-              this.table.addTransaction(shippingHour);
+              this.table.addTransaction(_shippingHour);
             });
       });
+  }
+
+  getTime(shippingHour) {
+    let endH =
+      shippingHour.endTime['hour'] < 10
+        ? '0' + shippingHour.endTime['hour']
+        : shippingHour.endTime['hour'];
+    let endM =
+      shippingHour.endTime['minute'] < 10
+        ? '0' + shippingHour.endTime['minute']
+        : shippingHour.endTime['minute'];
+    let startH =
+      shippingHour.startTime['hour'] < 10
+        ? '0' + shippingHour.startTime['hour']
+        : shippingHour.startTime['hour'];
+    let startM =
+      shippingHour.startTime['minute'] < 10
+        ? '0' + shippingHour.startTime['minute']
+        : shippingHour.startTime['minute'];
+    return {
+      maxOrder: shippingHour.maxOrder,
+      title: shippingHour.title,
+      startTime: `${startH}:${startM}:00`,
+      endTime: `${endH}:${endM}:00`,
+    };
   }
 
   formConfig(): DialogFormConfig[] {
