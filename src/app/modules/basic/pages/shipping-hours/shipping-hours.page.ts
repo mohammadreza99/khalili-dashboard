@@ -85,6 +85,8 @@ export class ShippingHoursPage implements OnInit {
         shippingHour.endTime=new Date(2020,0,1, shippingHour.endTime['hour'], shippingHour.endTime['minute'])
         shippingHour.startTime=new Date(2020,0,1, shippingHour.startTime['hour'], shippingHour.startTime['minute'])
         console.log(shippingHour);
+        console.log({a:new Date()});
+
         if (shippingHour)
           this.basicService
             .insert<BaseShippingHour>('ShippingHour', shippingHour)
@@ -94,7 +96,6 @@ export class ShippingHoursPage implements OnInit {
             });
       });
   }
-
 
   formConfig(): DialogFormConfig[] {
     return [
