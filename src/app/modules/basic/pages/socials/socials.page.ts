@@ -25,10 +25,6 @@ export class SocialsPage implements OnInit {
       headerName: 'لینک',
     },
     {
-      field: 'icon',
-      headerName: 'آیکن',
-    },
-    {
       field: 'alt',
       headerName: 'alt',
     },
@@ -85,19 +81,35 @@ export class SocialsPage implements OnInit {
       },
       {
         type: 'text',
-        label: 'آیکن',
-        labelWidth: 60,
-        formControlName: 'icon',
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
-      },
-      {
-        type: 'text',
         label: 'alt',
         labelWidth: 60,
         formControlName: 'alt',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'image-picker',
+        label: 'عکس',
+        labelWidth: 60,
+        formControlName: 'icon',
+      },
     ] as DialogFormConfig[];
+  }
+
+  onImageSelect(event) {
+    const s: SiteSocialMedia = {
+      id: event.rowData.id,
+      title: event.rowData.title,
+      insertDate: event.rowData.insertDate,
+      userId: event.rowData.userId,
+      isActive: event.rowData.isActive,
+      icon: event.file,
+      alt: event.rowData.alt,
+      link: event.rowData.link,
+    };
+
+    this.basicService
+      .update<SiteSocialMedia>('SocialMedia', s)
+      .subscribe(() => this.table.updateTransaction(s));
   }
 
   onCellValueChanged(event) {
@@ -117,9 +129,9 @@ export class SocialsPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<SiteSocialMedia>('SocialMedia', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<SiteSocialMedia>('SocialMedia', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

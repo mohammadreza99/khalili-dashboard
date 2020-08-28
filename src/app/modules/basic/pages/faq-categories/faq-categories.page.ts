@@ -74,8 +74,6 @@ export class FaqCategoriesPage implements OnInit {
   }
 
   onImageSelect(event) {
-    console.log(event);
-
     const f: SiteFAQCategory = {
       id: event.rowData.id,
       title: event.rowData.title,

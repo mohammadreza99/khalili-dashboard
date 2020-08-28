@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableComponent } from '@app/shared/components/table/table.component';
 import { Observable } from 'rxjs';
-import { BaseAttribute, BaseAttributeCategory } from '../../model/basic.model';
+import {
+  BaseAttribute,
+  BaseAttributeCategory,
+  BaseAttributeType,
+} from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
@@ -17,9 +21,9 @@ export class AttributesPage implements OnInit {
 
   rowData$: Observable<BaseAttribute[]>;
   columnDefs: ColDef[];
-
-  availableAttributeTypes: any[];
+  availableAttributeTypes: BaseAttributeType[];
   availableAttributeCategories: BaseAttributeCategory[];
+  showAttributeValueDialog = false;
 
   constructor(
     private basicService: BasicService,
@@ -35,6 +39,9 @@ export class AttributesPage implements OnInit {
     this.availableAttributeCategories = await this.basicService
       .select<BaseAttributeCategory>('AttributeCategory')
       .toPromise();
+    this.availableAttributeTypes = await this.basicService
+      .select<BaseAttributeType>('AttributeType')
+      .toPromise();
     this.columnDefs = [
       {
         field: 'title',
@@ -48,7 +55,7 @@ export class AttributesPage implements OnInit {
         },
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
-          values: this.availableAttributeCategories.map((state) => state.title),
+          values: this.availableAttributeCategories.map((c) => c.title),
         },
         onCellValueChanged: (params) => {
           params.data.attributeCategoryId = getByTitleCellRenderer(
@@ -60,6 +67,19 @@ export class AttributesPage implements OnInit {
       {
         field: 'attributeTypeId',
         headerName: 'نوع فیلد',
+        cellRenderer: (params) => {
+          return this.attributeTypeCellRenderer(params);
+        },
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          values: this.availableAttributeTypes.map((t) => t.title),
+        },
+        onCellValueChanged: (params) => {
+          params.data.attributeTypeId = getByTitleCellRenderer(
+            params.data.attributeTypeId,
+            this.availableAttributeTypes
+          );
+        },
       },
       {
         field: 'isActive',
@@ -89,6 +109,13 @@ export class AttributesPage implements OnInit {
         cellRenderer: this.systemicCellRenderer,
       },
     ];
+  }
+
+  attributeTypeCellRenderer(params) {
+    return getByIdCellRenderer(
+      params.data.attributeTypeId,
+      this.availableAttributeTypes
+    );
   }
 
   attributeCategoryCellRenderer(params) {
@@ -150,6 +177,14 @@ export class AttributesPage implements OnInit {
     }
   }
 
+  onActionClick(event) {
+    this.showAttributeValueDialog = true;
+    // this.dialogFormService.show(
+    //   'افزودن مقدار اولیه فیلد',
+    //   this.addFieldFormConfig('')
+    // );
+  }
+
   formConfig(): DialogFormConfig[] {
     const config: DialogFormConfig[] = [
       {
@@ -177,7 +212,12 @@ export class AttributesPage implements OnInit {
       {
         type: 'dropdown',
         label: 'نوع',
-        dropdownItems: [{ label: '1', value: '1' }],
+        dropdownItems: this.availableAttributeTypes.map((attributeType) => {
+          return {
+            label: attributeType.title,
+            value: attributeType.id,
+          };
+        }),
         labelWidth: 60,
         formControlName: 'attributeTypeId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -198,6 +238,13 @@ export class AttributesPage implements OnInit {
       },
     ];
     return config;
+  }
+
+  addFieldFormConfig(fieldType: string): DialogFormConfig[] {
+    switch (fieldType) {
+      case '':
+        return [];
+    }
   }
 }
 

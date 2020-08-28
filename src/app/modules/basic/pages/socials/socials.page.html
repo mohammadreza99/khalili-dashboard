@@ -9,6 +9,8 @@
   <ag-table
     [rowData]="rowData$ | async"
     [columnDefs]="columnDefs"
+    [imagesConfig]="[{headerName:'عکس',field:'icon'}]"
     (cellValueChanged)="onCellValueChanged($event)"
+    (imageSelect)="onImageSelect($event)"
   ></ag-table>
 </page-container>

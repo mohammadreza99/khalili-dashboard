@@ -1,4 +1,4 @@
-<page-container title="فیلدها">
+<page-container title="فیلدها" *ngIf="columnDefs">
   <prm-button
     label="افزودن"
     icon="fa fa-plus"
@@ -9,6 +9,26 @@
   <ag-table
     [rowData]="rowData$ | async"
     [columnDefs]="columnDefs"
+    [actionsConfig]="[{
+      headerName: 'افزودن مقدار اولیه',
+      icon: 'fa fa-plus'
+    }]"
+    (actionClick)="onActionClick($event)"
     (cellValueChanged)="onCellValueChanged($event)"
   ></ag-table>
 </page-container>
+
+<p-dialog
+  header="ویرایش مقادیر اولیه"
+  [(visible)]="showAttributeValueDialog"
+  [modal]="true"
+  [draggable]="false"
+  [blockScroll]="true"
+  [style]="{width:'800px'}"
+>
+  Content
+  <p-footer>
+    <prm-button label="ثبت" color="success"></prm-button>
+    <prm-button label="انصراف" color="danger"></prm-button>
+  </p-footer>
+</p-dialog>
