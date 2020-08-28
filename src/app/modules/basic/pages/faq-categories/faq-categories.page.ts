@@ -21,10 +21,6 @@ export class FaqCategoriesPage implements OnInit {
       headerName: 'عنوان',
     },
     {
-      field: 'keyMedia',
-      headerName: 'keyMedia',
-    },
-    {
       field: 'isActive',
       headerName: 'وضعیت',
       cellEditor: 'agSelectCellEditor',
@@ -69,13 +65,29 @@ export class FaqCategoriesPage implements OnInit {
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'text',
-        label: 'keyMedia',
+        type: 'image-picker',
+        label: 'عکس',
         labelWidth: 60,
         formControlName: 'keyMedia',
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
     ] as DialogFormConfig[];
+  }
+
+  onImageSelect(event) {
+    console.log(event);
+
+    const f: SiteFAQCategory = {
+      id: event.rowData.id,
+      title: event.rowData.title,
+      insertDate: event.rowData.insertDate,
+      userId: event.rowData.userId,
+      isActive: event.rowData.isActive,
+      keyMedia: event.file,
+    };
+
+    this.basicService
+      .update<SiteFAQCategory>('FAQCategory', f)
+      .subscribe(() => this.table.updateTransaction(f));
   }
 
   onCellValueChanged(event) {
@@ -95,9 +107,9 @@ export class FaqCategoriesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<SiteFAQCategory>('FAQCategory', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<SiteFAQCategory>('FAQCategory', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

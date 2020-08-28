@@ -41,6 +41,14 @@ export type DialogFormConfig =
       value?: any;
     }
   | {
+      type: 'image-picker';
+      label?: string;
+      labelWidth?: number;
+      formControlName: string;
+      errors?: PrimeError[];
+      value?: any;
+    }
+  | {
       type: 'editor';
       label?: string;
       labelWidth?: number;

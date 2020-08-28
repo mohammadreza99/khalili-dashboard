@@ -101,8 +101,6 @@ export class PrimeDateTimePickerComponent implements OnInit {
     }
 
     setTimeout(() => {
-      console.log(moment());
-      console.log(this.date);
       if (this.date) this._date = this.date;
     }, 0);
   }
@@ -181,8 +179,7 @@ export class PrimeDateTimePickerComponent implements OnInit {
   }
 
   _onInlineChange(event) {
-    console.log('iiiiiiiiiiiiiiiiii');
-    console.log(event);
+    
   }
 
   _onOpen() {

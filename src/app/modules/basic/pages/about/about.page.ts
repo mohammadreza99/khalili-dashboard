@@ -56,6 +56,7 @@ export class AboutPage implements OnInit {
       {
         type: 'hidden',
         value: value?.id,
+        formControlName: 'id',
       },
       {
         type: 'editor',

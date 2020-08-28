@@ -8,8 +8,6 @@ import { DataService } from '@app/services/data.service';
   styleUrls: ['./cell-image.component.scss'],
 })
 export class CellImageComponent implements ICellRendererAngularComp, OnInit {
-  constructor(private dataService: DataService) {}
-
   params: any;
   imageToShow;
   field: string;
@@ -27,29 +25,18 @@ export class CellImageComponent implements ICellRendererAngularComp, OnInit {
 
   onSelectImage(event: any) {
     const file: File = event.target.files[0];
-    this.createImageFromBlob(file);
-    const params = {
-      field: this.field,
-      event,
-      file,
-      rowData: this.params.node.data,
-    };
-    this.params.onSelect(params);
-  }
-
-  getImage(imageUrl: string) {
-    const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl, headers);
-  }
-
-  createImageFromBlob(image: Blob) {
     const reader = new FileReader();
+    reader.readAsDataURL(file);
     reader.onload = () => {
       this.imageToShow = reader.result;
+      const params = {
+        field: this.field,
+        event,
+        file: this.imageToShow,
+        rowData: this.params.node.data,
+      };
+      this.params.onSelect(params);
     };
-    if (image) {
-      reader.readAsDataURL(image);
-    }
   }
 
   ngOnInit() {

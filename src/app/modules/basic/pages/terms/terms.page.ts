@@ -64,6 +64,11 @@ export class TermsPage implements OnInit {
   formConfig(value?: SiteTerms): DialogFormConfig[] {
     return [
       {
+        type: 'hidden',
+        value: value?.id,
+        formControlName: 'id',
+      },
+      {
         type: 'text',
         label: 'عنوان',
         labelWidth: 60,

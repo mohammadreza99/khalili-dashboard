@@ -28,27 +28,12 @@ export class HolidaysPage implements OnInit {
       editable: true,
       cellEditor: 'datepickerEditor',
       cellEditorParams: (data) => {
-        return { value : moment(data.value).format('jYYYY/jMM/jDD') };
+        return { value: moment(data.value).format('jYYYY/jMM/jDD') };
       },
-      // filter: 'agDateColumnFilter',
-      // filterParams: {
-      // comparator: (filterLocalDateAtMidnight, cellValue) => {
-      //   var cellDate = new Date(cellValue);
-      //   if (filterLocalDateAtMidnight.getTime() == cellDate.getTime()) {
-      //     return 0;
-      //   }
-      //   if (cellDate < filterLocalDateAtMidnight) {
-      //     return -1;
-      //   }
-      //   if (cellDate > filterLocalDateAtMidnight) {
-      //     return 1;
-      //   }
-      // },
-      // browserDatePicker: true,
-      // },
       cellRenderer: (data) => {
-
-
+        if (data && data.value.salam) {
+          console.log('hiciday : ',  data.value.salam);
+        }
         return moment(data.value).format('jYYYY/jMM/jDD');
       },
     },

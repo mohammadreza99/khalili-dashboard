@@ -114,8 +114,6 @@ export class AttributesPage implements OnInit {
     this.dialogFormService
       .show('افزودن فیلد', this.formConfig())
       .onClose.subscribe((attribute: any) => {
-        console.log(attribute);
-
         if (attribute)
           this.basicService
             .insert<BaseAttribute>('Attribute', attribute)

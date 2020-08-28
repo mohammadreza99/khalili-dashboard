@@ -64,6 +64,11 @@ export class PrivacyPage implements OnInit {
   formConfig(value?: SitePrivacy): DialogFormConfig[] {
     return [
       {
+        type: 'hidden',
+        value: value?.id,
+        formControlName: 'id',
+      },
+      {
         type: 'text',
         label: 'عنوان',
         labelWidth: 60,
@@ -111,8 +116,6 @@ export class PrivacyPage implements OnInit {
         this.dialogFormService
           .show('ویرایش حریم شخصی', this.formConfig(data), '1500px')
           .onClose.subscribe((privacy: SitePrivacy) => {
-            console.log(privacy);
-
             this.basicService
               .update<SitePrivacy>('Privacy', privacy)
               .subscribe((res) => {

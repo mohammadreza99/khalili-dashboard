@@ -23,15 +23,14 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   }
 
   getValue(): any {
+    return { salam: 'salam' };
   }
 
   isPopup(): boolean {
     return true;
   }
 
-  onChange(event) {
-    console.log(event);
-  }
+  onChange(event) {}
 }
 
 // getValue() {
