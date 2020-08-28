@@ -10,5 +10,12 @@
     [rowData]="rowData$ | async"
     [columnDefs]="columnDefs"
     (cellValueChanged)="onCellValueChanged($event)"
+    [actionsConfig]="[{
+      action: 'update',
+      icon: 'fa fa-pen',
+      color: 'primary',
+      headerName: 'ویرایش'
+    }]"
+    (actionClick)="onActionClick($event)"
   ></ag-table>
 </page-container>

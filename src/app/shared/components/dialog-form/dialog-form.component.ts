@@ -43,6 +43,12 @@ export class DialogFormComponent implements OnInit {
           this.form.controls[item.formControlName].setValidators(validators);
         }
       }
+      if (item.type == 'dropdown') {
+        (item.dropdownItems as Array<any>).unshift({
+          label: 'انتخاب کنید',
+          value: null,
+        });
+      }
       if (item.value) this.form.get(item.formControlName).setValue(item.value);
     }
   }

@@ -19,10 +19,12 @@ export class PrivacyPage implements OnInit {
     {
       field: 'title',
       headerName: 'عنوان',
+      editable: false,
     },
     {
       field: 'description',
       headerName: 'توضیحات',
+      editable: false,
     },
     {
       field: 'isActive',
@@ -50,7 +52,7 @@ export class PrivacyPage implements OnInit {
 
   addPrivacy() {
     this.dialogFormService
-      .show('افزودن حریم شخصی', this.formConfig())
+      .show('افزودن حریم شخصی', this.formConfig(), '1000px')
       .onClose.subscribe((privacy: SitePrivacy) => {
         if (privacy)
           this.basicService
@@ -59,7 +61,7 @@ export class PrivacyPage implements OnInit {
       });
   }
 
-  formConfig(): DialogFormConfig[] {
+  formConfig(value?: SitePrivacy): DialogFormConfig[] {
     return [
       {
         type: 'text',
@@ -67,11 +69,13 @@ export class PrivacyPage implements OnInit {
         labelWidth: 60,
         formControlName: 'title',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+        value: value.title,
       },
       {
-        type: 'text',
+        type: 'editor',
         label: 'توضیحات',
         labelWidth: 60,
+        value: value.description,
         formControlName: 'description',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
@@ -95,9 +99,28 @@ export class PrivacyPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<SitePrivacy>('Privacy', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<SitePrivacy>('Privacy', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
+  }
+
+  onActionClick(event) {
+    const data = event.rowData as SitePrivacy;
+    switch (event.action) {
+      case 'update':
+        this.dialogFormService
+          .show('ویرایش حریم شخصی', this.formConfig(data), '1500px')
+          .onClose.subscribe((privacy: SitePrivacy) => {
+            console.log(privacy);
+
+            this.basicService
+              .update<SitePrivacy>('Privacy', privacy)
+              .subscribe((res) => {
+                this.table.updateTransaction(privacy);
+              });
+          });
+        break;
+    }
   }
 }
 
