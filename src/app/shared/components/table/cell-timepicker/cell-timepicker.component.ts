@@ -5,20 +5,22 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 import * as moment from 'jalali-moment';
 
 @Component({
-  selector: 'cell-datepicker',
-  templateUrl: './cell-datepicker.component.html',
-  styleUrls: ['./cell-datepicker.component.scss'],
+  selector: 'cell-timepicker',
+  templateUrl: './cell-timepicker.component.html',
+  styleUrls: ['./cell-timepicker.component.scss'],
 })
-export class CellDatepickerComponent implements ICellEditorAngularComp {
+export class CellTimepickerComponent implements ICellEditorAngularComp {
   params: any;
-  date= {};
+  time= {};
   value;
   agInit(params: any): void {
     this.params = params;
   }
 
   getValue(): any {
-    return this.date;
+    console.log(this.time);
+
+    return this.time;
   }
 
   isPopup(): boolean {
@@ -26,11 +28,11 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   }
 
   onChange(event) {
-    this.date={
+    this.time={
       selectedDate: event.date._d,
       rowData: this.params.data,
     }
-    this.params.onChange(this.date);
+    this.params.onChange(this.time);
   }
 }
 

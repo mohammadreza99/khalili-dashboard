@@ -41,6 +41,14 @@
         [formControlName]="item.formControlName"
         [errors]="item.errors"
       ></prm-input-date-time-picker>
+      <prm-input-date-time-picker
+        *ngSwitchCase="'time-picker'"
+        [datePickerMode]="'time'"
+        [label]="item.label ? item.label : ''"
+        [labelWidth]="item.labelWidth"
+        [formControlName]="item.formControlName"
+        [errors]="item.errors"
+      ></prm-input-date-time-picker>
       <ag-single-image-picker
         *ngSwitchCase="'image-picker'"
         [label]="item.label ? item.label : ''"

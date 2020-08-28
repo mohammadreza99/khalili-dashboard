@@ -23,10 +23,32 @@ export class ShippingHoursPage implements OnInit {
     {
       field: 'startTime',
       headerName: 'ساعت شروع',
+      cellEditor: 'timepickerEditor',
+      cellEditorParams: (data) => {
+        return {
+          onChange: (params) => {
+            // const holiday: BaseHoliday = {
+            //   id: params.rowData.id,
+            //   date: params.selectedDate,
+            //   isActive: params.rowData.isActive,
+            //   title: params.rowData.title,
+            // };
+            // this.basicService
+            // .update<BaseHoliday>('Holiday', holiday)
+            // .subscribe(() => this.table.updateTransaction(holiday));
+          }
+        };
+      },
+      cellRenderer: (params) => {
+        return params.data.startTime.minute + ' : ' + params.data.startTime.hour ;
+      },
     },
     {
       field: 'endTime',
       headerName: 'ساعت پایان',
+      cellRenderer: (params) => {
+        return params.data.endTime.minute + ' : ' + params.data.endTime.hour ;
+      },
     },
     {
       field: 'maxOrder',
@@ -60,12 +82,19 @@ export class ShippingHoursPage implements OnInit {
     this.dialogFormService
       .show('افزودن ساعت تحویل', this.formConfig())
       .onClose.subscribe((shippingHour: BaseShippingHour) => {
+        shippingHour.endTime=new Date(2020,0,1, shippingHour.endTime['hour'], shippingHour.endTime['minute'])
+        shippingHour.startTime=new Date(2020,0,1, shippingHour.startTime['hour'], shippingHour.startTime['minute'])
+        console.log(shippingHour);
         if (shippingHour)
           this.basicService
             .insert<BaseShippingHour>('ShippingHour', shippingHour)
-            .subscribe((res) => this.table.addTransaction(shippingHour));
+            .subscribe((res) => {
+              console.log(res);
+              this.table.addTransaction(shippingHour)
+            });
       });
   }
+
 
   formConfig(): DialogFormConfig[] {
     return [
@@ -77,14 +106,14 @@ export class ShippingHoursPage implements OnInit {
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'date-picker',
+        type: 'time-picker',
         label: 'ساعت شروع',
         labelWidth: 60,
         formControlName: 'startTime',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'date-picker',
+        type: 'time-picker',
         label: 'ساعت پایان',
         labelWidth: 60,
         formControlName: 'endTime',
@@ -117,9 +146,9 @@ export class ShippingHoursPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseShippingHour>('ShippingHour', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseShippingHour>('ShippingHour', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 
