@@ -43,6 +43,11 @@ export class BaseAttributeValue {
   isActive: boolean;
 }
 
+export class BaseAttributeType {
+  id: Object;
+  title: string;
+}
+
 export class BaseJob {
   id: Object;
   title: string;
