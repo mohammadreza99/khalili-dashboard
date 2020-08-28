@@ -13,6 +13,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CellButtonComponent } from './components/table/cell-button/cell-button.component';
 import { CellImageComponent } from './components/table/cell-image/cell-image.component';
 import { CellDatepickerComponent } from './components/table/cell-datepicker/cell-datepicker.component';
+import { CellTimepickerComponent } from './components/table/cell-timepicker/cell-timepicker.component';
 
 @NgModule({
   declarations: [...COMPONENTS],
@@ -25,6 +26,7 @@ import { CellDatepickerComponent } from './components/table/cell-datepicker/cell
       CellButtonComponent,
       CellImageComponent,
       CellDatepickerComponent,
+      CellTimepickerComponent
     ]),
     PrimeModule.forRoot(),
   ],

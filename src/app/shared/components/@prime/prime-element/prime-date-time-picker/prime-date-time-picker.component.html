@@ -1,4 +1,4 @@
-<!-- <input
+<input
   [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
   [ngClass]="{
     'ui-rtl rtl': layout == 'rtl',
@@ -35,34 +35,29 @@
   [ngClass]="{ disabled: disabled }"
   class="fal fa-1x fa-times position-absolute border rounded-circle d-flex justify-content-center align-items-center bg-light text-muted"
 ></i>
-<dp-day-time-calendar
-  *ngIf="inline"
-  [config]="config"
-  [(ngModel)]="_date"
-  dir="rtl"
-  theme="dp-material"
-  (onChange)="_onInlineChange($event)"
-  [mode]="datePickerMode"
-></dp-day-time-calendar> -->
+<ng-container *ngIf="inline">
+  <dp-day-time-calendar
+    *ngIf="datePickerMode == 'daytime'"
+    [(ngModel)]="_date"
+    [config]="config"
+    dir="rtl"
+    theme="dp-material"
+    (onChange)="_onInlineChange($event)"
+  ></dp-day-time-calendar>
 
-<dp-day-time-calendar
-  [(ngModel)]="_date"
-  [config]="config"
-  dir="rtl"
-  theme="dp-material"
-  (onChange)="_onInlineChange($event)"
-></dp-day-time-calendar>
+  <dp-day-calendar
+    *ngIf="datePickerMode == 'day'"
+    [(ngModel)]="_date"
+    dir="rtl"
+    theme="dp-material"
+    (onSelect)="_onInlineChange($event)"
+  ></dp-day-calendar>
 
-<!-- <dp-day-calendar
-  [(ngModel)]="_date"
-  dir="rtl"
-  theme="dp-material"
-  (onSelect)="_onInlineChange($event)"
-></dp-day-calendar> -->
-
-<!-- <dp-time-select
-  [(ngModel)]="_date"
-  dir="rtl"
-  theme="dp-material"
-  (onChange)="_onInlineChange($event)"
-></dp-time-select> -->
+  <dp-time-select
+    *ngIf="datePickerMode == 'time'"
+    [(ngModel)]="_date"
+    dir="rtl"
+    theme="dp-material"
+    (onChange)="_onInlineChange($event)"
+  ></dp-time-select>
+</ng-container>
