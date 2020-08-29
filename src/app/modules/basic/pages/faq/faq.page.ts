@@ -37,12 +37,16 @@ export class FaqPage implements OnInit {
 
     this.columnDefs = [
       {
-        field: 'title',
+        field: 'FAQ',
         headerName: 'عنوان',
       },
       {
+        field: 'answer',
+        headerName: 'پاسخ',
+      },
+      {
         field: 'FAQCategoryId',
-        headerName: 'استان',
+        headerName: 'دسته بندی',
         cellRenderer: (params) => {
           return this.FAQCategoryCellRenderer(params);
         },
@@ -94,8 +98,21 @@ export class FaqPage implements OnInit {
         type: 'text',
         label: 'عنوان',
         labelWidth: 60,
-        formControlName: 'title',
+        formControlName: 'FAQ',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'text',
+        label: 'پاسخ',
+        labelWidth: 60,
+        formControlName: 'answer',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'image-picker',
+        label: 'تصویر',
+        labelWidth: 60,
+        formControlName: 'keyMedia',
       },
       {
         type: 'dropdown',

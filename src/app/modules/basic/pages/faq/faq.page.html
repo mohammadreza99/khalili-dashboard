@@ -8,6 +8,7 @@
   </prm-button>
   <ag-table
     [rowData]="rowData$ | async"
+    [imagesConfig]="[{headerName:'عکس',field:'keyMedia'}]"
     [columnDefs]="columnDefs"
     (cellValueChanged)="onCellValueChanged($event)"
   ></ag-table>
