@@ -159,8 +159,8 @@ export class SiteFAQCategory {
 }
 export class SiteFAQ {
   id: Object;
-  FAQCategoryId?: number;
-  FAQ: string;
+  fAQCategoryId?: number;
+  fAQ: string;
   answer: string;
   keyMedia: string;
   userId: Object;

@@ -37,7 +37,7 @@ export class FaqPage implements OnInit {
 
     this.columnDefs = [
       {
-        field: 'FAQ',
+        field: 'fAQ',
         headerName: 'عنوان',
       },
       {
@@ -45,7 +45,7 @@ export class FaqPage implements OnInit {
         headerName: 'پاسخ',
       },
       {
-        field: 'FAQCategoryId',
+        field: 'fAQCategoryId',
         headerName: 'دسته بندی',
         cellRenderer: (params) => {
           return this.FAQCategoryCellRenderer(params);
@@ -55,8 +55,8 @@ export class FaqPage implements OnInit {
           values: this.availabeFAQCategory.map((FAQCategory) => FAQCategory.title),
         },
         onCellValueChanged: (params) => {
-          params.data.FAQCategoryId = getByTitleCellRenderer(
-            params.data.FAQCategoryId,
+          params.data.fAQCategoryId = getByTitleCellRenderer(
+            params.data.fAQCategoryId,
             this.availabeFAQCategory
           );
         },
@@ -78,7 +78,7 @@ export class FaqPage implements OnInit {
   }
 
   FAQCategoryCellRenderer(params) {
-    return getByIdCellRenderer(params.data.FAQCategoryId, this.availabeFAQCategory);
+    return getByIdCellRenderer(params.data.fAQCategoryId, this.availabeFAQCategory);
   }
 
   addFAQ() {
@@ -121,7 +121,7 @@ export class FaqPage implements OnInit {
         }),
         label: 'دسته بندی',
         labelWidth: 60,
-        formControlName: 'FAQCategoryId',
+        formControlName: 'fAQCategoryId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
     ] as DialogFormConfig[];
