@@ -1,0 +1,7 @@
+<page-container title="حریم شخصی">
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    (cellValueChanged)="onCellValueChanged($event)"
+  ></ag-table>
+</page-container>

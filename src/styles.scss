@@ -4,3 +4,12 @@
 .ag-theme-alpine {
   @include ag-theme-alpine();
 }
+
+.ui-submenu-list {
+  margin-left: 0 !important;
+  margin-right: 1.5rem !important;
+}
+
+.ui-panelmenu-icon.pi-caret-right:before {
+  content: "\e904" !important;
+}

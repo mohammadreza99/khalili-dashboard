@@ -5,6 +5,7 @@ import {
   BaseAttribute,
   BaseAttributeCategory,
   BaseAttributeType,
+  BaseAttributeValue,
 } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
@@ -24,8 +25,10 @@ export class AttributesPage implements OnInit {
 
   availableAttributeTypes: BaseAttributeType[];
   availableAttributeCategories: BaseAttributeCategory[];
+  availableAttributeValues: BaseAttributeValue[];
 
   showAttributeValueDialog = false;
+  attribute: BaseAttribute;
   attributeType: string;
   attributeValue: any;
 
@@ -45,6 +48,9 @@ export class AttributesPage implements OnInit {
       .toPromise();
     this.availableAttributeTypes = await this.basicService
       .select<BaseAttributeType>('AttributeType')
+      .toPromise();
+    this.availableAttributeValues = await this.basicService
+      .select<BaseAttributeValue>('AttributeValue')
       .toPromise();
     this.columnDefs = [
       {
@@ -182,11 +188,25 @@ export class AttributesPage implements OnInit {
   }
 
   onActionClick(event) {
+    this.attribute = event.rowData as BaseAttribute;
     this.showAttributeValueDialog = true;
     this.attributeType = this.availableAttributeTypes.find(
       (a) => a.id == event.rowData.attributeTypeId
     ).title;
-    this.attributeValue = event
+    this.attributeValue = this.availableAttributeValues.find(
+      (a) => a.attributeId == event.rowData.id
+    );
+  }
+
+  submitAttributeValue() {
+    const attributeValue = {
+      attributeId: this.attribute.id,
+      value: this.attributeValue,
+    } as BaseAttributeValue;
+    this.showAttributeValueDialog = false;
+    this.basicService
+      .insert<BaseAttributeValue>('AttributeValue', attributeValue)
+      .subscribe();
   }
 
   formConfig(): DialogFormConfig[] {
