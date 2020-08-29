@@ -106,7 +106,7 @@ export class DistrictsPage implements OnInit {
       {
         type: 'hidden',
         value: true,
-        formControlName: 'isACtive',
+        formControlName: 'isActive',
       },
     ] as DialogFormConfig[];
   }

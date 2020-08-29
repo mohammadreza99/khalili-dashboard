@@ -78,7 +78,7 @@ export class InsurancesPage implements OnInit {
       {
         type: 'hidden',
         value: true,
-        formControlName: 'isACtive',
+        formControlName: 'isActive',
       },
     ];
   }

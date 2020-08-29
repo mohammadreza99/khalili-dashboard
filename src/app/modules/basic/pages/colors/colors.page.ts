@@ -81,7 +81,7 @@ export class ColorsPage implements OnInit {
       {
         type: 'hidden',
         value: true,
-        formControlName: 'isACtive',
+        formControlName: 'isActive',
       },
     ];
   }

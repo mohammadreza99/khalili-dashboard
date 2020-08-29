@@ -95,7 +95,7 @@ export class SocialsPage implements OnInit {
       {
         type: 'hidden',
         value: true,
-        formControlName: 'isACtive',
+        formControlName: 'isActive',
       },
     ] as DialogFormConfig[];
   }
