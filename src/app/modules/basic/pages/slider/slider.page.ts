@@ -5,7 +5,7 @@ import { SiteSlider } from '../../model/basic.model';
 import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
-
+import * as moment from 'jalali-moment';
 @Component({
   selector: 'slider',
   templateUrl: './slider.page.html',
@@ -23,6 +23,32 @@ export class SliderPage implements OnInit {
     {
       field: 'expireDateTime',
       headerName: 'انقضا',
+      editable: true,
+      cellEditor: 'datepickerEditor',
+      cellEditorParams: (data) => {
+        return {
+          onChange: (params) => {
+            const slider: SiteSlider = {
+              id: params.rowData.id,
+              expireDateTime: params.selectedDate,
+              isActive: params.rowData.isActive,
+              alt: params.rowData.alt,
+              userId: params.rowData.userId,
+              insertDate:params.rowData.insertDate,
+              keyMedia:params.rowData.keyMedia
+            };
+            this.basicService
+            .update<SiteSlider>('Slider', slider)
+            .subscribe(() => this.table.updateTransaction(slider));
+          }
+        };
+      },
+      cellRenderer: (data) => {
+        if (data && data?.value?.selectedDate) {
+          return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
+        }
+        return moment(data.value).format('jYYYY/jMM/jDD');
+      },
     },
     {
       field: 'isActive',
@@ -48,10 +74,15 @@ export class SliderPage implements OnInit {
     this.dialogFormService
       .show('افزودن اسلایدر', this.formConfig())
       .onClose.subscribe((slider: SiteSlider) => {
+        let sliderObj = {
+          alt: slider.alt,
+          keyMedia: slider.keyMedia,
+          expireDateTime: slider.expireDateTime['dateObj'],
+        };
         if (slider)
           this.basicService
-            .insert<SiteSlider>('Slider', slider)
-            .subscribe((res) => this.table.addTransaction(slider));
+            .insert<any>('Slider', sliderObj)
+            .subscribe((res) => this.table.addTransaction(sliderObj));
       });
   }
 
@@ -125,7 +156,7 @@ export class SliderPage implements OnInit {
 }
 
 function booleanCellRenderer(condtion: any) {
-  return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-slider:${
+  return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-color:${
     condtion ? 'green' : 'red'
   }"></div> <span>${condtion ? 'فعال' : 'غیرفعال'}</span></div>`;
 }
