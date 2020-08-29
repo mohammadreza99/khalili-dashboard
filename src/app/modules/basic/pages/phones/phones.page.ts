@@ -82,6 +82,11 @@ export class PhonesPage implements OnInit {
         formControlName: 'telShow',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

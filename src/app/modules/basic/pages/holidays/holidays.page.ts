@@ -104,6 +104,11 @@ export class HolidaysPage implements OnInit {
         formControlName: 'date',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

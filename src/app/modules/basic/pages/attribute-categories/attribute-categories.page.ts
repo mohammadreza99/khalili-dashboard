@@ -69,6 +69,11 @@ export class AttributeCategoriesPage implements OnInit {
         formControlName: 'title',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ];
   }
 

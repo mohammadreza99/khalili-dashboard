@@ -70,6 +70,11 @@ export class FaqCategoriesPage implements OnInit {
         labelWidth: 60,
         formControlName: 'keyMedia',
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

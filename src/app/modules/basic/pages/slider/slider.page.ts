@@ -12,7 +12,7 @@ import * as moment from 'jalali-moment';
   styleUrls: ['./slider.page.scss'],
 })
 export class SliderPage implements OnInit {
-  @ViewChild(TableComponent, { static: true }) table: TableComponent;
+  @ViewChild(TableComponent, { static: false }) table: TableComponent;
 
   rowData$: Observable<SiteSlider[]>;
   columnDefs = [

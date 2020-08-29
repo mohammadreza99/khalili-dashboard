@@ -106,6 +106,11 @@ export class CitiesPage implements OnInit {
         formControlName: 'stateId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

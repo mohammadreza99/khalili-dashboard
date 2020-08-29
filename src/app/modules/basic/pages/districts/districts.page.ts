@@ -103,6 +103,11 @@ export class DistrictsPage implements OnInit {
         formControlName: 'cityId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

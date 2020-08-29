@@ -75,6 +75,11 @@ export class WarrantiesPage implements OnInit {
         formControlName: 'month',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ];
   }
 

@@ -124,6 +124,11 @@ export class FaqPage implements OnInit {
         formControlName: 'fAQCategoryId',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

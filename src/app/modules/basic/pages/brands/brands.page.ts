@@ -98,6 +98,11 @@ export class BrandsPage implements OnInit {
         formControlName: 'isOrginal',
         value: true,
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

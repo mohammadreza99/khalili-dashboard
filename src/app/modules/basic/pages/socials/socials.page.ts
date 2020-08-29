@@ -92,6 +92,11 @@ export class SocialsPage implements OnInit {
         labelWidth: 60,
         formControlName: 'icon',
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ] as DialogFormConfig[];
   }
 

@@ -9,7 +9,7 @@
   <ag-table
     [rowData]="rowData$ | async"
     [columnDefs]="columnDefs"
-    [imageConfig]="[{field:'keyMedia',headerName:'عکس'}]"
+    [imagesConfig]="[{field:'keyMedia',headerName:'عکس'}]"
     (cellValueChanged)="onCellValueChanged($event)"
     (imageSelect)="onImageSelect($event)"
   ></ag-table>

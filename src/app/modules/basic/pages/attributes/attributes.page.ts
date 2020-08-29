@@ -260,6 +260,11 @@ export class AttributesPage implements OnInit {
         value: true,
         formControlName: 'isSystem',
       },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
+      },
     ];
     return config;
   }

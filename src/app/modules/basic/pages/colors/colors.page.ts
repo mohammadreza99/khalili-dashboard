@@ -40,7 +40,7 @@ export class ColorsPage implements OnInit {
     private basicService: BasicService,
     private dialogFormService: DialogFormService
   ) {}
-  
+
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseColor>('Color');
@@ -77,6 +77,11 @@ export class ColorsPage implements OnInit {
         value: '000000',
         formControlName: 'code',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+      },
+      {
+        type: 'hidden',
+        value: true,
+        formControlName: 'isACtive',
       },
     ];
   }
