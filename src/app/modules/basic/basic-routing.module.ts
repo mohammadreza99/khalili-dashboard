@@ -23,6 +23,8 @@ import { PrivacyPage } from './pages/privacy/privacy.page';
 import { PhonesPage } from './pages/phones/phones.page';
 import { FaqPage } from './pages/faq/faq.page';
 import { FaqCategoriesPage } from './pages/faq-categories/faq-categories.page';
+import { SliderPage } from './pages/slider/slider.page';
+import { MainSettingPage } from './pages/main-setting/main-setting.page';
 
 const routes: Routes = [
   {
@@ -139,6 +141,16 @@ const routes: Routes = [
     path: 'socials',
     data: { title: 'about' },
     component: SocialsPage,
+  },
+  {
+    path: 'slider',
+    data: { title: 'about' },
+    component: SliderPage,
+  },
+  {
+    path: 'main-setting',
+    data: { title: 'about' },
+    component: MainSettingPage,
   },
 ];
 

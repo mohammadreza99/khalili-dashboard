@@ -21,6 +21,8 @@ import { FaqCategoriesPage } from './pages/faq-categories/faq-categories.page';
 import { FaqPage } from './pages/faq/faq.page';
 import { TermsPage } from './pages/terms/terms.page';
 import { PrivacyPage } from './pages/privacy/privacy.page';
+import { SliderPage } from './pages/slider/slider.page';
+import { MainSettingPage } from './pages/main-setting/main-setting.page';
 
 export const COMPONENTS = [
   ColorsPage,
@@ -46,4 +48,6 @@ export const COMPONENTS = [
   FaqPage,
   TermsPage,
   PrivacyPage,
+  SliderPage,
+  MainSettingPage,
 ];

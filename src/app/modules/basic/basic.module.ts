@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { COMPONENTS } from '.';
 import { BasicRoutingModule } from './basic-routing.module';
 
+
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],

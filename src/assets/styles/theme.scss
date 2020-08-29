@@ -16,7 +16,7 @@ $themes: (
     //   bg-500: $color11,
     //   text-color: $color12,
     //   icon-color: $color13,
-    //   input-placeholder: $color14,,,,,
+    //   input-placeholder: $color14,,,,,,,
   ),
   dark: (
     activation-primary-100: $primary-100,
@@ -90,8 +90,8 @@ $themes: (
       sidenav-menu {
         background-color: $bg-500 !important;
         color: map-get($theme-name, text-color);
-
         .ui-panelmenu {
+
           &-header {
             &.ui-state-active > a {
               background-color: map-get(

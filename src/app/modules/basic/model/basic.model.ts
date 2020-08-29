@@ -29,7 +29,7 @@ export class BaseAttribute {
   id: Object;
   attributeCategoryId: number;
   title: string;
-  attributeTypeId: number;
+  attributeTypeId: Object;
   isRequired: boolean;
   isSystem: boolean;
   isActive: boolean;
@@ -37,7 +37,7 @@ export class BaseAttribute {
 
 export class BaseAttributeValue {
   id: Object;
-  attributeId: number;
+  attributeId: Object;
   parentId: number;
   value: string;
   isActive: boolean;
@@ -168,6 +168,25 @@ export class SiteTerms {
 }
 
 export class SitePrivacy {
+  id: Object;
+  title: string;
+  description: string;
+  userId: Object;
+  isActive: boolean;
+  insertDate: Date;
+}
+
+export class SiteSlider {
+  id: Object;
+  alt: string;
+  keyMedia: string;
+  expireDateTime: Date;
+  userId: Object;
+  isActive: boolean;
+  insertDate: Date;
+}
+
+export class SiteMainPage {
   id: Object;
   title: string;
   description: string;
