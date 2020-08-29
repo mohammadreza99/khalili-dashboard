@@ -11,15 +11,14 @@ import * as moment from 'jalali-moment';
 })
 export class CellTimepickerComponent implements ICellEditorAngularComp {
   params: any;
-  time= {};
+  time;
   value;
   agInit(params: any): void {
     this.params = params;
+    this.value=moment(new Date("2020-02-02T"+params.value));
   }
 
   getValue(): any {
-    console.log(this.time);
-
     return this.time;
   }
 
@@ -28,10 +27,10 @@ export class CellTimepickerComponent implements ICellEditorAngularComp {
   }
 
   onChange(event) {
-    this.time={
-      selectedDate: event.date._d,
-      rowData: this.params.data,
-    }
+
+    let hour=(event.date._d as Date).getHours() <10 ? '0'+(event.date._d as Date).getHours() : (event.date._d as Date).getHours();
+    let min=(event.date._d as Date).getMinutes() <10 ? '0'+(event.date._d as Date).getMinutes() : (event.date._d as Date).getMinutes();
+    this.time= `${hour}:${min}:00`
     this.params.onChange(this.time);
   }
 }

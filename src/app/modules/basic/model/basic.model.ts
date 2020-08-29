@@ -157,6 +157,16 @@ export class SiteFAQCategory {
   isActive: boolean;
   insertDate: Date;
 }
+export class SiteFAQ {
+  id: Object;
+  FAQCategoryId?: number;
+  FAQ: string;
+  answer: string;
+  keyMedia: string;
+  userId: Object;
+  isActive: boolean;
+  insertDate: Date;
+}
 
 export class SiteTerms {
   id: Object;
