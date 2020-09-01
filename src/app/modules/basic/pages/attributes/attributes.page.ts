@@ -188,6 +188,57 @@ export class AttributesPage implements OnInit {
   }
 
   onActionClick(event) {
+    // switch (this.attributeType) {
+    //   case 'Text':
+    //   case 'Text Area':
+    //   case 'Number':
+    //     this.dialogFormService
+    //       .show('ثبت مقدار اولیه', [
+    //         {
+    //           type: 'text',
+    //           value: '',
+    //           formControlName: '',
+    //         },
+    //       ])
+    //       .onClose.subscribe((value) => {});
+    //     break;
+    //   case 'Date':
+    //     this.dialogFormService
+    //       .show('ثبت مقدار اولیه', [
+    //         {
+    //           type: 'date-picker',
+    //           value: '',
+    //           formControlName: '',
+    //         },
+    //       ])
+    //       .onClose.subscribe((value) => {});
+    //     break;
+    //   case 'Checkbox':
+    //     this.dialogFormService
+    //       .show('ثبت مقدار اولیه', [
+    //         {
+    //           type: 'checkbox',
+    //           label: '',
+    //           value: [],
+    //           formControlName: '',
+    //         },
+    //       ])
+    //       .onClose.subscribe((value) => {});
+    //     break;
+    //   case 'Select':
+    //   case 'Multi Select':
+    //     this.dialogFormService
+    //       .show('ثبت مقدار اولیه', [
+    //         {
+    //           type: 'tags',
+    //           field: 'title',
+    //           value: [],
+    //           formControlName: '',
+    //         },
+    //       ])
+    //       .onClose.subscribe((value) => {});
+    //     break;
+    // }
     this.showAttributeValueDialog = true;
     this.attribute = event.rowData as BaseAttribute;
     this.attributeType = this.availableAttributeTypes.find(
