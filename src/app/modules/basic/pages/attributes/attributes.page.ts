@@ -188,14 +188,14 @@ export class AttributesPage implements OnInit {
   }
 
   onActionClick(event) {
-    this.attribute = event.rowData as BaseAttribute;
     this.showAttributeValueDialog = true;
+    this.attribute = event.rowData as BaseAttribute;
     this.attributeType = this.availableAttributeTypes.find(
       (a) => a.id == event.rowData.attributeTypeId
     ).title;
     this.attributeValue = this.availableAttributeValues.find(
       (a) => a.attributeId == event.rowData.id
-    );
+    ).value;
   }
 
   submitAttributeValue() {
@@ -250,14 +250,12 @@ export class AttributesPage implements OnInit {
         type: 'checkbox',
         label: 'الزامی باشد',
         labelWidth: 60,
-        value: true,
         formControlName: 'isRequired',
       },
       {
         type: 'checkbox',
         label: 'سیستمی باشد',
         labelWidth: 60,
-        value: true,
         formControlName: 'isSystem',
       },
       {

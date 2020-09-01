@@ -1,4 +1,13 @@
-import { Component, OnInit, forwardRef, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  forwardRef,
+  AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Chips } from 'primeng';
 
@@ -12,13 +21,13 @@ import { PrimeInputBaseComponent } from '../prime-input-base/prime-input-base.co
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PrimeInputTagsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class PrimeInputTagsComponent extends PrimeInputBaseComponent
+export class PrimeInputTagsComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
-
   // constructor() { super() }
 
   @Input() max: number;
@@ -30,7 +39,7 @@ export class PrimeInputTagsComponent extends PrimeInputBaseComponent
   @Output() onAdd = new EventEmitter();
   @Output() onRemove = new EventEmitter();
   @Output() onTagClick = new EventEmitter();
-  @ViewChild("floatChips", { static: false }) floatChips: Chips;
+  @ViewChild('floatChips', { static: false }) floatChips: Chips;
 
   innerInput: any;
 
@@ -60,7 +69,7 @@ export class PrimeInputTagsComponent extends PrimeInputBaseComponent
   }
 
   __onBlur() {
-    if (this.innerInput && this.innerInput.value == "") this._onBlur();
+    if (this.innerInput && this.innerInput.value == '') this._onBlur();
     else {
       if (this.hasValueAccessor) this.controlOnTouched();
       this.onBlur.emit();
