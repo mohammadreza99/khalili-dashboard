@@ -65,6 +65,15 @@ export type DialogFormConfig =
       value?: any;
     }
   | {
+      type: 'tags';
+      label?: string;
+      field: string;
+      labelWidth?: number;
+      formControlName: string;
+      errors?: PrimeError[];
+      value?: any;
+    }
+  | {
       type: 'hidden';
       formControlName: string;
       value?: any;
