@@ -13,10 +13,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
-import { DashboardPage } from './main/dashboard/dashboard.page';
 
 @NgModule({
-  declarations: [AppComponent, HomePage, LoginPage, DashboardPage],
+  declarations: [AppComponent, HomePage, LoginPage],
   imports: [
     CommonModule,
     SharedModule,

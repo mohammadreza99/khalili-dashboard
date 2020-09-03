@@ -5,7 +5,7 @@ import {
   EventEmitter,
   ViewContainerRef,
 } from '@angular/core';
-import { MenuItem, ConfirmationService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { PrimeConfirmService } from '../@prime/prime-service/prime-confirm.service';
 
@@ -20,7 +20,7 @@ export class NavbarMenuComponent implements OnInit {
   accountItems: MenuItem[] = [
     {
       label: 'خروج',
-      icon: 'fad fa-book',
+      icon: 'pi pi-sign-out',
       command: (event) => {
         this.confirmService
           .show(

@@ -2,14 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './main/login/login.page';
 import { HomePage } from './main/home/home.page';
-import { DashboardPage } from './main/dashboard/dashboard.page';
-
-
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: '/base/colors',
     pathMatch: 'full',
   },
   {
@@ -22,9 +19,9 @@ const routes: Routes = [
     component: HomePage,
     children: [
       {
-        path: 'dashboard',
-        data: { title: 'dashboard' },
-        component: DashboardPage,
+        path: 'base',
+        loadChildren: () =>
+          import('@app/modules/basic/basic.module').then((m) => m.BasicModule),
       },
       {
         path: 'product',
@@ -33,11 +30,6 @@ const routes: Routes = [
           import('@app/modules/product/product.module').then(
             (m) => m.ProductModule
           ),
-      },
-      {
-        path: 'base',
-        loadChildren: () =>
-          import('@app/modules/basic/basic.module').then((m) => m.BasicModule),
       },
     ],
   },
