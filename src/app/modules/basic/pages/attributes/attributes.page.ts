@@ -11,7 +11,7 @@ import { BasicService } from '../../business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import { ColDef } from 'ag-grid-community';
-
+import * as moment from 'jalali-moment';
 @Component({
   selector: 'attributes',
   templateUrl: './attributes.page.html',
@@ -48,9 +48,6 @@ export class AttributesPage implements OnInit {
       .toPromise();
     this.availableAttributeTypes = await this.basicService
       .select<BaseAttributeType>('AttributeType')
-      .toPromise();
-    this.availableAttributeValues = await this.basicService
-      .select<BaseAttributeValue>('AttributeValue')
       .toPromise();
     this.columnDefs = [
       {
@@ -186,79 +183,93 @@ export class AttributesPage implements OnInit {
         .subscribe(() => this.table.updateTransaction(updatedData));
     }
   }
-
-  onActionClick(event) {
-    // switch (this.attributeType) {
-    //   case 'Text':
-    //   case 'Text Area':
-    //   case 'Number':
-    //     this.dialogFormService
-    //       .show('ثبت مقدار اولیه', [
-    //         {
-    //           type: 'text',
-    //           value: '',
-    //           formControlName: '',
-    //         },
-    //       ])
-    //       .onClose.subscribe((value) => {});
-    //     break;
-    //   case 'Date':
-    //     this.dialogFormService
-    //       .show('ثبت مقدار اولیه', [
-    //         {
-    //           type: 'date-picker',
-    //           value: '',
-    //           formControlName: '',
-    //         },
-    //       ])
-    //       .onClose.subscribe((value) => {});
-    //     break;
-    //   case 'Checkbox':
-    //     this.dialogFormService
-    //       .show('ثبت مقدار اولیه', [
-    //         {
-    //           type: 'checkbox',
-    //           label: '',
-    //           value: [],
-    //           formControlName: '',
-    //         },
-    //       ])
-    //       .onClose.subscribe((value) => {});
-    //     break;
-    //   case 'Select':
-    //   case 'Multi Select':
-    //     this.dialogFormService
-    //       .show('ثبت مقدار اولیه', [
-    //         {
-    //           type: 'tags',
-    //           field: 'title',
-    //           value: [],
-    //           formControlName: '',
-    //         },
-    //       ])
-    //       .onClose.subscribe((value) => {});
-    //     break;
-    // }
-    this.showAttributeValueDialog = true;
+    
+  async onActionClick(event) {
+    this.availableAttributeValues = await this.basicService
+    .select<BaseAttributeValue>('AttributeValue')
+    .toPromise();
     this.attribute = event.rowData as BaseAttribute;
     this.attributeType = this.availableAttributeTypes.find(
       (a) => a.id == event.rowData.attributeTypeId
     ).title;
-    this.attributeValue = this.availableAttributeValues.find(
+    this.attributeValue = this.availableAttributeValues.filter(
       (a) => a.attributeId == event.rowData.id
-    ).value;
+    );
+    switch (this.attributeType) {
+      case 'Text':
+      case 'Text Area':
+      case 'Number':
+        this.dialogFormService
+          .show('ثبت مقدار اولیه', [
+            {
+              type: 'text',
+              value: this.attributeValue[0]?.value,
+              formControlName: 'attributeValue',
+            },
+          ])
+          .onClose.subscribe((value) => {
+            if(value) this.onChangeAttributeValue(value.attributeValue);
+          });
+        break;
+      case 'Date':
+        this.dialogFormService
+          .show('ثبت مقدار اولیه', [
+            {
+              type: 'date-picker',
+              value: moment(this.attributeValue[0]?.value,'jYYYY-jMM-jDD'),
+              formControlName: 'attributeValue',
+            },
+          ])
+          .onClose.subscribe((value) => {
+            if(value?.attributeValue){
+              let date=value.attributeValue.year+'/'+value.attributeValue.month+'/'+value.attributeValue.day;
+              this.onChangeAttributeValue(date);
+            } 
+          });
+        break;
+      case 'Checkbox':
+      case 'Select':
+      case 'Multi Select':
+        this.showAttributeValueDialog = true;
+        break;
+    }
   }
 
-  submitAttributeValue() {
+  onChangeAttributeValue(value){
     const attributeValue = {
       attributeId: this.attribute.id,
-      value: this.attributeValue,
+      value: value,
     } as BaseAttributeValue;
-    this.showAttributeValueDialog = false;
+    if(this.attributeValue.length==0)
+    this.basicService
+    .insert<BaseAttributeValue>('AttributeValue', attributeValue)
+    .subscribe();
+    else{
+      attributeValue.id=this.attributeValue[0].id;
+      this.basicService
+      .update<BaseAttributeValue>('AttributeValue', attributeValue)
+      .subscribe();
+    }
+  }
+
+  onRemoveTag(args){
+    let attributeValue=this.attributeValue.find(a => a.value == args.deletedTag);
+    // this.basicService
+    // .insert<BaseAttributeValue>('AttributeValue', attributeValue)
+    // .subscribe();
+  }
+
+  onAddTag(args){
+    const attributeValue = {
+      attributeId: this.attribute.id,
+      value: args.addedTag,
+    } as BaseAttributeValue;
     this.basicService
       .insert<BaseAttributeValue>('AttributeValue', attributeValue)
       .subscribe();
+
   }
+
 
   formConfig(): DialogFormConfig[] {
     const config: DialogFormConfig[] = [

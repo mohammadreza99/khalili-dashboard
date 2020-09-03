@@ -26,27 +26,12 @@
   [blockScroll]="true"
   [style]="{width:'800px'}"
 >
-  <div [ngSwitch]="attributeType">
-    <div *ngSwitchCase="'Text'">
-      <prm-input-text [(ngModel)]="attributeValue"></prm-input-text>
-    </div>
-    <div *ngSwitchCase="'Text Area'">{{attributeValue}}</div>
-    <div *ngSwitchCase="'Number'">{{attributeValue}}</div>
-    <div *ngSwitchCase="'Date'">{{attributeValue}}</div>
-    <div *ngSwitchCase="'Select'">{{attributeValue}}</div>
-    <div *ngSwitchCase="'Multi Select'">{{attributeValue}}</div>
-    <div *ngSwitchCase="'Checkbox'">{{attributeValue}}</div>
+  <div>
+    <prm-input-tags
+      [value]="attributeValue"
+      [field]="'value'"
+      (onRemove)="onRemoveTag($event)"
+      (onAdd)="onAddTag($event)"
+    ></prm-input-tags>
   </div>
-  <p-footer>
-    <prm-button
-      (onClick)="submitAttributeValue()"
-      label="ثبت"
-      color="success"
-    ></prm-button>
-    <prm-button
-      (click)="showAttributeValueDialog = false"
-      label="انصراف"
-      color="danger"
-    ></prm-button>
-  </p-footer>
 </p-dialog>

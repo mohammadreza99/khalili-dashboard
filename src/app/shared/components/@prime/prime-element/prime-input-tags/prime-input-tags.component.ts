@@ -7,6 +7,8 @@ import {
   Output,
   EventEmitter,
   ViewChild,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Chips } from 'primeng';
@@ -27,11 +29,12 @@ import { PrimeInputBaseComponent } from '../prime-input-base/prime-input-base.co
 })
 export class PrimeInputTagsComponent
   extends PrimeInputBaseComponent
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit,OnChanges {
+ 
   // constructor() { super() }
 
   @Input() max: number;
-  @Input() field: string;
+  @Input() field: string = undefined;
   @Input() inputStyle: object;
   @Input() allowDuplicate: boolean = false;
   @Input() addOnBlur: boolean = false;
@@ -46,21 +49,36 @@ export class PrimeInputTagsComponent
   ngOnInit() {
     super.ngOnInit();
   }
-
   ngAfterViewInit() {
     super.ngAfterViewInit();
     if (this.floatChips)
       this.innerInput = this.floatChips.inputViewChild.nativeElement;
+
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.field && this.value)
+      setTimeout(() => {
+        let value=[];
+        for (const item of this.value) value.push(item[this.field]);
+        this.value=value;
+      }, 0);
+  }
+  _onAdd(args) {
+    let item={
+      value:this.value,
+      addedTag:args.value
+    }
+    if (this.hasValueAccessor) this.controlOnChange(this.value);
+    this.onAdd.emit(item);
   }
 
-  _onAdd() {
+  _onRemove(args) {
+    let item={
+      value:this.value,
+      deletedTag:args.value
+    }
     if (this.hasValueAccessor) this.controlOnChange(this.value);
-    this.onAdd.emit(this.value);
-  }
-
-  _onRemove() {
-    if (this.hasValueAccessor) this.controlOnChange(this.value);
-    this.onRemove.emit(this.value);
+    this.onRemove.emit(item);
   }
 
   _onTagClick() {
