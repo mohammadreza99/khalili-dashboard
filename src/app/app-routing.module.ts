@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPage } from './main/login/login.page';
 import { HomePage } from './main/home/home.page';
 import { AuthGuard } from './modules/auth/business/auth.guard';
 import { AuthPage } from './modules/auth/pages/auth/auth.page';
@@ -10,7 +9,7 @@ import { AuthPage } from './modules/auth/pages/auth/auth.page';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: '/base/colors',
     pathMatch: 'full',
   },
   {
@@ -19,7 +18,7 @@ const routes: Routes = [
     data: { title: 'auth' },
   },
   {
-    path: 'home',
+    path: '',
     component: HomePage,
     canActivate:[AuthGuard],
     canActivateChild:[AuthGuard],

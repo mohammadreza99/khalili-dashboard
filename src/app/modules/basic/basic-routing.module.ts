@@ -28,6 +28,11 @@ import { MainSettingPage } from './pages/main-setting/main-setting.page';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'colors',
+    pathMatch: 'full',
+  },
+  {
     path: 'attachment-types',
     data: { title: 'attachment-types' },
     component: AttachmentTypesPage,

@@ -27,8 +27,6 @@ export class ShippingHoursPage implements OnInit {
       cellEditorParams: (data) => {
         return {
           onChange: (params) => {
-            console.log(params);
-
             // const holiday: BaseHoliday = {
             //   id: params.rowData.id,
             //   date: params.selectedDate,

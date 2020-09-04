@@ -32,7 +32,7 @@ export class PrimeTreeComponent extends PrimeInputBaseComponent
   @Input() propagateSelectionDown: boolean = true;
   @Input() selectionMode: PrimeTreeSelectionMode = 'single';
   @Input() selected: PrimeTree | PrimeTree[] = null;
-  @Input() orientation: PrimeOrientation = 'horizontal';
+  @Input() orientation: PrimeOrientation = 'vertical';
   @Output() onNodeSelect = new EventEmitter();
   @Output() onNodeUnselect = new EventEmitter();
   @Output() onNodeExpand = new EventEmitter();

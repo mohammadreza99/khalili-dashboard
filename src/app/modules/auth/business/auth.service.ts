@@ -36,7 +36,6 @@ export class AuthService extends BaseService {
   }
 
   isAuthenticated(): boolean {
-    console.log(this.getToken() ? true : false);
     return this.getToken() ? true : false;
   }
 

@@ -77,7 +77,7 @@ export class AuthPage implements OnInit {
 
           }
           else
-          this.router.navigate(['/home']);
+          this.router.navigate(['/base/colors']);
         }
       });
     }
@@ -93,7 +93,7 @@ export class AuthPage implements OnInit {
         if (res.success && res.data.token) {
           this.authService.saveToken(res.data.token);
           this.showLoginConfirm = false;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/base/colors']);
         }
       });
     }
@@ -109,7 +109,7 @@ export class AuthPage implements OnInit {
         if (res.success ) {
           // this.authService.saveToken(res.data.token);
           this.showChangePassword = false;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/base/colors']);
         }
       });
     }

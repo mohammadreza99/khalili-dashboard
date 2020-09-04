@@ -1,1 +1,61 @@
-<p>categories works!</p>
+<page-container title="دسته بندی ها" *ngIf="originalCategories">
+  <prm-button
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    (click)="addCategory()"
+  >
+  </prm-button>
+  <p-tree [value]="convertedCategories" dir="rtl" class="rtl ui-rtl">
+    <ng-template let-node pTemplate="default">
+      <div class="d-flex align-items-center">
+        <input
+          [(ngModel)]="node.label"
+          type="text"
+          readonly
+          style="width: 100%"
+          class="ui-inputtext"
+        />
+        <prm-button
+          (click)="onCategoryEdit(node)"
+          class="mr-2"
+          color="primary"
+          icon="fa fa-edit"
+        ></prm-button>
+      </div>
+    </ng-template>
+  </p-tree>
+</page-container>
+
+<p-dialog
+  [modal]="true"
+  [draggable]="false"
+  [blockScroll]="true"
+  [style]="{width:'800px',direction:'rtl','font-size':'14px'}"
+  [header]="dialogTitle"
+  [(visible)]="displayEditDialog"
+>
+  <div *ngIf="originalCategories">
+    <prm-input-text
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="عنوان دسته بندی"
+      [value]="selectedTreeNode?.label"
+    ></prm-input-text>
+    <div class="d-flex mb-2">
+      <div style="width: 150px" class="ml-3">انتخاب دسته بندی والد</div>
+      <p-tree
+        selectionMode="single"
+        [(selection)]="selectedParentNode"
+        (onNodeSelect)="onNodeSelect($event)"
+        [value]="convertedCategories"
+        dir="rtl"
+        class="rtl ui-rtl flex-grow-1"
+      >
+      </p-tree>
+    </div>
+  </div>
+  <p-footer>
+    <prm-button label="ثبت" (click)="onSubmitEditDialog()"></prm-button>
+  </p-footer>
+</p-dialog>

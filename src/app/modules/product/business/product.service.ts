@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/services/base.service';
 import { Observable } from 'rxjs';
-import { Result } from '@app/app.global';
+import { map } from 'rxjs/operators';
+
+import { Product } from '../model/product.model';
+import { AppCategory } from '@app/modules/basic/model/basic.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService extends BaseService {
-  constructor() {
-    super();
+  getProducts(): Observable<Product[]> {
+    return this.get<Product[]>('/Base/Admin/ProductSelect/', 'json').pipe(
+      map((res: any) => res.data)
+    );
   }
-  public getProducts(): Observable<any[]> {
-    return new Observable<any[]>((observer) => {
-      this.get<Result<any[]>>('Base/Admin/ColorSelect', 'json').subscribe(
-        (data) => {
-          observer.next(data.data);
-        }
-      );
-    });
+
+  getCategories(): Observable<AppCategory[]> {
+    return this.get<AppCategory[]>('/Base/Admin/CategorySelect/', 'json').pipe(
+      map((res: any) => res.data)
+    );
   }
 }
