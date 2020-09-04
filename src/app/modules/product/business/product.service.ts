@@ -21,4 +21,16 @@ export class ProductService extends BaseService {
       map((res: any) => res.data)
     );
   }
+
+  insertCategories<AppCategory>(body): Observable<AppCategory> {
+    return this.post('/Base/Admin/CategoryInsert/',body, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  updateCategories<AppCategory>(body): Observable<AppCategory> {
+    return this.put('/Base/Admin/CategoryUpdate/',body, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
 }

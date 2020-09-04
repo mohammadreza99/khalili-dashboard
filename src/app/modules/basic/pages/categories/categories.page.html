@@ -3,7 +3,7 @@
     label="افزودن"
     icon="fa fa-plus"
     color="success"
-    (click)="addCategory()"
+    (click)="onCategoryAdd()"
   >
   </prm-button>
   <p-tree [value]="convertedCategories" dir="rtl" class="rtl ui-rtl">
@@ -33,15 +33,31 @@
   [blockScroll]="true"
   [style]="{width:'800px',direction:'rtl','font-size':'14px'}"
   [header]="dialogTitle"
-  [(visible)]="displayEditDialog"
+  [(visible)]="displayDetailDialog"
 >
   <div *ngIf="originalCategories">
+
+    <form [formGroup]="form">
     <prm-input-text
+      formControlName="title"
       class="mb-3 d-block"
       labelWidth="150"
       label="عنوان دسته بندی"
-      [value]="selectedTreeNode?.label"
-    ></prm-input-text>
+    ></prm-input-text>  
+    <prm-input-text
+      formControlName="icon"
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="آیکن"
+    ></prm-input-text>  
+    <prm-input-text
+      formControlName="link"
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="لینک"
+    ></prm-input-text>  
+    </form>
+
     <div class="d-flex mb-2">
       <div style="width: 150px" class="ml-3">انتخاب دسته بندی والد</div>
       <p-tree
@@ -56,6 +72,6 @@
     </div>
   </div>
   <p-footer>
-    <prm-button label="ثبت" (click)="onSubmitEditDialog()"></prm-button>
+    <prm-button label="ثبت" (click)="onSubmitDialog()"></prm-button>
   </p-footer>
 </p-dialog>
