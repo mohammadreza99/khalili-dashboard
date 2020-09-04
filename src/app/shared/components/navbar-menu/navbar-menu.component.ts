@@ -8,6 +8,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { PrimeConfirmService } from '../@prime/prime-service/prime-confirm.service';
+import { AuthService } from '@app/modules/auth/business/auth.service';
 
 @Component({
   selector: 'navbar-menu',
@@ -33,7 +34,8 @@ export class NavbarMenuComponent implements OnInit {
             this.vcRef
           )
           .then(() => {
-            this.router.navigate(['/login']);
+            this.authService.logout()
+            this.router.navigate(['/auth']);
           });
       },
     },
@@ -42,7 +44,9 @@ export class NavbarMenuComponent implements OnInit {
   constructor(
     private router: Router,
     private vcRef: ViewContainerRef,
-    private confirmService: PrimeConfirmService
+    private confirmService: PrimeConfirmService,
+    private authService: AuthService,
+
   ) {}
 
   ngOnInit() {}
