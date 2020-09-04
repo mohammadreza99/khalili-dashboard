@@ -14,6 +14,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { DashboardPage } from './main/dashboard/dashboard.page';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, HomePage, LoginPage, DashboardPage],
@@ -23,6 +24,7 @@ import { DashboardPage } from './main/dashboard/dashboard.page';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    AuthModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

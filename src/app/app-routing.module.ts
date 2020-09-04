@@ -3,23 +3,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './main/login/login.page';
 import { HomePage } from './main/home/home.page';
 import { DashboardPage } from './main/dashboard/dashboard.page';
+import { AuthGuard } from './modules/auth/business/auth.guard';
+import { AuthPage } from './modules/auth/pages/auth/auth.page';
 
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'auth',
     pathMatch: 'full',
   },
   {
-    path: 'login',
-    component: LoginPage,
-    data: { title: 'login' },
+    path: 'auth',
+    component: AuthPage,
+    data: { title: 'auth' },
   },
   {
-    path: '',
+    path: 'home',
     component: HomePage,
+    canActivate:[AuthGuard],
+    canActivateChild:[AuthGuard],
     children: [
       {
         path: 'dashboard',

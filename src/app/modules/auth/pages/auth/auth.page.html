@@ -1,0 +1,140 @@
+<div class="container-fluid h-100">
+  <div class="row align-items-center justify-content-center h-100">
+    <div class="col-4">
+      <div class="border p-4 rounded-lg register" *ngIf="showRegister">
+        <div class="text-center logo mb-5">
+          <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
+        </div>
+
+        <h5>ورود / ثبت نام</h5>
+        <p class="text-muted">شماره موبایل خود را وارد کنید</p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+          <prm-input-text
+            formControlName="control"
+            placeholder="شماره موبایل"
+            [errors]="[{type:'required',message:'لطفا شماره موبایل خود را وارد کنید'}]"
+          ></prm-input-text>
+          <button type="submit" class="btn btn-lg btn-primary btn-block my-5">
+            ادامه
+          </button>
+        </form>
+
+        <small class="font-light text-muted">
+          با ورود و یا ثبت نام در دیجی‌کالا شما
+          <a routerLink=""> شرایط و قوانین </a>
+          استفاده از سرویس های سایت دیجی‌کالا و
+          <a routerLink=""> قوانین حریم خصوصی </a>
+          آن را می‌پذیرید.
+        </small>
+      </div>
+
+      <div class="border p-4 rounded-lg login-confirm" *ngIf="showLoginConfirm">
+        <div class="d-flex justify-content-between mb-5">
+          <div class="back-icon">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+          <div class="logo">
+            <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
+          </div>
+          <div class="placeholder"></div>
+        </div>
+
+        <h5>رمز عبور را وارد کنید</h5>
+        <p class="text-muted">رمز عبور حساب کاربری خود را وارد کنید</p>
+        <prm-input-text
+        formControlName="control"
+        placeholder="رمز عبور"
+        [errors]="[{type:'required',message:'لطفا رمز عبور را وارد کنید'}]"
+      ></prm-input-text>
+        <small><a (click)="showForget=true">بازیابی رمز عبور</a></small>
+        <button class="btn btn-lg btn-primary btn-block my-5">ورود</button>
+      </div>
+
+      <div
+        class="border p-4 rounded-lg register-confirm"
+        *ngIf="showRegisterConfirm"
+      >
+        <div class="d-flex justify-content-between mb-5">
+          <div class="back-icon">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+          <div class="logo">
+            <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
+          </div>
+          <div class="placeholder"></div>
+        </div>
+
+        <h5>کد تایید را وارد نمایید</h5>
+        <p class="text-muted">لطفا کد تایید ارسال شده را وارد کنید.</p>
+        <form
+          [formGroup]="registerConfirmForm"
+          (ngSubmit)="onSubmitRegisterConfirm()"
+        >
+          <prm-input-text
+            formControlName="control"
+            placeholder="کد تایید"
+            [errors]="[{type:'required',message:'لطفا کد تایید را وارد کنید'}]"
+          ></prm-input-text>
+          <button type="submit" class="btn btn-lg btn-primary btn-block my-5">
+            تایید
+          </button>
+        </form>
+      </div>
+
+      <div class="border p-4 rounded-lg forget" *ngIf="showForget">
+        <div class="d-flex justify-content-between mb-5">
+          <div class="back-icon">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+          <div class="logo">
+            <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
+          </div>
+          <div class="placeholder"></div>
+        </div>
+
+        <h5>بازیابی رمزعبور</h5>
+        <p class="text-muted">
+          لطفا پست الکترونیک یا شماره موبایل خود را وارد نمایید.
+        </p>
+        <prm-input-text
+        formControlName="control"
+        placeholder="شماره موبایل یا پست الکترونیک"
+        [errors]="[{type:'required',message:'لطفا شماره موبایل یا پست الکترونیک را وارد کنید'}]"
+      ></prm-input-text>
+        <button class="btn btn-lg btn-primary btn-block my-5">
+          ارسال درخواست
+        </button>
+      </div>
+
+      <div class="border p-4 rounded-lg changePassword" *ngIf="showChangePassword">
+        <div class="d-flex justify-content-between mb-5">
+          <div class="back-icon">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+          <div class="logo">
+            <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
+          </div>
+          <div class="placeholder"></div>
+        </div>
+
+        <h5>تغییر رمز عبور</h5>
+        <p class="text-muted">
+          رمز عبور شما باید حداقل ۶ حرف باشد
+        </p>
+        <prm-input-text
+        formControlName="control"
+        placeholder="رمز عبور جدید"
+        [errors]="[
+        {type:'required',
+          message:'لطفا رمز عبور جدید را وارد کنید'},
+        {type:'minLength',
+          message:'لطفا  بیش از 6 کاراکتر وارد کنید'}
+        ]"
+      ></prm-input-text>
+        <button class="btn btn-lg btn-primary btn-block my-5">
+          تغییر رمز عبور
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
