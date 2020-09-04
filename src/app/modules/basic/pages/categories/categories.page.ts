@@ -42,7 +42,9 @@ export class CategoriesPage implements OnInit {
 
   onNodeSelect(node: TreeNode) {}
 
-  onSubmitEditDialog() {}
+  onSubmitEditDialog() {
+    
+  }
 
   addCategory() {}
 
