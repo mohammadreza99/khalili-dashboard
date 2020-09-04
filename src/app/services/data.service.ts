@@ -15,53 +15,43 @@ export class DataService {
 
   private SIDE_MENU_ITEMS: MenuItem[] = [
     {
-      label: 'داشبورد',
-      icon: 'pi pi-pw pi-file',
-      routerLink: ['/'],
-    },
-    {
-      label: 'پــــایــه',
+      label: 'مدیریت اطلاعات پایه',
       icon: 'pi pi-pw pi-file',
       items: [
-        { label: 'رنگ ها', routerLink: ['/base/colors'] },
-        { label: 'گارانتی ها', routerLink: ['/base/warranties'] },
-        { label: 'بیمه ها', routerLink: ['/base/insurances'] },
+        { label: 'رنگ ', routerLink: ['/base/colors'] },
+        { label: 'گارانتی ', routerLink: ['/base/warranties'] },
+        { label: 'بیمه ', routerLink: ['/base/insurances'] },
         {
-          label: 'فیلدها',
+          label: 'فیلد',
           items: [
-            { label: 'فیلدها', routerLink: ['/base/attributes'] },
+            { label: 'فیلد', routerLink: ['/base/attributes'] },
             {
-              label: 'دسته بندی فیلدها',
+              label: 'دسته بندی فیلد',
               routerLink: ['/base/attribute-categories'],
             },
           ],
         },
+        { label: 'استان ', routerLink: ['/base/states'] },
+        { label: 'شهر', routerLink: ['/base/cities'] },
+        { label: 'ناحیه ', routerLink: ['/base/districts'] },
+        { label: 'شغل ', routerLink: ['/base/jobs'] },
+        { label: 'برند', routerLink: ['/base/brands'] },
         {
-          label: 'محل ها',
-          items: [
-            { label: 'استان ها', routerLink: ['/base/states'] },
-            { label: 'شهرها', routerLink: ['/base/cities'] },
-            { label: 'ناحیه ها', routerLink: ['/base/districts'] },
-          ],
-        },
-        { label: 'شغل ها', routerLink: ['/base/jobs'] },
-        { label: 'برندها', routerLink: ['/base/brands'] },
-        {
-          label: 'دسته بندی الحاقیات فروشگاه ها',
+          label: 'دسته بندی الحاقیات فروشگاه ',
           routerLink: ['/base/attachment-types'],
         },
         { label: 'تعطیلات فروشگاه اصلی', routerLink: ['/base/holidays'] },
-        { label: 'ساعت های تحویل', routerLink: ['/base/shipping-hours'] },
-        { label: 'نظرسنجی امتیازی ها', routerLink: ['/base/point-types'] },
+        { label: 'ساعت تحویل', routerLink: ['/base/shipping-hours'] },
+        { label: 'نظرسنجی امتیازی ', routerLink: ['/base/point-types'] },
         { label: 'دسته بندی محصولات', routerLink: ['/base/categories'] },
-        { label: 'تنظیمات صفحه اصلی', routerLink: ['/base/main-setting'] },
         {
-          label: 'درباره فروشگاه',
+          label: 'مدیریت سایت',
           items: [
             { label: 'درباره ما', routerLink: ['/base/about'] },
-            { label: 'شماره تلفن ها', routerLink: ['/base/phones'] },
-            { label: 'شبکه های اجتماعی', routerLink: ['/base/socials'] },
+            { label: 'شماره تلفن ', routerLink: ['/base/phones'] },
+            { label: 'شبکه اجتماعی', routerLink: ['/base/socials'] },
             { label: 'اسلایدر', routerLink: ['/base/slider'] },
+            { label: 'تنظیمات صفحه اصلی', routerLink: ['/base/main-setting'] },
             {
               label: 'دسته بندی سوالات متداول',
               routerLink: ['/base/faq-categories'],

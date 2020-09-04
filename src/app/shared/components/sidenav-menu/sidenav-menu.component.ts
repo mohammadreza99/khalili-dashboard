@@ -10,10 +10,7 @@ import { AuthService } from '@app/modules/auth/business/auth.service';
   styleUrls: ['./sidenav-menu.component.scss'],
 })
 export class SidenavMenuComponent implements OnInit {
-  constructor(
-    private dataService: DataService,
-    private authService: AuthService
-  ) {}
+  constructor(private dataService: DataService) {}
 
   items: MenuItem[] = this.dataService.sideMenuItems;
 

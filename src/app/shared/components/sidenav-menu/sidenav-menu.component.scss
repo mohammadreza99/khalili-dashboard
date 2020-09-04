@@ -2,7 +2,7 @@
 
 :host {
   display: block;
-  height: calc(100% - #{$navbar-height - 2});
+  height: 100%;
   background: $light;
 
   @media (max-width: 767px) {
