@@ -6,7 +6,6 @@ import { AttributeCategoriesPage } from './pages/attribute-categories/attribute-
 import { AttributeValuesPage } from './pages/attribute-values/attribute-values.page';
 import { AttributesPage } from './pages/attributes/attributes.page';
 import { BrandsPage } from './pages/brands/brands.page';
-import { CategoriesPage } from './pages/categories/categories.page';
 import { CitiesPage } from './pages/cities/cities.page';
 import { DistrictsPage } from './pages/districts/districts.page';
 import { HolidaysPage } from './pages/holidays/holidays.page';
@@ -56,11 +55,6 @@ const routes: Routes = [
     path: 'brands',
     data: { title: 'brands' },
     component: BrandsPage,
-  },
-  {
-    path: 'categories',
-    data: { title: 'categories' },
-    component: CategoriesPage,
   },
   {
     path: 'cities',

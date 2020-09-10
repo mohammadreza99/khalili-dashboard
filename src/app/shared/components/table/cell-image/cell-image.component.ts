@@ -13,6 +13,8 @@ export class CellImageComponent implements ICellRendererAngularComp, OnInit {
   field: string;
   id: string;
 
+  constructor(public dataService: DataService) {}
+
   agInit(params: any): void {
     this.params = params;
     this.field = params.field;

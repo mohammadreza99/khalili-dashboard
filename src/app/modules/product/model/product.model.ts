@@ -1,13 +1,3 @@
-export class AppCategory {
-  id: Object;
-  title: string;
-  parentId?: number;
-  icon: string;
-  isActive: boolean;
-  link: string;
-  isSubMenu: boolean;
-}
-
 export class Product {
   categoryId: number;
   brandId: number;
@@ -22,6 +12,32 @@ export class Product {
   info: Info[];
   media: Media[];
   price: Price;
+}
+
+export class ProductSearch {
+  index: number;
+  categoryId?: number;
+  brandId?: number;
+  name: string;
+  nameEn: string;
+  commission: number;
+}
+
+export class ProductSelect {
+  id: Object;
+  categoryId: number;
+  categoryTitle: string;
+  productCode: string;
+  brandId: number;
+  brandTitle: string;
+  name: string;
+  nameEn: string;
+  description: string;
+  gainPoints: string;
+  weakPoints: string;
+  insertDate: string;
+  isActive: boolean;
+  commission: number;
 }
 
 export class Info {
@@ -47,4 +63,24 @@ export class Price {
   localCode: string;
   qty: number;
   maxQty: number;
+}
+
+export class DiscountInsertModel {
+  title: string;
+  code: string;
+  expireDate: Date;
+  maxUse: number;
+  price: number;
+  maxPrice: number;
+  percent: number;
+}
+
+export class AppCategory {
+  id: Object;
+  title: string;
+  parentId?: number;
+  icon: string;
+  isActive: boolean;
+  link: string;
+  isSubMenu: boolean;
 }

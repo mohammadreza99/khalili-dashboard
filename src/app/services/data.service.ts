@@ -1,65 +1,130 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
 
 import { PrimeConfirmService } from '@prime/prime-service/prime-confirm.service';
 import { PrimeToastService } from '@prime/prime-service/prime-toast.service';
+import { BaseService } from './base.service';
 
 @Injectable({ providedIn: 'root' })
-export class DataService {
+export class DataService extends BaseService {
   constructor(
     private confirmer: PrimeConfirmService,
-    private toaster: PrimeToastService,
-    private http: HttpClient
-  ) {}
+    private toaster: PrimeToastService
+  ) {
+    super();
+  }
 
   private SIDE_MENU_ITEMS: MenuItem[] = [
     {
       label: 'مدیریت اطلاعات پایه',
-      icon: 'pi pi-pw pi-file',
       items: [
-        { label: 'رنگ ', routerLink: ['/base/colors'] },
-        { label: 'گارانتی ', routerLink: ['/base/warranties'] },
-        { label: 'بیمه ', routerLink: ['/base/insurances'] },
+        { label: 'رنگ ', routerLink: ['/base/colors'], icon: 'fa fa-minus' },
         {
-          label: 'فیلد',
-          items: [
-            { label: 'فیلد', routerLink: ['/base/attributes'] },
-            {
-              label: 'دسته بندی فیلد',
-              routerLink: ['/base/attribute-categories'],
-            },
-          ],
+          label: 'گارانتی ',
+          routerLink: ['/base/warranties'],
+          icon: 'fa fa-minus',
         },
-        { label: 'استان ', routerLink: ['/base/states'] },
-        { label: 'شهر', routerLink: ['/base/cities'] },
-        { label: 'ناحیه ', routerLink: ['/base/districts'] },
-        { label: 'شغل ', routerLink: ['/base/jobs'] },
-        { label: 'برند', routerLink: ['/base/brands'] },
+        {
+          label: 'بیمه ',
+          routerLink: ['/base/insurances'],
+          icon: 'fa fa-minus',
+        },
+
+        { label: 'استان ', routerLink: ['/base/states'], icon: 'fa fa-minus' },
+        { label: 'شهر', routerLink: ['/base/cities'], icon: 'fa fa-minus' },
+        {
+          label: 'ناحیه ',
+          routerLink: ['/base/districts'],
+          icon: 'fa fa-minus',
+        },
+        { label: 'شغل ', routerLink: ['/base/jobs'], icon: 'fa fa-minus' },
+        { label: 'برند', routerLink: ['/base/brands'], icon: 'fa fa-minus' },
         {
           label: 'دسته بندی الحاقیات فروشگاه ',
           routerLink: ['/base/attachment-types'],
+          icon: 'fa fa-minus',
         },
-        { label: 'تعطیلات فروشگاه اصلی', routerLink: ['/base/holidays'] },
-        { label: 'ساعت تحویل', routerLink: ['/base/shipping-hours'] },
-        { label: 'نظرسنجی امتیازی ', routerLink: ['/base/point-types'] },
-        { label: 'دسته بندی محصولات', routerLink: ['/base/categories'] },
         {
-          label: 'مدیریت سایت',
-          items: [
-            { label: 'درباره ما', routerLink: ['/base/about'] },
-            { label: 'شماره تلفن ', routerLink: ['/base/phones'] },
-            { label: 'شبکه اجتماعی', routerLink: ['/base/socials'] },
-            { label: 'اسلایدر', routerLink: ['/base/slider'] },
-            { label: 'تنظیمات صفحه اصلی', routerLink: ['/base/main-setting'] },
-            {
-              label: 'دسته بندی سوالات متداول',
-              routerLink: ['/base/faq-categories'],
-            },
-            { label: 'سوالات متداول', routerLink: ['/base/faq'] },
-            { label: 'حریم شخصی', routerLink: ['/base/privacy'] },
-            { label: 'مقررات', routerLink: ['/base/terms'] },
-          ],
+          label: 'تعطیلات فروشگاه اصلی',
+          routerLink: ['/base/holidays'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'ساعت تحویل',
+          routerLink: ['/base/shipping-hours'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'نظرسنجی امتیازی ',
+          routerLink: ['/base/point-types'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'دسته بندی فیلد',
+          routerLink: ['/base/attribute-categories'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'فیلد',
+          routerLink: ['/base/attributes'],
+          icon: 'fa fa-minus',
+        },
+      ],
+    },
+    {
+      label: 'مدیریت سایت',
+      items: [
+        {
+          label: 'درباره ما',
+          routerLink: ['/base/about'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'شماره تلفن ',
+          routerLink: ['/base/phones'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'شبکه اجتماعی',
+          routerLink: ['/base/socials'],
+          icon: 'fa fa-minus',
+        },
+        { label: 'اسلایدر', routerLink: ['/base/slider'], icon: 'fa fa-minus' },
+        {
+          label: 'تنظیمات صفحه اصلی',
+          routerLink: ['/base/main-setting'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'دسته بندی سوالات متداول',
+          routerLink: ['/base/faq-categories'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'سوالات متداول',
+          routerLink: ['/base/faq'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'حریم شخصی',
+          routerLink: ['/base/privacy'],
+          icon: 'fa fa-minus',
+        },
+        { label: 'مقررات', routerLink: ['/base/terms'], icon: 'fa fa-minus' },
+      ],
+    },
+    {
+      label: 'مدیریت محصولات',
+      items: [
+        {
+          label: 'دسته بندی محصولات',
+          routerLink: ['/product/categories'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'محصولات',
+          routerLink: ['/product/list'],
+          icon: 'fa fa-minus',
         },
       ],
     },
@@ -101,7 +166,7 @@ export class DataService {
     );
   }
 
-  getImage(imageUrl: string, options: any) {
-    return this.http.get(imageUrl, options);
+  getImage(imageUrl: string, options?: any) {
+    return this.get('DownloadMedia?key=' + imageUrl, 'json', options);
   }
 }

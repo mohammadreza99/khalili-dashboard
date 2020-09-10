@@ -13,6 +13,7 @@ import { CellButtonComponent } from './components/table/cell-button/cell-button.
 import { CellImageComponent } from './components/table/cell-image/cell-image.component';
 import { CellDatepickerComponent } from './components/table/cell-datepicker/cell-datepicker.component';
 import { CellTimepickerComponent } from './components/table/cell-timepicker/cell-timepicker.component';
+import { SafePipe } from './directives/safe.pipe';
 export const COMPONENTS: Type<any>[] = [
   DialogFormComponent,
   ImagePickerComponent,
@@ -27,5 +28,6 @@ export const COMPONENTS: Type<any>[] = [
   CellButtonComponent,
   CellImageComponent,
   CellDatepickerComponent,
-  CellTimepickerComponent
+  CellTimepickerComponent,
+  SafePipe,
 ];

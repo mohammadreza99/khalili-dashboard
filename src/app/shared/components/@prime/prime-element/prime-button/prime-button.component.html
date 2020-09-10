@@ -1,4 +1,5 @@
 <p-button
+  *ngIf="type != 'submit'"
   [icon]="icon"
   [iconPos]="iconPos"
   [label]="label"
@@ -6,6 +7,20 @@
   [styleClass]="styleClass"
   [style]="style"
   [type]="type"
+  (onBlur)="_onBlur()"
+  (onFocus)="_onFocus()"
+  (onClick)="_onClick()"
+></p-button>
+
+<p-button
+  *ngIf="type == 'submit'"
+  [icon]="icon"
+  [iconPos]="iconPos"
+  [label]="label"
+  [disabled]="disabled"
+  [styleClass]="styleClass"
+  [style]="style"
+  type="submit"
   (onBlur)="_onBlur()"
   (onFocus)="_onFocus()"
   (onClick)="_onClick()"

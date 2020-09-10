@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng';
-import { AppCategory } from '../../model/basic.model';
 import { ProductService } from '@app/modules/product/business/product.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AppCategory } from '../../model/product.model';
 
 @Component({
   selector: 'categories',
@@ -20,8 +20,8 @@ export class CategoriesPage implements OnInit {
   form = new FormGroup({
     id: new FormControl(null, Validators.required),
     title: new FormControl(null, Validators.required),
-    icon: new FormControl("", Validators.required),
-    link: new FormControl("", Validators.required),
+    icon: new FormControl('', Validators.required),
+    link: new FormControl('', Validators.required),
     parentId: new FormControl(null, Validators.required),
     isActive: new FormControl(true, Validators.required),
     isSubMenu: new FormControl(false, Validators.required),
@@ -35,7 +35,7 @@ export class CategoriesPage implements OnInit {
     this.originalCategories = await this.productService
       .getCategories()
       .toPromise();
-    this.convertedCategories = this.convertToTreeNodeList(
+    this.convertedCategories = this.productService.convertToTreeNodeList(
       this.originalCategories
     );
   }
@@ -50,8 +50,9 @@ export class CategoriesPage implements OnInit {
     this.form.controls['parentId'].setValue(node.data.parentId);
     this.form.controls['isActive'].setValue(node.data.isActive);
     this.form.controls['isSubMenu'].setValue(node.data.isSubMenu);
-    this.selectedParentNode = this.convertToTreeNode(
-      this.originalCategories.find((c) => c.id == node.data.parentId)
+    this.selectedParentNode = this.productService.convertToTreeNode(
+      this.originalCategories.find((c) => c.id == node.data.parentId),
+      this.originalCategories
     );
   }
 
@@ -59,7 +60,7 @@ export class CategoriesPage implements OnInit {
     this.displayDetailDialog = true;
     this.dialogTitle = 'افزودن دسته';
     this.selectedParentNode = null;
-    this.clearInputs();
+    this.form.reset();
   }
 
   onNodeSelect(selected) {
@@ -88,93 +89,6 @@ export class CategoriesPage implements OnInit {
         .insertCategories<AppCategory>(node)
         .subscribe((res) => this.loadCategories());
     }
-    this.clearInputs();
+    this.form.reset();
   }
-
-  clearInputs() {
-    this.form.controls['id'].setValue(null);
-    this.form.controls['title'].setValue(null);
-    this.form.controls['icon'].setValue('');
-    this.form.controls['link'].setValue('');
-    this.form.controls['parentId'].setValue(null);
-    this.form.controls['isActive'].setValue(true);
-    this.form.controls['isSubMenu'].setValue(false);
-  }
-
-  convertToTreeNodeList(items: AppCategory[]) {
-    let result: TreeNode[] = [];
-    items.forEach((item) => {
-      const t: TreeNode = {
-        label: item.title,
-        data: {
-          id: item.id,
-          title: item.title,
-          parentId: item.parentId,
-          icon: item.icon,
-          isActive: item.isActive,
-          link: item.link,
-          isSubMenu: item.isSubMenu,
-        },
-        children: this.getTreeNodeChildrenFromCategory(item),
-        selectable: true,
-        key: item.id.toString(),
-      };
-      if (t.children.length == 0) {
-        t.icon = 'pi pi-minus';
-      }
-      if (item.parentId == null) result.push(t);
-    });
-    return result;
-  }
-
-  convertToTreeNode(item: AppCategory) {
-    if (item) {
-      let result: TreeNode = {
-        label: item.title,
-        data: {
-          id: item.id,
-          title: item.title,
-          parentId: item.parentId,
-          icon: item.icon,
-          isActive: item.isActive,
-          link: item.link,
-          isSubMenu: item.isSubMenu,
-        },
-        children: this.getTreeNodeChildrenFromCategory(item),
-        selectable: true,
-        key: item.id.toString(),
-      };
-      return result;
-    }
-  }
-
-  getTreeNodeChildrenFromCategory(category: AppCategory) {
-    let children: TreeNode[] = [];
-    this.originalCategories.forEach((item) => {
-      if (item.parentId == category.id) {
-        const childNode: TreeNode = {
-          label: item.title,
-          data: {
-            id: item.id,
-            title: item.title,
-            parentId: item.parentId,
-            icon: item.icon,
-            isActive: item.isActive,
-            link: item.link,
-            isSubMenu: item.isSubMenu,
-          },
-          children: this.getTreeNodeChildrenFromCategory(item),
-          selectable: true,
-          key: item.id.toString(),
-        };
-        if (childNode.children.length == 0) {
-          childNode.icon = 'pi pi-minus';
-        }
-        children.push(childNode);
-      }
-    });
-    return children;
-  }
-
-  
 }

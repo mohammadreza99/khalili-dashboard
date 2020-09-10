@@ -110,16 +110,6 @@ export class BasePointType {
   isActive: boolean;
 }
 
-export class AppCategory {
-  id: Object;
-  title: string;
-  parentId?: number;
-  icon: string;
-  isActive: boolean;
-  link: string;
-  isSubMenu: boolean;
-}
-
 export class SiteAbout {
   id: Object;
   description: string;
@@ -204,3 +194,4 @@ export class SiteMainPage {
   isActive: boolean;
   insertDate: Date;
 }
+

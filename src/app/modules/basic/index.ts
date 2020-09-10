@@ -13,7 +13,6 @@ import { AttachmentTypesPage } from './pages/attachment-types/attachment-types.p
 import { HolidaysPage } from './pages/holidays/holidays.page';
 import { ShippingHoursPage } from './pages/shipping-hours/shipping-hours.page';
 import { PointTypesPage } from './pages/point-types/point-types.page';
-import { CategoriesPage } from './pages/categories/categories.page';
 import { AboutPage } from './pages/about/about.page';
 import { PhonesPage } from './pages/phones/phones.page';
 import { SocialsPage } from './pages/socials/socials.page';
@@ -40,7 +39,6 @@ export const COMPONENTS = [
   HolidaysPage,
   ShippingHoursPage,
   PointTypesPage,
-  CategoriesPage,
   AboutPage,
   PhonesPage,
   SocialsPage,
