@@ -1,7 +1,14 @@
-import { Component, OnInit, forwardRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  forwardRef,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectItem } from 'primeng';
-
 
 import { PrimeInputBaseComponent } from '../prime-input-base/prime-input-base.component';
 import { PrimeFilterMatchMode } from '../../prime-type/prime-filter-match-mode';
@@ -14,31 +21,31 @@ import { PrimeFilterMatchMode } from '../../prime-type/prime-filter-match-mode';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PrimeInputMultiSelectComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class PrimeInputMultiSelectComponent extends PrimeInputBaseComponent
+export class PrimeInputMultiSelectComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
-
   // constructor() { super() }
 
-  @Input() items: SelectItem[]|any;
+  @Input() items: SelectItem[] | any;
   @Input() hasFilter: boolean = true;
   @Input() showHeader: boolean = true;
   @Input() optionLabel: string = null;
-  @Input() filterBy: string = "label";
-  @Input() scrollHeight: string = "200px";
+  @Input() filterBy: string = 'label';
+  @Input() scrollHeight: string = '200px';
   @Input() panelStyle: object = null;
   @Input() showToggleAll: boolean = true;
-  @Input() filterPlaceHolder: string = "";
-  @Input() filterMatchMode: PrimeFilterMatchMode = "contains";
-  @Input() defaultLabel: string = "انتخاب";
+  @Input() filterPlaceHolder: string = '';
+  @Input() filterMatchMode: PrimeFilterMatchMode = 'contains';
+  @Input() defaultLabel: string = 'انتخاب';
   @Input() overlayVisible: boolean = false;
   @Input() displaySelectedLabel: boolean = true;
-  @Input() selectedItemsLabel: string = "{0} مورد انتخاب شدند";
+  @Input() selectedItemsLabel: string = '{0} مورد انتخاب شدند';
   @Input() resetFilterOnHide: boolean = true;
-  @Input() emptyFilterMessage: string = "موردی یافت نشد.";
+  @Input() emptyFilterMessage: string = 'موردی یافت نشد.';
   @Input() selectionLimit: number = null;
   @Input() maxSelectedLabels: number = 3;
   @Output() onClick = new EventEmitter();
@@ -62,13 +69,16 @@ export class PrimeInputMultiSelectComponent extends PrimeInputBaseComponent
     this.onClick.emit(this.value);
   }
 
-  _onChange() {
+  _onChange(event) {
     if (this.hasValueAccessor) {
       if (!this.value || (this.value && this.value.length == 0))
         this.controlOnChange(null);
       else this.controlOnChange(this.value);
     }
-    this.onChange.emit(this.value);
+    this.onChange.emit({
+      selectedItems: this.value,
+      selectedItem: event.itemValue,
+    });
   }
 
   _onPanelShow() {
@@ -78,5 +88,4 @@ export class PrimeInputMultiSelectComponent extends PrimeInputBaseComponent
   _onPanelHide() {
     this.onPanelHide.emit();
   }
-
 }

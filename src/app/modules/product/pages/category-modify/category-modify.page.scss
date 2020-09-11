@@ -48,17 +48,3 @@ p-tree {
     }
   }
 }
-
-p-pickList {
-  flex-grow: 1;
-  ::ng-deep {
-    .ui-picklist {
-      width: 100%;
-    }
-    .ui-picklist-listwrapper {
-      ul {
-        width: 100%;
-      }
-    }
-  }
-}

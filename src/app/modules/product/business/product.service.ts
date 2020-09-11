@@ -3,19 +3,29 @@ import { BaseService } from '@app/services/base.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Product, AppCategory, ProductSelect } from '../model/product.model';
+import {
+  Product,
+  AppCategory,
+  ProductSelect,
+  AttributeByCategoryId,
+} from '../model/product.model';
 import { TreeNode } from 'primeng';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService extends BaseService {
-  productModifyStepIndex = new BehaviorSubject<number>(0);
-
   getProducts(): Observable<ProductSelect[]> {
     return this.get<Product[]>('/Base/Admin/ProductSelect/', 'json').pipe(
       map((res: any) => res.data)
     );
+  }
+
+  getAttributesByCatgoryId(categoryId: number) {
+    return this.get<AttributeByCategoryId[]>(
+      '/Base/Admin/AttributeSelectWithCategoryId/',
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 
   getCategories(): Observable<AppCategory[]> {
@@ -34,14 +44,6 @@ export class ProductService extends BaseService {
     return this.put('/Base/Admin/CategoryUpdate/', body, 'json').pipe(
       map((res: any) => res.data)
     );
-  }
-
-  setProductModifyStepIndex(index) {
-    this.productModifyStepIndex.next(index);
-  }
-
-  getProductModifyStepIndex() {
-    return this.productModifyStepIndex.asObservable();
   }
 
   convertToTreeNodeList(items: AppCategory[]) {

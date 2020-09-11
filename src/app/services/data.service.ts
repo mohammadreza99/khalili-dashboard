@@ -118,7 +118,7 @@ export class DataService extends BaseService {
       items: [
         {
           label: 'دسته بندی محصولات',
-          routerLink: ['/product/categories'],
+          routerLink: ['/product/categories/list'],
           icon: 'fa fa-minus',
         },
         {

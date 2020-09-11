@@ -1,28 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: "image-picker",
-  templateUrl: "./image-picker.component.html",
-  styleUrls: ["./image-picker.component.scss"]
+  selector: 'image-picker',
+  templateUrl: './image-picker.component.html',
+  styleUrls: ['./image-picker.component.scss'],
 })
 export class ImagePickerComponent implements OnInit {
   constructor() {}
-
-  list = [1, 2, 3, 4,4,4,4,4,4,4,];
-  coverImage;
+  @Input() images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  @Input() defaultImage = 3;
+  @Output() defaultChange = new EventEmitter();
+  @Output() imageSelect = new EventEmitter();
+  @Output() imageDelete = new EventEmitter();
 
   ngOnInit() {}
 
-  uploadFile($event) {
-
+  uploadFile(event) {
+    this.imageSelect.emit(event);
   }
 
   onImageClick(i) {
-    this.coverImage = this.list[i];
+    this.defaultImage = this.images[i];
+    this.defaultChange.emit(this.defaultImage);
   }
 
   onDeleteImageClick(event, index) {
     event.stopPropagation();
-    this.list.splice(index, 1);
+    this.imageDelete.emit(this.images[index]);
+    this.images.splice(index, 1);
   }
 }

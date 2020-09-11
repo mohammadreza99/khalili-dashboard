@@ -57,7 +57,7 @@ export class Point {
 export class Price {
   colorId: number;
   warrantyId: number;
-  insurance: number;
+  InsuranceId: number;
   isReference: boolean;
   period: number;
   localCode: string;
@@ -83,4 +83,31 @@ export class AppCategory {
   isActive: boolean;
   link: string;
   isSubMenu: boolean;
+  AttributeId: CategoryAttribute[];
+}
+
+export class CategoryAttribute {
+  attributeId: Object;
+  isFilter: boolean;
+  order: number;
+}
+
+export class AppCategoryAttribute {
+  id: Object;
+  categoryId: number;
+  attributeId: number;
+  isFilter: boolean;
+  order: number;
+}
+
+export class AttributeByCategoryId {
+  id: Object;
+  title: string;
+  attributeCategoryId: number;
+  attributeCategoryTitle: string;
+  attributeTypeId: number;
+  isRequired: boolean;
+  attributeValueId: number;
+  attributeValueValue: string;
+  apiValue: string;
 }
