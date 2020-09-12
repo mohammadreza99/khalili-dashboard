@@ -1,0 +1,173 @@
+<page-container title="درج / ویرایش محصول">
+  <p-tabView [activeIndex]="activeIndex">
+    <p-tabPanel header="اطلاعات پایه">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <form [formGroup]="primaryFormGroup" class="form-row">
+              <prm-tree
+                *ngIf="convertedCategories"
+                [filter]="false"
+                label="دسته بندی"
+                labelWidth="110"
+                [items]="convertedCategories"
+                [(selected)]="selectedCategory"
+                formControlName="categoryId"
+                class="col-12 mb-4"
+              >
+              </prm-tree>
+              <prm-input-dropdown
+                *ngIf="convertedBrands"
+                formControlName="brandId"
+                class="col-12 mb-4"
+                label="برند"
+                labelWidth="110"
+                [items]="convertedBrands"
+              ></prm-input-dropdown>
+              <prm-input-text
+                formControlName="commission"
+                class="col-12 mb-4"
+                label="کمیسیون"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="name"
+                class="col-12 mb-4"
+                label="نام"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="namEn"
+                class="col-12 mb-4"
+                label="نام انگلیسی"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-textarea
+                formControlName="description"
+                class="col-12 mb-4"
+                label="توضیحات"
+                labelWidth="110"
+              ></prm-input-textarea>
+              <prm-input-textarea
+                formControlName="descriptionSeo"
+                class="col-12 mb-4"
+                label="توضیحات سئو"
+                labelWidth="110"
+              ></prm-input-textarea>
+              <prm-input-tags
+                formControlName="gainPoints"
+                class="col-12 mb-4"
+                label="نقاط قوت"
+                labelWidth="110"
+              ></prm-input-tags>
+              <prm-input-tags
+                formControlName="weakPoints"
+                class="col-12 mb-4"
+                label="نقاط ضعف"
+                labelWidth="110"
+              ></prm-input-tags>
+
+              <div
+                class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
+              >
+                <button class="col-12 btn btn-block btn-success">ذخیره</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="فیلدها"> Content 2 </p-tabPanel>
+    <p-tabPanel header="عکس ها">
+      <image-picker
+        [images]="productImages"
+        [defaultImage]="productDefaultImage"
+        (defaultChange)="onDefaultImageChange($event)"
+        (imageSelect)="onImageSelect($event)"
+        (imageDelete)="onImageDelete($event)"
+      ></image-picker>
+    </p-tabPanel>
+    <p-tabPanel header="سوالات سنجشی">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <form [formGroup]="poitTypeFormGroup" class="form-row">
+              <prm-input-dropdown
+                *ngIf="convertedPointTypes"
+                formControlName="pointTypeId"
+                class="col-12 mb-4"
+                label="سوال سنجشی"
+                labelWidth="110"
+                [items]="convertedPointTypes"
+              ></prm-input-dropdown>
+            </form>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="قیمت و رنگ">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <form [formGroup]="secondaryFormGroup" class="form-row">
+              <prm-input-dropdown
+                *ngIf="convertedColors"
+                formControlName="colorId"
+                class="col-12 mb-4"
+                label="رنگ"
+                labelWidth="110"
+                [items]="convertedColors"
+              ></prm-input-dropdown>
+              <prm-input-dropdown
+                *ngIf="convertedWarranries"
+                formControlName="warrantyId"
+                class="col-12 mb-4"
+                label="گارانتی"
+                labelWidth="110"
+                [items]="convertedWarranries"
+              ></prm-input-dropdown>
+              <prm-input-dropdown
+                *ngIf="convertedInsurance"
+                formControlName="insuranceId"
+                class="col-12 mb-4"
+                label="بیمه"
+                labelWidth="110"
+                [items]="convertedInsurance"
+              ></prm-input-dropdown>
+              <prm-input-checkbox-single
+                formControlName="isReference"
+                class="col-12 mb-4"
+                label="قیمت مرجع"
+                labelWidth="110"
+              ></prm-input-checkbox-single>
+              <prm-input-text
+                formControlName="period"
+                class="col-12 mb-4"
+                label="حداکثر زمان ارسال"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="localCode"
+                class="col-12 mb-4"
+                label="کد داخلی"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="qty"
+                class="col-12 mb-4"
+                label="تعداد"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="maxQty"
+                class="col-12 mb-4"
+                label="بیشترین تعداد درخواست"
+                labelWidth="110"
+              ></prm-input-text>
+            </form>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</page-container>

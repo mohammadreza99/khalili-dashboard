@@ -8,7 +8,6 @@ import { SharedModule } from '@shared/shared.module';
 import { ProductRoutingModule } from '@app/modules/product/product-routing.module';
 import { COMPONENTS } from '.';
 
-
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],

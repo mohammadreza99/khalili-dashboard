@@ -1,8 +1,5 @@
 @import "mixins.scss";
 
-.main-wrapper {
-  overflow-x: hidden;
-}
 .col {
   margin-top: $navbar-responsive-height;
   transition: margin-right 0.3s;

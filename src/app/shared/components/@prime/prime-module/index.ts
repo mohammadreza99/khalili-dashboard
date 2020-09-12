@@ -40,7 +40,8 @@ import { PasswordModule } from 'primeng/password';
 import { TreeModule } from 'primeng/tree';
 import { EditorModule } from 'primeng/editor';
 import { PickListModule } from 'primeng';
-
+import { StepsModule } from 'primeng/steps';
+import { CardModule } from 'primeng/card';
 export const MODULES = [
   ButtonModule,
   SidebarModule,
@@ -84,4 +85,6 @@ export const MODULES = [
   PasswordModule,
   EditorModule,
   PickListModule,
+  StepsModule,
+  CardModule,
 ];
