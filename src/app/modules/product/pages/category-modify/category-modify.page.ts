@@ -36,12 +36,13 @@ export class CategoryModifyPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCategories();
     const id = this.route.snapshot.paramMap.get('id');
+    this.loadCategories(id);
     if (id) {
       this.editMode = true;
       this.loadCategory(id);
     }
+    
   }
 
   async loadCategory(id) {
@@ -62,14 +63,12 @@ export class CategoryModifyPage implements OnInit {
       this.originalCategories
     );
     if(!this.selectedParentNode )
-    this.selectedParentNode=this.convertedCategories[0]
+    this.selectedParentNode=this.convertedCategories[0];
      
   }
 
-  async loadCategories() {
-    this.originalCategories = await this.productService
-      .getCategories()
-      .toPromise();
+  async loadCategories(id) {
+    this.originalCategories = await this.productService.getCategories().toPromise();
     const convertedCategories: TreeNode[] = this.productService.convertToTreeNodeList(this.originalCategories);
     this.convertedCategories = [
       {
@@ -91,14 +90,15 @@ export class CategoryModifyPage implements OnInit {
         order: 0,
       };
     });
+    if(!id) this.selectedParentNode=this.convertedCategories[0];
   }
 
   onNodeSelect(selected) {
     if(selected.node.data)
     this.form.controls['parentId'].setValue(selected.node.data.id);
-    else{
-      this.form.controls['parentId'].setValue(null);
-    }
+    else
+    this.form.controls['parentId'].setValue(null);
+    
   }
 
   onSubmitClick() {
