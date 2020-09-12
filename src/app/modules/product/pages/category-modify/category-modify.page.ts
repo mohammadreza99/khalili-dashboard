@@ -34,15 +34,14 @@ export class CategoryModifyPage implements OnInit {
     private basicService: BasicService,
     private route: ActivatedRoute
   ) {}
-
+  id;
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.loadCategories(id);
-    if (id) {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.loadCategories();
+    if (this.id) {
       this.editMode = true;
-      this.loadCategory(id);
+      this.loadCategory(this.id);
     }
-    
   }
 
   async loadCategory(id) {
@@ -62,14 +61,17 @@ export class CategoryModifyPage implements OnInit {
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
     );
-    if(!this.selectedParentNode )
-    this.selectedParentNode=this.convertedCategories[0];
-     
+    if (!this.selectedParentNode)
+      this.selectedParentNode = this.convertedCategories[0];
   }
 
-  async loadCategories(id) {
-    this.originalCategories = await this.productService.getCategories().toPromise();
-    const convertedCategories: TreeNode[] = this.productService.convertToTreeNodeList(this.originalCategories);
+  async loadCategories() {
+    this.originalCategories = await this.productService
+      .getCategories()
+      .toPromise();
+    const convertedCategories: TreeNode[] = this.productService.convertToTreeNodeList(
+      this.originalCategories
+    );
     this.convertedCategories = [
       {
         children: convertedCategories,
@@ -90,15 +92,13 @@ export class CategoryModifyPage implements OnInit {
         order: 0,
       };
     });
-    if(!id) this.selectedParentNode=this.convertedCategories[0];
+    if (!this.id) this.selectedParentNode = this.convertedCategories[0];
   }
 
   onNodeSelect(selected) {
-    if(selected.node.data)
-    this.form.controls['parentId'].setValue(selected.node.data.id);
-    else
-    this.form.controls['parentId'].setValue(null);
-    
+    if (selected.node.data)
+      this.form.controls['parentId'].setValue(selected.node.data.id);
+    else this.form.controls['parentId'].setValue(null);
   }
 
   onSubmitClick() {
