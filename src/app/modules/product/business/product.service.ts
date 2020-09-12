@@ -22,6 +22,12 @@ export class ProductService extends BaseService {
     );
   }
 
+  getCategoryById(): Observable<AppCategory> {
+    return this.get<AppCategory[]>('/Base/Admin/CategorySelectWithId/', 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
   insertCategories<AppCategory>(body): Observable<AppCategory> {
     return this.post('/Base/Admin/CategoryInsert/',body, 'json').pipe(
       map((res: any) => res.data)
