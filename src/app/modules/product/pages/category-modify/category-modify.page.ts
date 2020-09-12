@@ -45,29 +45,41 @@ export class CategoryModifyPage implements OnInit {
   }
 
   async loadCategory(id) {
-    // const category = await this.productService.getCategoryById(id).toPromise();
+    const category = await this.productService.getCategoryById(id).toPromise();
+
     this.form.patchValue({
-      title: '',
-      icon: '',
-      link: '',
-      id: '',
-      parentId: '',
-      isActive: '',
-      isSubMenu: '',
+      title: category.title,
+      icon: category.icon,
+      link: category.link,
+      id: category.id,
+      parentId: category.parentId,
+      isActive: category.isActive,
+      isSubMenu: category.isSubMenu,
     });
-    // this.selectedParentNode = this.productService.convertToTreeNode(
-    //   this.originalCategories.find((c) => c.id == category.parentId),
-    //   this.originalCategories
-    // );
+
+    this.selectedParentNode = this.productService.convertToTreeNode(
+      this.originalCategories.find((c) => c.id == category.parentId),
+      this.originalCategories
+    );
+    if(!this.selectedParentNode )
+    this.selectedParentNode=this.convertedCategories[0]
+     
   }
 
   async loadCategories() {
     this.originalCategories = await this.productService
       .getCategories()
       .toPromise();
-    this.convertedCategories = this.productService.convertToTreeNodeList(
-      this.originalCategories
-    );
+    const convertedCategories: TreeNode[] = this.productService.convertToTreeNodeList(this.originalCategories);
+    this.convertedCategories = [
+      {
+        children: convertedCategories,
+        key: '-1',
+        label: 'ریشه اصلی',
+        parent: undefined,
+        selectable: true,
+      },
+    ];
     this.originalAttributes = await this.basicService
       .select<BaseAttribute>('Attribute')
       .toPromise();
@@ -82,7 +94,11 @@ export class CategoryModifyPage implements OnInit {
   }
 
   onNodeSelect(selected) {
+    if(selected.node.data)
     this.form.controls['parentId'].setValue(selected.node.data.id);
+    else{
+      this.form.controls['parentId'].setValue(null);
+    }
   }
 
   onSubmitClick() {

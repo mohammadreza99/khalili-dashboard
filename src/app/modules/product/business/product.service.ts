@@ -34,8 +34,9 @@ export class ProductService extends BaseService {
     );
   }
 
-  getCategoryById(): Observable<AppCategory> {
-    return this.get<AppCategory[]>('/Base/Admin/CategorySelectWithId/', 'json').pipe(
+  getCategoryById(id): Observable<AppCategory> {
+
+    return this.get<AppCategory>('/Base/Admin/CategorySelectWithId//?id='+ id, 'json').pipe(
       map((res: any) => res.data)
     );
   }
