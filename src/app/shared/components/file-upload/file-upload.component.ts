@@ -10,7 +10,7 @@ export class UploadFiles {
   fileType: number;
   isActive: boolean;
   userId: number;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 @Component({

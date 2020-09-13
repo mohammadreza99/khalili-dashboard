@@ -111,3 +111,14 @@ export class AttributeByCategoryId {
   attributeValueValue: string;
   apiValue: string;
 }
+
+export class AppCategorySlider {
+  id: Object;
+  categoryId: number;
+  alt: string;
+  keyMedia: string;
+  expireDateTime: Date;
+  userId?: Object;
+  isActive: boolean;
+  insertDate?: Date;
+}

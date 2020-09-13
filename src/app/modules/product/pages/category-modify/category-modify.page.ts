@@ -28,25 +28,25 @@ export class CategoryModifyPage implements OnInit {
     isSubMenu: new FormControl(false),
   });
   editMode = false;
+  categoryId: number;
 
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
     private route: ActivatedRoute
   ) {}
-  id;
+
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.categoryId = +this.route.snapshot.paramMap.get('id');
     this.loadCategories();
-    if (this.id) {
+    if (this.categoryId) {
       this.editMode = true;
-      this.loadCategory(this.id);
+      this.loadCategory(this.categoryId);
     }
   }
 
-  async loadCategory(id) {
+  async loadCategory(id: number) {
     const category = await this.productService.getCategoryById(id).toPromise();
-
     this.form.patchValue({
       title: category.title,
       icon: category.icon,
@@ -92,7 +92,7 @@ export class CategoryModifyPage implements OnInit {
         order: 0,
       };
     });
-    if (!this.id) this.selectedParentNode = this.convertedCategories[0];
+    if (!this.categoryId) this.selectedParentNode = this.convertedCategories[0];
   }
 
   onNodeSelect(selected) {
@@ -105,13 +105,13 @@ export class CategoryModifyPage implements OnInit {
     let node = this.form.value;
     if (this.editMode)
       this.productService
-        .updateCategories<AppCategory>(node)
+        .updateCategory<AppCategory>(node)
         .subscribe((res) => this.loadCategories());
     else {
       if (node.parentId) node.isSubMenu = true;
       else node.isSubMenu = false;
       this.productService
-        .insertCategories<AppCategory>(node)
+        .insertCategory<AppCategory>(node)
         .subscribe((res) => this.loadCategories());
     }
     this.form.reset();

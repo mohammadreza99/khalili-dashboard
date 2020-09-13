@@ -21,10 +21,10 @@ export class CategoriesPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadData();
   }
 
-  async loadCategories() {
+  async loadData() {
     this.originalCategories = await this.productService
       .getCategories()
       .toPromise();

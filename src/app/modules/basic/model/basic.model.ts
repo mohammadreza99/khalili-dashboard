@@ -115,17 +115,17 @@ export class SiteAbout {
   description: string;
   shortDescription: string;
   isActive: boolean;
-  userId: Object;
-  insertDate: Date;
+  userId?: Object;
+  insertDate?: Date;
 }
 
 export class SiteTelPhone {
   id: Object;
   telNo: string;
   telShow: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SiteSocialMedia {
@@ -134,18 +134,18 @@ export class SiteSocialMedia {
   link: string;
   icon: string;
   alt: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SiteFAQCategory {
   id: Object;
   title: string;
   keyMedia: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 export class SiteFAQ {
   id: Object;
@@ -153,27 +153,27 @@ export class SiteFAQ {
   fAQ: string;
   answer: string;
   keyMedia: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SiteTerms {
   id: Object;
   title: string;
   description: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SitePrivacy {
   id: Object;
   title: string;
   description: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SiteSlider {
@@ -181,17 +181,17 @@ export class SiteSlider {
   alt: string;
   keyMedia: string;
   expireDateTime: Date;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 
 export class SiteMainPage {
   id: Object;
   title: string;
   description: string;
-  userId: Object;
+  userId?: Object;
   isActive: boolean;
-  insertDate: Date;
+  insertDate?: Date;
 }
 

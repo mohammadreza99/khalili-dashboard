@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/services/base.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -8,6 +8,7 @@ import {
   AppCategory,
   ProductSelect,
   AttributeByCategoryId,
+  AppCategorySlider,
 } from '../model/product.model';
 import { TreeNode } from 'primeng';
 
@@ -15,42 +16,63 @@ import { TreeNode } from 'primeng';
   providedIn: 'root',
 })
 export class ProductService extends BaseService {
+  /////////////////////////////////////////////////////////////
+  //                       Activation                        //
+  /////////////////////////////////////////////////////////////
+  activate<T>(type: string, body: T): Observable<T> {
+    return this.put(`/Base/Admin/${type}Active`, body, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  deactivate<T>(type: string, body: T): Observable<T> {
+    return this.put(`/Base/Admin/${type}DeActive`, body, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  /////////////////////////////////////////////////////////////
+  //                       Product                           //
+  /////////////////////////////////////////////////////////////
   getProducts(): Observable<ProductSelect[]> {
     return this.get<Product[]>('/Base/Admin/ProductSelect/', 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-  getAttributesByCatgoryId(categoryId: number) {
-    return this.get<AttributeByCategoryId[]>(
-      '/Base/Admin/AttributeSelectWithCategoryId/',
-      'json'
-    ).pipe(map((res: any) => res.data));
-  }
-
+  /////////////////////////////////////////////////////////////
+  //                       Category                          //
+  /////////////////////////////////////////////////////////////
   getCategories(): Observable<AppCategory[]> {
     return this.get<AppCategory[]>('/Base/Admin/CategorySelect/', 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-  getCategoryById(id): Observable<AppCategory> {
+  getCategoryById(categoryId: number): Observable<AppCategory> {
+    return this.get<AppCategory>(
+      '/Base/Admin/CategorySelectWithId/?id=' + categoryId,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
 
-    return this.get<AppCategory>('/Base/Admin/CategorySelectWithId//?id='+ id, 'json').pipe(
+  insertCategory<AppCategory>(category: AppCategory): Observable<AppCategory> {
+    return this.post('/Base/Admin/CategoryInsert/', category, 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-  insertCategories<AppCategory>(body): Observable<AppCategory> {
-    return this.post('/Base/Admin/CategoryInsert/', body, 'json').pipe(
+  updateCategory<AppCategory>(category: AppCategory): Observable<AppCategory> {
+    return this.put('/Base/Admin/CategoryUpdate/', category, 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-  updateCategories<AppCategory>(body): Observable<AppCategory> {
-    return this.put('/Base/Admin/CategoryUpdate/', body, 'json').pipe(
-      map((res: any) => res.data)
-    );
+  getAttributesByCatgoryId(categoryId: number) {
+    return this.get<AttributeByCategoryId[]>(
+      '/Base/Admin/AttributeSelectWithCategoryId/?categoryId=' + categoryId,
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 
   convertToTreeNodeList(items: AppCategory[]) {
@@ -135,5 +157,33 @@ export class ProductService extends BaseService {
       }
     });
     return children;
+  }
+
+  /////////////////////////////////////////////////////////////
+  //                     CategorySlider                      //
+  /////////////////////////////////////////////////////////////
+  getCategorySliders(): Observable<AppCategorySlider[]> {
+    return this.get<AppCategorySlider[]>(
+      '/Base/Admin/CategorySliderSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
+  insertCategorySlider(
+    categorySlider: AppCategorySlider
+  ): Observable<AppCategorySlider> {
+    return this.post(
+      '/Base/Admin/CategorySliderInsert/',
+      categorySlider,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
+  updateCategorySlider(categorySlider: AppCategorySlider) {
+    return this.put(
+      '/Base/Admin/CategorySliderUpdate/',
+      categorySlider,
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 }
