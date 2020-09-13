@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////
+//                        Product                           //
+//////////////////////////////////////////////////////////////
 export class Product {
   categoryId: number;
   brandId: number;
@@ -65,16 +68,31 @@ export class Price {
   maxQty: number;
 }
 
-export class DiscountInsertModel {
+export class Discount {
+  id: number;
   title: string;
   code: string;
-  expireDate: Date;
-  maxUse: number;
+  expireDate: string;
+  MaxUse: number;
   price: number;
   maxPrice: number;
   percent: number;
+  isActive?: boolean;
+  insertDate?: string;
+  orderCountUse?: number;
 }
 
+export class ProductView {
+  productName: string;
+  productId: string;
+  productCode: string;
+  categoryTitle: string;
+  countView: number;
+}
+
+//////////////////////////////////////////////////////////////
+//                        Category                          //
+//////////////////////////////////////////////////////////////
 export class AppCategory {
   id: Object;
   title: string;

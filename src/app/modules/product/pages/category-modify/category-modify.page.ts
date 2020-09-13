@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BasicService } from '@app/modules/basic/business/basic.service';
 import { BaseAttribute } from '@app/modules/basic/model/basic.model';
+import { ColDef } from 'ag-grid-community';
 import { TreeNode } from 'primeng';
 import { ProductService } from '../../business/product.service';
 import { AppCategory } from '../../model/product.model';
@@ -15,9 +16,10 @@ import { AppCategory } from '../../model/product.model';
 export class CategoryModifyPage implements OnInit {
   originalCategories: AppCategory[];
   convertedCategories: TreeNode[];
-  originalAttributes: BaseAttribute[];
-  convertedAttributes: any[];
-  selectedParentNode: TreeNode;
+  selectedParentCategory: TreeNode;
+  categoryId: number;
+
+  editMode = false;
   form = new FormGroup({
     id: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -27,8 +29,33 @@ export class CategoryModifyPage implements OnInit {
     isActive: new FormControl(true, Validators.required),
     isSubMenu: new FormControl(false),
   });
-  editMode = false;
-  categoryId: number;
+
+  originalAttributes: BaseAttribute[];
+  convertedAttributes: any[];
+  attributesColumnDefs: ColDef[] = [
+    {
+      headerName: 'عنوان',
+      field: 'title',
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
+      editable: false,
+    },
+    {
+      field: 'isFilter',
+      headerName: 'فیلتر باشد',
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: ['فعال', 'غیرفعال'],
+      },
+      cellRenderer: this.filteringCellRenderer,
+    },
+    {
+      field: 'order',
+      headerName: 'ترتیب',
+    },
+  ];
+  selectedAttributes: any[];
 
   constructor(
     private productService: ProductService,
@@ -56,13 +83,12 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-
-    this.selectedParentNode = this.productService.convertToTreeNode(
+    this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
     );
-    if (!this.selectedParentNode)
-      this.selectedParentNode = this.convertedCategories[0];
+    if (!this.selectedParentCategory)
+      this.selectedParentCategory = this.convertedCategories[0];
   }
 
   async loadCategories() {
@@ -92,14 +118,25 @@ export class CategoryModifyPage implements OnInit {
         order: 0,
       };
     });
-    if (!this.categoryId) this.selectedParentNode = this.convertedCategories[0];
+    if (!this.categoryId)
+      this.selectedParentCategory = this.convertedCategories[0];
   }
 
-  onNodeSelect(selected) {
+  onParentCategorySelect(selected) {
     if (selected.node.data)
       this.form.controls['parentId'].setValue(selected.node.data.id);
     else this.form.controls['parentId'].setValue(null);
   }
+
+  filteringCellRenderer(params) {
+    return booleanCellRenderer(params.data.isFilter);
+  }
+
+  onAttributeSelected(event) {
+    //  event.node.data.title
+  }
+
+  onSelectionChanged(event) {}
 
   onSubmitClick() {
     let node = this.form.value;
@@ -117,7 +154,9 @@ export class CategoryModifyPage implements OnInit {
     this.form.reset();
   }
 }
-// MultiSelect Deselect Tips
-// if (event.value.map((a) => a.id == event.itemValue.id).length == 1) {
-//   checked = true;
-// }
+
+function booleanCellRenderer(condtion: any) {
+  return `<div class="d-flex"><div style="width:15px;height:15px;border-radius:50%;margin-top:13px;background-color:${
+    condtion ? 'green' : 'red'
+  }"></div> <span>${condtion ? 'فعال' : 'غیرفعال'}</span></div>`;
+}

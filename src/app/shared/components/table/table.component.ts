@@ -31,6 +31,8 @@ export class TableComponent implements OnInit {
 
   @Input() columnDefs: ColDef[];
   @Input() rowData: any;
+  @Input() selectedRows: any[];
+  @Input() rowSelection: 'multiple' | 'single' = null;
   @Input() enableFilter: boolean = true;
   @Input() enableSorting: boolean = true;
   @Input() pagination: boolean = false;
@@ -48,6 +50,8 @@ export class TableComponent implements OnInit {
   @Output() rowDeleted = new EventEmitter();
   @Output() actionClick = new EventEmitter();
   @Output() imageSelect = new EventEmitter();
+  @Output() rowSelected = new EventEmitter();
+  @Output() selectionChanged = new EventEmitter();
 
   ngOnInit(): void {
     if (this.actionsConfig) {
@@ -82,9 +86,24 @@ export class TableComponent implements OnInit {
     }
   }
 
+  onRowSelected(event) {
+    this.rowSelected.emit(event);
+  }
+
+  onSelectionChanged(event) {
+    this.selectionChanged.emit(event);
+  }
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    if (this.selectedRows) {
+      this.gridApi.forEachNode((node) => {
+        for (const n of this.selectedRows) {
+          node.setSelected(node.data === n);
+        }
+      });
+    }
   }
 
   onCellValueChanged(event) {

@@ -8,8 +8,12 @@
   [defaultColDef]="defaultColDef"
   [enableRtl]="true"
   [animateRows]="true"
+  [suppressRowClickSelection]="true"
   [components]="components"
+  [rowSelection]="rowSelection"
   [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)"
+  (rowSelected)="onRowSelected($event)"
+  (selectionChanged)="onSelectionChanged($event)"
   (cellValueChanged)="onCellValueChanged($event)"
 ></ag-grid-angular>

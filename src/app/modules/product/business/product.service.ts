@@ -9,6 +9,7 @@ import {
   ProductSelect,
   AttributeByCategoryId,
   AppCategorySlider,
+  Discount,
 } from '../model/product.model';
 import { TreeNode } from 'primeng';
 
@@ -40,6 +41,23 @@ export class ProductService extends BaseService {
     );
   }
 
+  getDiscounts(): Observable<Discount[]> {
+    return this.get<Discount[]>('/Base/Admin/DiscountSelect/', 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  insertDiscount<Discount>(discount: Discount): Observable<Discount> {
+    return this.post('/Base/Admin/DiscountInsert/', discount, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  updateDiscount<Discount>(discount: Discount): Observable<Discount> {
+    return this.put('/Base/Admin/DiscountUpdate/', discount, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
   /////////////////////////////////////////////////////////////
   //                       Category                          //
   /////////////////////////////////////////////////////////////
