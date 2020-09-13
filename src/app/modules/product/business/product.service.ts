@@ -10,6 +10,9 @@ import {
   AttributeByCategoryId,
   AppCategorySlider,
   Discount,
+  ProductView,
+  ProductFavorite,
+  ProductComment,
 } from '../model/product.model';
 import { TreeNode } from 'primeng';
 
@@ -39,6 +42,33 @@ export class ProductService extends BaseService {
     return this.get<Product[]>('/Base/Admin/ProductSelect/', 'json').pipe(
       map((res: any) => res.data)
     );
+  }
+
+  getProductsView(): Observable<ProductView[]> {
+    return this.get<ProductView[]>(
+      '/Base/Admin/ProductViewSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
+  getProductsComment(): Observable<ProductComment[]> {
+    return this.get<ProductComment[]>(
+      '/Base/Admin/CommentSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
+  verifyComment(commentId: string): Observable<ProductComment> {
+    return this.put('/Base/Admin/CommentVerify/', { commentId }, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  getProductsFavorite(): Observable<ProductFavorite[]> {
+    return this.get<ProductFavorite[]>(
+      '/Base/Admin/FavoritesSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 
   getDiscounts(): Observable<Discount[]> {

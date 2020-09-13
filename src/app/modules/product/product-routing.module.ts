@@ -6,6 +6,9 @@ import { CategoriesPage } from './pages/categories/categories.page';
 import { CategoryModifyPage } from './pages/category-modify/category-modify.page';
 import { CategorySliderPage } from './pages/category-slider/category-slider.page';
 import { DiscountPage } from './pages/discount/discount.page';
+import { ProductsViewPage } from './pages/products-view/products-view.page';
+import { ProductsFavoritePage } from './pages/products-favorite/products-favorite.page';
+import { CommentsPage } from './pages/comments/comments.page';
 
 const routes: Routes = [
   {
@@ -52,6 +55,21 @@ const routes: Routes = [
     path: 'discount',
     data: { title: 'categories' },
     component: DiscountPage,
+  },
+  {
+    path: 'views',
+    data: { title: 'categories' },
+    component: ProductsViewPage,
+  },
+  {
+    path: 'favorites',
+    data: { title: 'categories' },
+    component: ProductsFavoritePage,
+  },
+  {
+    path: 'comments',
+    data: { title: 'categories' },
+    component: CommentsPage,
   },
 ];
 

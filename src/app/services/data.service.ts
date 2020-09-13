@@ -4,7 +4,6 @@ import { MenuItem } from 'primeng/api';
 import { PrimeConfirmService } from '@prime/prime-service/prime-confirm.service';
 import { PrimeToastService } from '@prime/prime-service/prime-toast.service';
 import { BaseService } from './base.service';
-import { Config } from '@app/app.config';
 
 @Injectable({ providedIn: 'root' })
 export class DataService extends BaseService {
@@ -135,6 +134,21 @@ export class DataService extends BaseService {
         {
           label: 'کد تخفیف',
           routerLink: ['/product/discount'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'بازدید محصولات',
+          routerLink: ['/product/views'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'علاقه مندی کاربران',
+          routerLink: ['/product/favorites'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'نظرات کاربران',
+          routerLink: ['/product/comments'],
           icon: 'fa fa-minus',
         },
       ],

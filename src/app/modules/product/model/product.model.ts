@@ -90,6 +90,31 @@ export class ProductView {
   countView: number;
 }
 
+export class ProductFavorite {
+  productName: string;
+  productId: string;
+  productCode: string;
+  categoryTitle: string;
+  countFavorit: number;
+}
+
+export class ProductComment {
+  id: number;
+  fullName: string;
+  productName: string;
+  productId: string;
+  productCode: string;
+  categoryTitle: string;
+  commentTitle: string;
+  gainPoints: string;
+  weakPoints: string;
+  description: string;
+  isProposal?: number;
+  insertDate: string;
+  fullNameVerifyingUser: string;
+  isActive: boolean;
+}
+
 //////////////////////////////////////////////////////////////
 //                        Category                          //
 //////////////////////////////////////////////////////////////
