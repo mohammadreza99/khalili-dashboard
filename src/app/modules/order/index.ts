@@ -1,3 +1,3 @@
-import { ProductsPage } from './components/products/products.page';
+import { OrderStatusPage } from './pages/order-status/order-status.page';
 
-export const COMPONENTS = [ProductsPage];
+export const COMPONENTS = [OrderStatusPage];

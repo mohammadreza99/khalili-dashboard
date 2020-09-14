@@ -153,6 +153,31 @@ export class DataService extends BaseService {
         },
       ],
     },
+    {
+      label: 'سفارشات',
+      items: [
+        {
+          label: 'وضعیت سفارشات',
+          routerLink: ['/order/statuses'],
+          icon: 'fa fa-minus',
+        },
+      ],
+    },
+    {
+      label: 'کاربران',
+      items: [
+        {
+          label: 'نقش های کاربری',
+          routerLink: ['/user/roles'],
+          icon: 'fa fa-minus',
+        },
+        {
+          label: 'کاربران',
+          routerLink: ['/user/users'],
+          icon: 'fa fa-minus',
+        },
+      ],
+    },
   ];
 
   get sideMenuItems(): MenuItem[] {

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/services/base.service';
 import { Observable } from 'rxjs';
-import { Result } from '@app/app.global';
+import { BaseOrderStatus } from '../model/order.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +11,11 @@ export class OrderService extends BaseService {
   constructor() {
     super();
   }
-  public getProducts(): Observable<any[]> {
-    return new Observable<any[]>((observer) => {
-      this.get<Result<any[]>>('Base/Admin/ColorSelect', 'json').subscribe(
-        (data) => {
-          observer.next(data.data);
-        }
-      );
-    });
+
+  getOrderStatuses(): Observable<BaseOrderStatus[]> {
+    return this.get<BaseOrderStatus[]>(
+      '/Base/Admin/OrderStatusSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 }

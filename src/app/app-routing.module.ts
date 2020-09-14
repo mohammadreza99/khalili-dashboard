@@ -4,8 +4,6 @@ import { HomePage } from './main/home/home.page';
 import { AuthGuard } from './modules/auth/business/auth.guard';
 import { AuthPage } from './modules/auth/pages/auth/auth.page';
 
-
-
 const routes: Routes = [
   {
     path: '',
@@ -20,8 +18,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    canActivate:[AuthGuard],
-    canActivateChild:[AuthGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'base',
@@ -35,6 +33,18 @@ const routes: Routes = [
           import('@app/modules/product/product.module').then(
             (m) => m.ProductModule
           ),
+      },
+      {
+        path: 'order',
+        data: { title: 'orders' },
+        loadChildren: () =>
+          import('@app/modules/order/order.module').then((m) => m.OrderModule),
+      },
+      {
+        path: 'user',
+        data: { title: 'users' },
+        loadChildren: () =>
+          import('@app/modules/user/user.module').then((m) => m.UserModule),
       },
     ],
   },
