@@ -27,6 +27,8 @@ export class InsurancesPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -100,9 +102,9 @@ export class InsurancesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseInsurance>('Insurance', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseInsurance>('Insurance', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

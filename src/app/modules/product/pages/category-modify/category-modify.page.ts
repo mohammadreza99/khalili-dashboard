@@ -48,6 +48,8 @@ export class CategoryModifyPage implements OnInit {
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
       },
+      filter: false,
+      sortable: false,
       cellRenderer: this.filteringCellRenderer,
     },
     {

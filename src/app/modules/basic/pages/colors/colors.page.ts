@@ -28,6 +28,8 @@ export class ColorsPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -40,7 +42,6 @@ export class ColorsPage implements OnInit {
     private basicService: BasicService,
     private dialogFormService: DialogFormService
   ) {}
-
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<BaseColor>('Color');

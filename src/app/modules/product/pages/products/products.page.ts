@@ -36,6 +36,8 @@ export class ProductsPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+filter: false,
+sortable: false,
       cellRenderer: this.activityCellRenderer,
     },
   ];

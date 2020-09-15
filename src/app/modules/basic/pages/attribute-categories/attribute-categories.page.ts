@@ -23,6 +23,8 @@ export class AttributeCategoriesPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -94,9 +96,9 @@ export class AttributeCategoriesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseAttributeCategory>('AttributeCategory', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseAttributeCategory>('AttributeCategory', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

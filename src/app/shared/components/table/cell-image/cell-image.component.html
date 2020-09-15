@@ -1,13 +1,6 @@
-<span class="wrapper">
-  <!-- <img [src]="imageToShow" style="height: 34px" /> -->
-  <img
-    [src]="'DownloadMedia?key=' + imageToShow | safe | async"
-    style="height: 34px"
-  />
-  <label
-    style="cursor: pointer"
-    class="p-1 mb-0 mr-2 border bg-light"
-    [for]="'input' + id"
+<span class="wrapper d-flex align-items-center">
+  <img [src]="'DownloadMedia?key=' + imageToShow | safe | async" />
+  <label class="px-1 mb-0 mr-2 border bg-light" [for]="'input' + id"
     >تغییر</label
   >
   <input

@@ -29,6 +29,8 @@ export class MainSettingPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -37,9 +39,7 @@ export class MainSettingPage implements OnInit {
     },
   ];
 
-  constructor(
-    private basicService: BasicService,
-  ) {}
+  constructor(private basicService: BasicService) {}
 
   ngOnInit(): void {
     this.rowData$ = this.basicService.select<SiteMainPage>('MainPage');

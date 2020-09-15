@@ -52,11 +52,6 @@ export class DiscountPage implements OnInit {
         headerName: 'درصد تخفیف',
       },
       {
-        field: 'isActive',
-        headerName: 'وضعیت',
-        editable: false,
-      },
-      {
         field: 'orderCountUse',
         headerName: 'تعداد استفاده شده',
         editable: false,
@@ -92,9 +87,12 @@ export class DiscountPage implements OnInit {
           return moment(data.value).format('jYYYY/jMM/jDD');
         },
       },
+
       {
         field: 'isActive',
         headerName: 'وضعیت',
+filter: false,
+sortable: false,
         cellRenderer: this.activityCellRenderer,
       },
     ];

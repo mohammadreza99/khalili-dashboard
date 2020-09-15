@@ -7,11 +7,10 @@ import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import { ColDef } from 'ag-grid-community';
 
-
 @Component({
   selector: 'faq',
   templateUrl: './faq.page.html',
-  styleUrls: ['./faq.page.scss']
+  styleUrls: ['./faq.page.scss'],
 })
 export class FaqPage implements OnInit {
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
@@ -52,8 +51,12 @@ export class FaqPage implements OnInit {
         },
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
-          values: this.availabeFAQCategory.map((FAQCategory) => FAQCategory.title),
+          values: this.availabeFAQCategory.map(
+            (FAQCategory) => FAQCategory.title
+          ),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
           params.data.fAQCategoryId = getByTitleCellRenderer(
             params.data.fAQCategoryId,
@@ -64,6 +67,8 @@ export class FaqPage implements OnInit {
       {
         field: 'isActive',
         headerName: 'وضعیت',
+        filter: false,
+        sortable: false,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],
@@ -78,7 +83,10 @@ export class FaqPage implements OnInit {
   }
 
   FAQCategoryCellRenderer(params) {
-    return getByIdCellRenderer(params.data.fAQCategoryId, this.availabeFAQCategory);
+    return getByIdCellRenderer(
+      params.data.fAQCategoryId,
+      this.availabeFAQCategory
+    );
   }
 
   addFAQ() {

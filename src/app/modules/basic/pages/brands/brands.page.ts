@@ -31,11 +31,15 @@ export class BrandsPage implements OnInit {
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
       },
+      filter: false,
+      sortable: false,
       cellRenderer: this.orginallyCellRenderer,
     },
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],

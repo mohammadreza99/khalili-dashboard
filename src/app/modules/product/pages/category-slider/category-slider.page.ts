@@ -81,6 +81,8 @@ export class CategorySliderPage implements OnInit {
         cellEditorParams: {
           values: this.availabeCategories.map((category) => category.title),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
           params.data.categoryId = getByTitleCellRenderer(
             params.data.categoryId,
@@ -91,6 +93,8 @@ export class CategorySliderPage implements OnInit {
       {
         field: 'isActive',
         headerName: 'وضعیت',
+        filter: false,
+        sortable: false,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],

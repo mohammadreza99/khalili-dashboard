@@ -59,6 +59,8 @@ export class TableComponent implements OnInit {
         this.columnDefs.push({
           headerName: action.headerName,
           editable: false,
+          filter: false,
+          sortable: false,
           cellRenderer: 'buttonRenderer',
           cellRendererParams: {
             onClick: this.onActionClick.bind(this),
@@ -76,6 +78,8 @@ export class TableComponent implements OnInit {
         this.columnDefs.push({
           headerName: config.headerName,
           editable: false,
+          filter: false,
+          sortable: false,
           cellRenderer: 'imageRenderer',
           cellRendererParams: {
             onSelect: this.onSelectImage.bind(this),
