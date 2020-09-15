@@ -18,57 +18,62 @@ const routes: Routes = [
   },
   {
     path: 'list',
+    data: { title: 'محصولات' },
     component: ProductsPage,
   },
   {
     path: 'modify',
+    data: { title: 'افزودن محصول' },
     component: ProductModifyPage,
   },
   {
     path: 'modify/:id',
+    data: { title: 'ویرایش محصول' },
     component: ProductModifyPage,
   },
   {
     path: 'categories',
-    data: { title: 'categories' },
     children: [
       {
         path: 'list',
+        data: { title: 'دسته بندی محصولات' },
         component: CategoriesPage,
       },
       {
         path: 'modify',
+        data: { title: 'افزودن دسته بندی' },
         component: CategoryModifyPage,
       },
       {
         path: 'modify/:id',
+        data: { title: 'ویرایش دسته بندی' },
         component: CategoryModifyPage,
       },
       {
         path: 'slider',
-        data: { title: 'categories' },
+        data: { title: 'اسلایدر دسته بندی' },
         component: CategorySliderPage,
       },
     ],
   },
   {
     path: 'discount',
-    data: { title: 'categories' },
+    data: { title: 'تخفیف ها' },
     component: DiscountPage,
   },
   {
     path: 'views',
-    data: { title: 'categories' },
+    data: { title: 'بازدید محصولات' },
     component: ProductsViewPage,
   },
   {
     path: 'favorites',
-    data: { title: 'categories' },
+    data: { title: 'علاقه مندی کابران' },
     component: ProductsFavoritePage,
   },
   {
     path: 'comments',
-    data: { title: 'categories' },
+    data: { title: 'نظرات کاربران' },
     component: CommentsPage,
   },
 ];

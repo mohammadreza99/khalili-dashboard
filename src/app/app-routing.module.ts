@@ -23,12 +23,13 @@ const routes: Routes = [
     children: [
       {
         path: 'base',
+        data: { title: 'مدیریت اطلاعات پایه' },
         loadChildren: () =>
           import('@app/modules/basic/basic.module').then((m) => m.BasicModule),
       },
       {
         path: 'product',
-        data: { title: 'products' },
+        data: { title: 'محصولات' },
         loadChildren: () =>
           import('@app/modules/product/product.module').then(
             (m) => m.ProductModule
@@ -36,13 +37,13 @@ const routes: Routes = [
       },
       {
         path: 'order',
-        data: { title: 'orders' },
+        data: { title: 'سفارشات' },
         loadChildren: () =>
           import('@app/modules/order/order.module').then((m) => m.OrderModule),
       },
       {
         path: 'user',
-        data: { title: 'users' },
+        data: { title: 'کاربران' },
         loadChildren: () =>
           import('@app/modules/user/user.module').then((m) => m.UserModule),
       },
