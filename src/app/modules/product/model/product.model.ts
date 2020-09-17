@@ -126,7 +126,7 @@ export class AppCategory {
   isActive: boolean;
   link: string;
   isSubMenu: boolean;
-  AttributeId: CategoryAttribute[];
+  attribute: CategoryAttribute[];
 }
 
 export class CategoryAttribute {
@@ -135,13 +135,7 @@ export class CategoryAttribute {
   order: number;
 }
 
-export class AppCategoryAttribute {
-  id: Object;
-  categoryId: number;
-  attributeId: number;
-  isFilter: boolean;
-  order: number;
-}
+
 
 export class AttributeByCategoryId {
   id: Object;

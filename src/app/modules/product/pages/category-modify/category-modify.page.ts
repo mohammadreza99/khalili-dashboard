@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BasicService } from '@app/modules/basic/business/basic.service';
 import { BaseAttribute } from '@app/modules/basic/model/basic.model';
 import { ColDef } from 'ag-grid-community';
 import { TreeNode } from 'primeng';
 import { ProductService } from '../../business/product.service';
-import { AppCategory } from '../../model/product.model';
+import { AppCategory, CategoryAttribute } from '../../model/product.model';
 
 @Component({
   selector: 'category-modify',
@@ -57,12 +57,14 @@ export class CategoryModifyPage implements OnInit {
       headerName: 'ترتیب',
     },
   ];
-  selectedAttributes: any[];
+  selectedAttributes: CategoryAttribute[] = [];
+  selectedAttributeIds: any[] = [];
 
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +87,7 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
+    
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
@@ -135,23 +138,50 @@ export class CategoryModifyPage implements OnInit {
   }
 
   onAttributeSelected(event) {
-    //  event.node.data.title
+    let attributeId = event.data.attributeId;
+    if (!this.selectedAttributeIds.find((id) => id == attributeId))
+      this.selectedAttributeIds.push(attributeId);
+    else {
+      let index = this.selectedAttributeIds.findIndex(
+        (id) => id == attributeId
+      );
+      this.selectedAttributeIds.splice(index, 1);
+    }
   }
 
-  onSelectionChanged(event) {}
+  createAttributesCategory() {
+    this.convertedAttributes.forEach((attr) => {
+      if (this.selectedAttributeIds.includes(attr.attributeId))
+        this.selectedAttributes.push(
+          {
+          attributeId: attr.attributeId,
+          isFilter: attr.isFilter=="فعال" ? true :false,
+          order: +(attr.order),
+        }
+        );
+    });
+  }
 
   onSubmitClick() {
+    this.createAttributesCategory();
     let node = this.form.value;
+    Object.assign(node,{attribute:this.selectedAttributes})
     if (this.editMode)
       this.productService
         .updateCategory<AppCategory>(node)
-        .subscribe((res) => this.loadCategories());
+        .subscribe((res) => {
+          this.router.navigate(['/product/categories/list'])
+        });
     else {
       if (node.parentId) node.isSubMenu = true;
       else node.isSubMenu = false;
       this.productService
         .insertCategory<AppCategory>(node)
-        .subscribe((res) => this.loadCategories());
+        .subscribe((res) => {
+          this.router.navigate(['/product/categories/list'])
+        }
+
+        );
     }
     this.form.reset();
   }
