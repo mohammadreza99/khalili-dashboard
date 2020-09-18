@@ -53,10 +53,10 @@
     <div class="ml-3 label">انتخاب فیلدها</div>
   </div>
 
-  <div class="d-flex mb-3">
+  <div class="d-flex mb-3" *ngIf="categorySlider">
     <category-slider
       (onChange)="onSliderChange($event)"
-      [images]="[{keyMedia:'categoryslider/4etaoem1.png',alt:'rrrr',expireDateTime:''}]"
+      [images]="categorySlider"
       class="flex-grow-1"
     ></category-slider>
     <div class="ml-3 label">انتخاب اسلایدر</div>
