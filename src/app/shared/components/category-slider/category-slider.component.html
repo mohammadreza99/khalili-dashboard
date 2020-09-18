@@ -10,13 +10,13 @@
       (onChange)="onExpireDateChange($event, i)"
       class="d-block mt-1"
       [(ngModel)]="item.expireDate"
-      [beforeAfterConfig]="{ after: { type: 'text', text: 'exp' } }"
+      [beforeAfterConfig]="{ after: { type: 'text', text: 'EX' } }"
     ></prm-input-date-time-picker>
     <prm-input-text
       class="d-block mt-1"
       (onInput)="onAltChange($event, i)"
       [(ngModel)]="item.alt"
-      [beforeAfterConfig]="{ after: { type: 'text', text: 'alt' } }"
+      [beforeAfterConfig]="{ after: { type: 'text', text: 'Alt' } }"
     ></prm-input-text>
     <i
       class="image-item-trash fal fa-trash-alt"
