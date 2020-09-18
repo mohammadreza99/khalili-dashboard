@@ -23,6 +23,7 @@ export class CategorySliderComponent implements OnInit {
     const file: File = event.target.files[0];
     this.createImageFromBlob(file);
     this.onSelect.emit(file);
+    this.selectionChange.emit(this.selectedImages);
   }
 
   getImage(imageUrl: string) {
@@ -47,8 +48,9 @@ export class CategorySliderComponent implements OnInit {
 
   onDeleteImageClick(event, index) {
     event.stopPropagation();
-    this.onDelete.emit(this.images[index]);
-    this.images.splice(index, 1);
+    this.onDelete.emit(this.selectedImages[index]);
+    this.selectionChange.emit(this.selectedImages);
+    this.selectedImages.splice(index, 1);
   }
 
   onExpireDateChange(event, index) {
