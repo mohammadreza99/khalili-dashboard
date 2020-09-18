@@ -26,7 +26,7 @@ export class CategorySliderComponent implements OnInit {
             alt: item.alt,
             keyMedia: dataUrl,
             expireDateTime: moment(
-              moment(item.expireDateTime).format('jYYYY-jMM-jDD'),
+              moment(new Date(item.expireDateTime)).format('jYYYY-jMM-jDD'),
               'jYYYY,jMM,jDD'
             ),
           });
