@@ -174,6 +174,10 @@ Point {
     });
   }
 
+  onSelectCategory(event) {
+    console.log(event);
+  }
+
   updateProduct() {}
 
   onDefaultImageChange($event) {}

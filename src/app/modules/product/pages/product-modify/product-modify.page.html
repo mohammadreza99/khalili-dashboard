@@ -5,17 +5,18 @@
         <div class="row">
           <div class="col-12">
             <form [formGroup]="primaryFormGroup" class="form-row">
-              <prm-tree
-                *ngIf="convertedCategories"
-                [filter]="false"
-                label="دسته بندی"
-                labelWidth="110"
-                [items]="convertedCategories"
-                [(selected)]="selectedCategory"
-                formControlName="categoryId"
-                class="col-12 mb-4"
-              >
-              </prm-tree>
+              <div class="d-flex mb-3 col-12">
+                <p-tree
+                  selectionMode="single"
+                  [(selection)]="selectedCategory"
+                  (onNodeSelect)="onSelectCategory($event)"
+                  [value]="convertedCategories"
+                  dir="rtl"
+                  class="rtl ui-rtl flex-grow-1"
+                >
+                </p-tree>
+                <div class="ml-3 label">دسته بندی</div>
+              </div>
               <prm-input-dropdown
                 *ngIf="convertedBrands"
                 formControlName="brandId"
