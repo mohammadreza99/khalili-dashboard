@@ -57,8 +57,10 @@ export class CategoryModifyPage implements OnInit {
       headerName: 'ترتیب',
     },
   ];
-  selectedAttributes: CategoryAttribute[] = [];
-  selectedAttributeIds: any[] = [];
+  firstSelectedAttributes: any[]=[] ;
+  loadCategoryAttributes=false;
+  newSelectedAttributes: CategoryAttribute[] = [];
+  newSelectedAttributeIds: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -67,9 +69,9 @@ export class CategoryModifyPage implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.categoryId = +this.route.snapshot.paramMap.get('id');
-    this.loadCategories();
+    await this.loadCategories();
     if (this.categoryId) {
       this.editMode = true;
       this.loadCategory(this.categoryId);
@@ -87,13 +89,25 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-    
+
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
     );
     if (!this.selectedParentCategory)
       this.selectedParentCategory = this.convertedCategories[0];
+
+      if (this.convertedAttributes){
+        this.loadCategoryAttributes=true;
+        category.attribute.forEach((attribute) => {
+          let convertedAttribute = this.convertedAttributes.find(
+            (attr) => attribute.attributeId == attr.attributeId
+          );
+          if (convertedAttribute)
+            this.firstSelectedAttributes.push(convertedAttribute);
+        });
+      }
+      
   }
 
   async loadCategories() {
@@ -139,49 +153,41 @@ export class CategoryModifyPage implements OnInit {
 
   onAttributeSelected(event) {
     let attributeId = event.data.attributeId;
-    if (!this.selectedAttributeIds.find((id) => id == attributeId))
-      this.selectedAttributeIds.push(attributeId);
+    if (!this.newSelectedAttributeIds.find((id) => id == attributeId))
+      this.newSelectedAttributeIds.push(attributeId);
     else {
-      let index = this.selectedAttributeIds.findIndex(
+      let index = this.newSelectedAttributeIds.findIndex(
         (id) => id == attributeId
       );
-      this.selectedAttributeIds.splice(index, 1);
+      this.newSelectedAttributeIds.splice(index, 1);
     }
   }
 
   createAttributesCategory() {
     this.convertedAttributes.forEach((attr) => {
-      if (this.selectedAttributeIds.includes(attr.attributeId))
-        this.selectedAttributes.push(
-          {
+      if (this.newSelectedAttributeIds.includes(attr.attributeId))
+        this.newSelectedAttributes.push({
           attributeId: attr.attributeId,
-          isFilter: attr.isFilter=="فعال" ? true :false,
-          order: +(attr.order),
-        }
-        );
+          isFilter: attr.isFilter == 'فعال' ? true : false,
+          order: +attr.order,
+        });
     });
   }
 
   onSubmitClick() {
     this.createAttributesCategory();
     let node = this.form.value;
-    Object.assign(node,{attribute:this.selectedAttributes})
+    Object.assign(node, { attribute: this.newSelectedAttributes });
     if (this.editMode)
-      this.productService
-        .updateCategory<AppCategory>(node)
-        .subscribe((res) => {
-          this.router.navigate(['/product/categories/list'])
-        });
+      this.productService.updateCategory<AppCategory>(node).subscribe((res) => {
+        this.router.navigate(['/product/categories/list']);
+      });
     else {
       if (node.parentId) node.isSubMenu = true;
       else node.isSubMenu = false;
-      this.productService
-        .insertCategory<AppCategory>(node)
-        .subscribe((res) => {
-          this.router.navigate(['/product/categories/list'])
-        }
-
-        );
+      this.productService.insertCategory<AppCategory>(node).subscribe((res) => {
+        this.router.navigate(['/product/categories/list']);
+      });
     }
     this.form.reset();
   }
