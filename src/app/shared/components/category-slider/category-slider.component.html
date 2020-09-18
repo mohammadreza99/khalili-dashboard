@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <div
+    class="image-item mr-3 mb-2 border p-2 bg-light rounded-lg"
+    *ngFor="let item of selectedImages; let i = index"
+  >
+    <div class="image-item-image">
+      <img class="w-100 h-100" [src]="item.keyMedia" />
+    </div>
+    <prm-input-date-time-picker
+      (onChange)="onExpireDateChange($event, i)"
+      class="d-block mt-1"
+      [(ngModel)]="item.expireDate"
+      [beforeAfterConfig]="{ after: { type: 'text', text: 'exp' } }"
+    ></prm-input-date-time-picker>
+    <prm-input-text
+      class="d-block mt-1"
+      (onInput)="onAltChange($event, i)"
+      [(ngModel)]="item.alt"
+      [beforeAfterConfig]="{ after: { type: 'text', text: 'alt' } }"
+    ></prm-input-text>
+    <i
+      class="image-item-trash fal fa-trash-alt"
+      (click)="onDeleteImageClick($event, i)"
+    ></i>
+  </div>
+  <div
+    (click)="uploader.click()"
+    class="image-uploader d-flex align-items-center justify-content-center"
+  >
+    <i class="fas fa-2x fa-camera-retro"></i>
+    <input type="file" #uploader (change)="onSelectImage($event)" />
+  </div>
+</div>

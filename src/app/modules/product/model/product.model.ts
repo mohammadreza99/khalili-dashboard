@@ -127,6 +127,7 @@ export class AppCategory {
   link: string;
   isSubMenu: boolean;
   attribute: CategoryAttribute[];
+  slider: AppCategorySlider[];
 }
 
 export class CategoryAttribute {
@@ -135,7 +136,11 @@ export class CategoryAttribute {
   order: number;
 }
 
-
+export class AppCategorySlider {
+  alt: string;
+  keyMedia: string;
+  expireDateTime: Date;
+}
 
 export class AttributeByCategoryId {
   id: Object;
@@ -147,15 +152,4 @@ export class AttributeByCategoryId {
   attributeValueId: number;
   attributeValueValue: string;
   apiValue: string;
-}
-
-export class AppCategorySlider {
-  id: Object;
-  categoryId: number;
-  alt: string;
-  keyMedia: string;
-  expireDateTime: Date;
-  userId?: Object;
-  isActive: boolean;
-  insertDate?: Date;
 }

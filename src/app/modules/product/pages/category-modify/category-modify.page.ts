@@ -87,7 +87,7 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-    
+
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
@@ -152,38 +152,34 @@ export class CategoryModifyPage implements OnInit {
   createAttributesCategory() {
     this.convertedAttributes.forEach((attr) => {
       if (this.selectedAttributeIds.includes(attr.attributeId))
-        this.selectedAttributes.push(
-          {
+        this.selectedAttributes.push({
           attributeId: attr.attributeId,
-          isFilter: attr.isFilter=="فعال" ? true :false,
-          order: +(attr.order),
-        }
-        );
+          isFilter: attr.isFilter == 'فعال' ? true : false,
+          order: +attr.order,
+        });
     });
   }
 
   onSubmitClick() {
     this.createAttributesCategory();
     let node = this.form.value;
-    Object.assign(node,{attribute:this.selectedAttributes})
+    Object.assign(node, { attribute: this.selectedAttributes });
     if (this.editMode)
-      this.productService
-        .updateCategory<AppCategory>(node)
-        .subscribe((res) => {
-          this.router.navigate(['/product/categories/list'])
-        });
+      this.productService.updateCategory<AppCategory>(node).subscribe((res) => {
+        this.router.navigate(['/product/categories/list']);
+      });
     else {
       if (node.parentId) node.isSubMenu = true;
       else node.isSubMenu = false;
-      this.productService
-        .insertCategory<AppCategory>(node)
-        .subscribe((res) => {
-          this.router.navigate(['/product/categories/list'])
-        }
-
-        );
+      this.productService.insertCategory<AppCategory>(node).subscribe((res) => {
+        this.router.navigate(['/product/categories/list']);
+      });
     }
     this.form.reset();
+  }
+
+  onSelectSlider(event) {
+    console.log(event);
   }
 }
 

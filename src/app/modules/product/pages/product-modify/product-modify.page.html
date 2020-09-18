@@ -79,13 +79,13 @@
     </p-tabPanel>
     <p-tabPanel header="فیلدها"> Content 2 </p-tabPanel>
     <p-tabPanel header="عکس ها">
-      <image-picker
+      <multi-image-picker
         [images]="productImages"
         [defaultImage]="productDefaultImage"
         (defaultChange)="onDefaultImageChange($event)"
         (imageSelect)="onImageSelect($event)"
         (imageDelete)="onImageDelete($event)"
-      ></image-picker>
+      ></multi-image-picker>
     </p-tabPanel>
     <p-tabPanel header="سوالات سنجشی">
       <div class="container-fluid">

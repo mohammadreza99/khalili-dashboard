@@ -27,7 +27,7 @@
     ></prm-input-text>
   </form>
 
-  <div class="d-flex mb-2">
+  <div class="d-flex mb-3">
     <p-tree
       selectionMode="single"
       [(selection)]="selectedParentCategory"
@@ -39,7 +39,8 @@
     </p-tree>
     <div class="ml-3 label">انتخاب دسته بندی والد</div>
   </div>
-  <div class="d-flex mb-2">
+
+  <div class="d-flex mb-3">
     <ag-table
       *ngIf="convertedAttributes"
       class="flex-grow-1"
@@ -50,5 +51,13 @@
       (rowSelected)="onAttributeSelected($event)"
     ></ag-table>
     <div class="ml-3 label">انتخاب فیلدها</div>
+  </div>
+
+  <div class="d-flex mb-3">
+    <category-slider
+      (selectionChange)="onSelectSlider($event)"
+      class="flex-grow-1"
+    ></category-slider>
+    <div class="ml-3 label">انتخاب اسلایدر</div>
   </div>
 </page-container>

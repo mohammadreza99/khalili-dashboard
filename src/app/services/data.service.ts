@@ -122,11 +122,6 @@ export class DataService extends BaseService {
           icon: 'fa fa-minus',
         },
         {
-          label: 'اسلایدر دسته بندی محصولات',
-          routerLink: ['/product/categories/slider'],
-          icon: 'fa fa-minus',
-        },
-        {
           label: 'محصولات',
           routerLink: ['/product/list'],
           icon: 'fa fa-minus',

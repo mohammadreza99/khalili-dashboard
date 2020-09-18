@@ -4,7 +4,6 @@ import { ProductsPage } from './pages/products/products.page';
 import { ProductModifyPage } from './pages/product-modify/product-modify.page';
 import { CategoriesPage } from './pages/categories/categories.page';
 import { CategoryModifyPage } from './pages/category-modify/category-modify.page';
-import { CategorySliderPage } from './pages/category-slider/category-slider.page';
 import { DiscountPage } from './pages/discount/discount.page';
 import { ProductsViewPage } from './pages/products-view/products-view.page';
 import { ProductsFavoritePage } from './pages/products-favorite/products-favorite.page';
@@ -48,11 +47,6 @@ const routes: Routes = [
         path: 'modify/:id',
         data: { title: 'ویرایش دسته بندی' },
         component: CategoryModifyPage,
-      },
-      {
-        path: 'slider',
-        data: { title: 'اسلایدر دسته بندی' },
-        component: CategorySliderPage,
       },
     ],
   },
