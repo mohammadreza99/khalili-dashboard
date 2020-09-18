@@ -25,7 +25,10 @@ export class CategorySliderComponent implements OnInit {
           this.selectedImages.push({
             alt: item.alt,
             keyMedia: dataUrl,
-            expireDateTime: item.expireDateTime,
+            expireDateTime: moment(
+              moment(item.expireDateTime).format('YYYY-MM-DD'),
+              'jYYYY,jMM,jDD'
+            ),
           });
         });
       }
