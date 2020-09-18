@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataService } from '@app/services/data.service';
 
 @Component({
   selector: 'multi-image-picker',
@@ -13,8 +12,6 @@ export class MultiImagePickerComponent implements OnInit {
   @Output() onDelete = new EventEmitter();
 
   selectedImages: { keyMedia?: any; isDefault?: any }[] = [];
-
-  constructor(private dataService: DataService) {}
 
   ngOnInit() {}
 
