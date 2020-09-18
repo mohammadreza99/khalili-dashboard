@@ -28,6 +28,11 @@
     class="image-uploader d-flex align-items-center justify-content-center"
   >
     <i class="fas fa-2x fa-camera-retro"></i>
-    <input type="file" #uploader (change)="onSelectImage($event)" />
+    <input
+      accept="image/*"
+      type="file"
+      #uploader
+      (change)="onSelectImage($event)"
+    />
   </div>
 </div>

@@ -24,4 +24,11 @@ export class UserService extends BaseService {
       'json'
     ).pipe(map((res: any) => res.data));
   }
+
+  changeRoleToSupport(userId: string) {
+    return this.get<SiteUser[]>(
+      '/Base/Admin/UserRoleChangeToSupport/?userId=' + userId,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
 }
