@@ -40,11 +40,6 @@ export class MultiImagePickerComponent implements OnInit {
     this.onChange.emit(this.selectedImages);
   }
 
-  getImage(imageUrl: string) {
-    const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl);
-  }
-
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
     if (image) {

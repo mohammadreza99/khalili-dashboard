@@ -34,13 +34,6 @@ export class SingleImagePickerComponent
 
   @ViewChild(PrimeInputFileComponent, { static: true })
   upload: PrimeInputFileComponent;
-  @Input('urlToShow') set showImage(url: string) {
-    if (url) {
-      this.getImage(url).subscribe((data: any) => {
-        this.createImageFromBlob(data);
-      });
-    }
-  }
   @Output() onSelect = new EventEmitter();
 
   imageToShow: any;
@@ -58,11 +51,6 @@ export class SingleImagePickerComponent
     this.value = file;
     this.createImageFromBlob(file);
     this.onSelect.emit(this.value);
-  }
-
-  getImage(imageUrl: string) {
-    const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl, headers);
   }
 
   createImageFromBlob(image: Blob) {
