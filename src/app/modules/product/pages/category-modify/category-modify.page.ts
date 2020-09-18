@@ -57,8 +57,8 @@ export class CategoryModifyPage implements OnInit {
       headerName: 'ترتیب',
     },
   ];
-  firstSelectedAttributes: any[]=[] ;
-  loadCategoryAttributes=false;
+  firstSelectedAttributes: any[] = [];
+  loadCategoryAttributes = false;
   newSelectedAttributes: CategoryAttribute[] = [];
   newSelectedAttributeIds: any[] = [];
 
@@ -97,33 +97,32 @@ export class CategoryModifyPage implements OnInit {
     if (!this.selectedParentCategory)
       this.selectedParentCategory = this.convertedCategories[0];
 
-      if (this.convertedAttributes){
-        this.loadCategoryAttributes=true;
-        category.attribute.forEach((attribute) => {
-          let convertedAttribute = this.convertedAttributes.find(
-            (attr) => attribute.attributeId == attr.attributeId
-          );
-          if (convertedAttribute)
-            this.firstSelectedAttributes.push(convertedAttribute);
-        });
-      }
-      
+    if (this.convertedAttributes) {
+      this.loadCategoryAttributes = true;
+      category.attribute.forEach((attribute) => {
+        let convertedAttribute = this.convertedAttributes.find(
+          (attr) => attribute.attributeId == attr.attributeId
+        );
+        if (convertedAttribute)
+          this.firstSelectedAttributes.push(convertedAttribute);
+      });
+    }
   }
 
   async loadCategories() {
     this.originalCategories = await this.productService
       .getCategories()
       .toPromise();
-    const convertedCategories: TreeNode[] = this.productService.convertToTreeNodeList(
-      this.originalCategories
-    );
     this.convertedCategories = [
       {
-        children: convertedCategories,
+        children: this.productService.convertToTreeNodeList(
+          this.originalCategories
+        ),
         key: '-1',
         label: 'ریشه اصلی',
         parent: undefined,
         selectable: true,
+        expanded: true,
       },
     ];
     this.originalAttributes = await this.basicService
@@ -192,7 +191,7 @@ export class CategoryModifyPage implements OnInit {
     this.form.reset();
   }
 
-  onSelectSlider(event) {
+  onSliderChange(event) {
     console.log(event);
   }
 }

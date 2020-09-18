@@ -11,7 +11,7 @@ export class CategorySliderComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   @Input() images: { keyMedia?: any; expireDate?: any; alt?: any }[];
-  @Output() selectionChange = new EventEmitter();
+  @Output() onChange = new EventEmitter();
   @Output() onSelect = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
@@ -23,7 +23,7 @@ export class CategorySliderComponent implements OnInit {
     const file: File = event.target.files[0];
     this.createImageFromBlob(file);
     this.onSelect.emit(file);
-    this.selectionChange.emit(this.selectedImages);
+    this.onChange.emit(this.selectedImages);
   }
 
   getImage(imageUrl: string) {
@@ -42,14 +42,14 @@ export class CategorySliderComponent implements OnInit {
         expireDate: moment(),
         alt: '',
       });
-      this.selectionChange.emit(this.selectedImages);
+      this.onChange.emit(this.selectedImages);
     };
   }
 
   onDeleteImageClick(event, index) {
     event.stopPropagation();
     this.onDelete.emit(this.selectedImages[index]);
-    this.selectionChange.emit(this.selectedImages);
+    this.onChange.emit(this.selectedImages);
     this.selectedImages.splice(index, 1);
   }
 
@@ -57,11 +57,11 @@ export class CategorySliderComponent implements OnInit {
     this.selectedImages[
       index
     ].expireDate = (event.dateObj as Date).toISOString();
-    this.selectionChange.emit(this.selectedImages);
+    this.onChange.emit(this.selectedImages);
   }
 
   onAltChange(event, index) {
     this.selectedImages[index].alt = event;
-    this.selectionChange.emit(this.selectedImages);
+    this.onChange.emit(this.selectedImages);
   }
 }
