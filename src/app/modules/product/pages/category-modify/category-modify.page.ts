@@ -18,7 +18,6 @@ export class CategoryModifyPage implements OnInit {
   convertedCategories: TreeNode[];
   selectedParentCategory: TreeNode;
   categoryId: number;
-
   editMode = false;
   form = new FormGroup({
     id: new FormControl(null),
@@ -61,7 +60,7 @@ export class CategoryModifyPage implements OnInit {
   loadCategoryAttributes = false;
   newSelectedAttributes: CategoryAttribute[] = [];
   newSelectedAttributeIds: any[] = [];
-
+  categorySlier=[];
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -76,6 +75,8 @@ export class CategoryModifyPage implements OnInit {
       this.editMode = true;
       this.loadCategory(this.categoryId);
     }
+    else this.loadCategoryAttributes = true;
+    
   }
 
   async loadCategory(id: number) {
@@ -89,7 +90,8 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-
+    console.log(category);
+    
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
@@ -177,6 +179,7 @@ export class CategoryModifyPage implements OnInit {
     this.createAttributesCategory();
     let node = this.form.value;
     Object.assign(node, { attribute: this.newSelectedAttributes });
+    Object.assign(node, { slider: this.categorySlier });
     if (this.editMode)
       this.productService.updateCategory<AppCategory>(node).subscribe((res) => {
         this.router.navigate(['/product/categories/list']);
@@ -192,7 +195,7 @@ export class CategoryModifyPage implements OnInit {
   }
 
   onSliderChange(event) {
-    console.log(event);
+    this.categorySlier=event;
   }
 }
 

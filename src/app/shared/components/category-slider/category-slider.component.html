@@ -7,9 +7,9 @@
       <img class="w-100 h-100" [src]="item.keyMedia" />
     </div>
     <prm-input-date-time-picker
-      (onChange)="onExpireDateChange($event, i)"
+      (onChange)="onexpireDateTimeChange($event, i)"
       class="d-block mt-1"
-      [(ngModel)]="item.expireDate"
+      [(ngModel)]="item.expireDateTime"
       [beforeAfterConfig]="{ after: { type: 'text', text: 'EX' } }"
     ></prm-input-date-time-picker>
     <prm-input-text

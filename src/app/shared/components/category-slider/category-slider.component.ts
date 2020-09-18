@@ -10,12 +10,12 @@ import * as moment from 'jalali-moment';
 export class CategorySliderComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
-  @Input() images: { keyMedia?: any; expireDate?: any; alt?: any }[];
+  @Input() images: { keyMedia?: any; expireDateTime?: any; alt?: any }[];
   @Output() onChange = new EventEmitter();
   @Output() onSelect = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
-  selectedImages: { keyMedia?: any; expireDate?: any; alt?: any }[] = [];
+  selectedImages: { keyMedia?: any; expireDateTime?: any; alt?: any }[] = [];
 
   ngOnInit() {}
 
@@ -39,7 +39,7 @@ export class CategorySliderComponent implements OnInit {
     reader.onload = () => {
       this.selectedImages.push({
         keyMedia: reader.result,
-        expireDate: moment(),
+        expireDateTime: moment(),
         alt: '',
       });
       this.onChange.emit(this.selectedImages);
@@ -53,10 +53,10 @@ export class CategorySliderComponent implements OnInit {
     this.selectedImages.splice(index, 1);
   }
 
-  onExpireDateChange(event, index) {
+  onexpireDateTimeChange(event, index) {
     this.selectedImages[
       index
-    ].expireDate = (event.dateObj as Date).toISOString();
+    ].expireDateTime = (event.dateObj as Date);
     this.onChange.emit(this.selectedImages);
   }
 
