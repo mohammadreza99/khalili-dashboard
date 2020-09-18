@@ -19,6 +19,13 @@ export class CategoryModifyPage implements OnInit {
   selectedParentCategory: TreeNode;
   categoryId: number;
   editMode = false;
+  originalAttributes: BaseAttribute[];
+  convertedAttributes: any[];
+  firstSelectedAttributes: any[] = [];
+  loadCategoryAttributes = false;
+  newSelectedAttributes: CategoryAttribute[] = [];
+  newSelectedAttributeIds: any[] = [];
+  categorySlider = [];
   form = new FormGroup({
     id: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -28,9 +35,6 @@ export class CategoryModifyPage implements OnInit {
     isActive: new FormControl(true, Validators.required),
     isSubMenu: new FormControl(false),
   });
-
-  originalAttributes: BaseAttribute[];
-  convertedAttributes: any[];
   attributesColumnDefs: ColDef[] = [
     {
       headerName: 'عنوان',
@@ -56,21 +60,14 @@ export class CategoryModifyPage implements OnInit {
       headerName: 'ترتیب',
     },
   ];
-  firstSelectedAttributes: any[] = [];
-  loadCategoryAttributes = false;
-  newSelectedAttributes: CategoryAttribute[] = [];
-  newSelectedAttributeIds: any[] = [];
-  categorySlider = [];
+
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  /* TODO :
-- loadCategoryAttributes mitone nabashe va ba convertedAttribute check konim.
-- baraye inke isActive & order-e attribute ham tooye edit moshakhas bashe, bayad be 2 soorat convertedAttribute ro por konim. vaghti mode add bood, harchi az server migirim ro ba isActive:false & order:0 bezarim too table. vaghti mode edit boodm harchi az server migirim ro ba isActive:false & order:0 bezarim vali oonaii ke jozve attribute haye categorye morede nazaran ro isActive va ordere oonaro bezarim va selecteshon konim.
-*/
+
   async ngOnInit() {
     this.categoryId = +this.route.snapshot.paramMap.get('id');
     await this.loadCategories();
@@ -91,7 +88,6 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
@@ -104,8 +100,11 @@ export class CategoryModifyPage implements OnInit {
         let convertedAttribute = this.convertedAttributes.find(
           (attr) => attribute.attributeId == attr.attributeId
         );
-        if (convertedAttribute)
+        if (convertedAttribute) {
+          convertedAttribute.isFilter = attribute.isFilter;
+          convertedAttribute.order = attribute.order;
           this.firstSelectedAttributes.push(convertedAttribute);
+        }
       });
     }
   }
