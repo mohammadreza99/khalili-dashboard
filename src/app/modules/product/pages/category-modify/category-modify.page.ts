@@ -19,6 +19,13 @@ export class CategoryModifyPage implements OnInit {
   selectedParentCategory: TreeNode;
   categoryId: number;
   editMode = false;
+  originalAttributes: BaseAttribute[];
+  convertedAttributes: any[];
+  firstSelectedAttributes: any[] = [];
+  loadCategoryAttributes = false;
+  newSelectedAttributes: CategoryAttribute[] = [];
+  newSelectedAttributeIds: any[] = [];
+  categorySlier=[];
   form = new FormGroup({
     id: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -28,9 +35,6 @@ export class CategoryModifyPage implements OnInit {
     isActive: new FormControl(true, Validators.required),
     isSubMenu: new FormControl(false),
   });
-
-  originalAttributes: BaseAttribute[];
-  convertedAttributes: any[];
   attributesColumnDefs: ColDef[] = [
     {
       headerName: 'عنوان',
@@ -56,11 +60,7 @@ export class CategoryModifyPage implements OnInit {
       headerName: 'ترتیب',
     },
   ];
-  firstSelectedAttributes: any[] = [];
-  loadCategoryAttributes = false;
-  newSelectedAttributes: CategoryAttribute[] = [];
-  newSelectedAttributeIds: any[] = [];
-  categorySlier=[];
+  
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -90,8 +90,6 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-    console.log(category);
-    
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
@@ -105,8 +103,11 @@ export class CategoryModifyPage implements OnInit {
         let convertedAttribute = this.convertedAttributes.find(
           (attr) => attribute.attributeId == attr.attributeId
         );
-        if (convertedAttribute)
+        if (convertedAttribute){
+          convertedAttribute.isFilter=attribute.isFilter;
+          convertedAttribute.order=attribute.order;
           this.firstSelectedAttributes.push(convertedAttribute);
+        }
       });
     }
   }
@@ -180,6 +181,8 @@ export class CategoryModifyPage implements OnInit {
     let node = this.form.value;
     Object.assign(node, { attribute: this.newSelectedAttributes });
     Object.assign(node, { slider: this.categorySlier });
+    console.log(JSON.stringify(node));
+    
     if (this.editMode)
       this.productService.updateCategory<AppCategory>(node).subscribe((res) => {
         this.router.navigate(['/product/categories/list']);
