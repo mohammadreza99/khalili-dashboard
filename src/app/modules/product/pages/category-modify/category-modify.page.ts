@@ -42,7 +42,7 @@ export class CategoryModifyPage implements OnInit {
     },
     {
       field: 'isFilter',
-      headerName: 'فیلتر باشد',
+      headerName: 'قابلیت فلیتر',
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -60,23 +60,24 @@ export class CategoryModifyPage implements OnInit {
   loadCategoryAttributes = false;
   newSelectedAttributes: CategoryAttribute[] = [];
   newSelectedAttributeIds: any[] = [];
-  categorySlier=[];
+  categorySlider = [];
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
+  /* TODO :
+- loadCategoryAttributes mitone nabashe va ba convertedAttribute check konim.
+- baraye inke isActive & order-e attribute ham tooye edit moshakhas bashe, bayad be 2 soorat convertedAttribute ro por konim. vaghti mode add bood, harchi az server migirim ro ba isActive:false & order:0 bezarim too table. vaghti mode edit boodm harchi az server migirim ro ba isActive:false & order:0 bezarim vali oonaii ke jozve attribute haye categorye morede nazaran ro isActive va ordere oonaro bezarim va selecteshon konim.
+*/
   async ngOnInit() {
     this.categoryId = +this.route.snapshot.paramMap.get('id');
     await this.loadCategories();
     if (this.categoryId) {
       this.editMode = true;
       this.loadCategory(this.categoryId);
-    }
-    else this.loadCategoryAttributes = true;
-    
+    } else this.loadCategoryAttributes = true;
   }
 
   async loadCategory(id: number) {
@@ -90,15 +91,13 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-    console.log(category);
-    
+
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
     );
     if (!this.selectedParentCategory)
       this.selectedParentCategory = this.convertedCategories[0];
-
     if (this.convertedAttributes) {
       this.loadCategoryAttributes = true;
       category.attribute.forEach((attribute) => {
@@ -179,7 +178,7 @@ export class CategoryModifyPage implements OnInit {
     this.createAttributesCategory();
     let node = this.form.value;
     Object.assign(node, { attribute: this.newSelectedAttributes });
-    Object.assign(node, { slider: this.categorySlier });
+    Object.assign(node, { slider: this.categorySlider });
     if (this.editMode)
       this.productService.updateCategory<AppCategory>(node).subscribe((res) => {
         this.router.navigate(['/product/categories/list']);
@@ -195,7 +194,7 @@ export class CategoryModifyPage implements OnInit {
   }
 
   onSliderChange(event) {
-    this.categorySlier=event;
+    this.categorySlider = event;
   }
 }
 

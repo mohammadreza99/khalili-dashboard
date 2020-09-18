@@ -133,7 +133,6 @@ Point {
 
   ngOnInit(): void {
     this.loadData();
-    this.productService.getAttributesByCatgoryId(3).subscribe(console.log);
   }
 
   async loadData() {

@@ -42,7 +42,7 @@ export class MultiImagePickerComponent implements OnInit {
 
   getImage(imageUrl: string) {
     const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl, headers);
+    return this.dataService.getImage(imageUrl);
   }
 
   createImageFromBlob(image: Blob) {

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Config } from '@app/app.config';
 import { DataService } from '@app/services/data.service';
 import * as moment from 'jalali-moment';
 
@@ -17,18 +18,25 @@ export class CategorySliderComponent implements OnInit {
 
   selectedImages: { keyMedia?: any; expireDateTime?: any; alt?: any }[] = [];
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.images) {
+      for (const item of this.images) {
+        this.dataService.getBase64ImageFromUrl(item.keyMedia, (dataUrl) => {
+          this.selectedImages.push({
+            alt: item.alt,
+            keyMedia: dataUrl,
+            expireDateTime: item.expireDateTime,
+          });
+        });
+      }
+    }
+  }
 
   onSelectImage(event: any) {
     const file: File = event.target.files[0];
     this.createImageFromBlob(file);
     this.onSelect.emit(file);
     this.onChange.emit(this.selectedImages);
-  }
-
-  getImage(imageUrl: string) {
-    const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl, headers);
   }
 
   createImageFromBlob(image: Blob) {
@@ -54,9 +62,7 @@ export class CategorySliderComponent implements OnInit {
   }
 
   onexpireDateTimeChange(event, index) {
-    this.selectedImages[
-      index
-    ].expireDateTime = (event.dateObj as Date);
+    this.selectedImages[index].expireDateTime = event.dateObj as Date;
     this.onChange.emit(this.selectedImages);
   }
 
