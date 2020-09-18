@@ -22,6 +22,20 @@
           color="primary"
           icon="fa fa-edit"
         ></prm-button>
+        <prm-button
+          *ngIf="!node.data.isActive"
+          (click)="onCategoryActive(node)"
+          class="mr-2"
+          color="success"
+          icon="fa fa-check"
+        ></prm-button>
+        <prm-button
+          *ngIf="node.data.isActive"
+          (click)="onCategoryDeActive(node)"
+          class="mr-2"
+          color="danger"
+          icon="fa fa-times"
+        ></prm-button>
       </div>
     </ng-template>
   </p-tree>

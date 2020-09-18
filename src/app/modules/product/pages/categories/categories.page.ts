@@ -31,9 +31,22 @@ export class CategoriesPage implements OnInit {
     this.convertedCategories = this.productService.convertToTreeNodeList(
       this.originalCategories
     );
+    
   }
 
   onCategoryEdit(node: TreeNode) {
     this.router.navigate(['/product/categories/modify', node.data.id]);
+  }
+
+  onCategoryActive(node){
+    this.productService.activeCategory<AppCategory>(node.data).subscribe(res =>{
+      this.loadData();
+    });
+  }
+
+  onCategoryDeActive(node){
+    this.productService.deActiveCategory<AppCategory>(node.data).subscribe(res =>{
+      this.loadData();
+    });
   }
 }
