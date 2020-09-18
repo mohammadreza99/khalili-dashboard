@@ -42,12 +42,12 @@
 
   <div class="d-flex mb-3">
     <ag-table
-      *ngIf="convertedAttributes"
+      *ngIf="loadCategoryAttributes"
       class="flex-grow-1"
       rowSelection="multiple"
       [rowData]="convertedAttributes"
       [columnDefs]="attributesColumnDefs"
-      [selectedRows]="selectedAttributes"
+      [selectedRows]="firstSelectedAttributes"
       (rowSelected)="onAttributeSelected($event)"
     ></ag-table>
     <div class="ml-3 label">انتخاب فیلدها</div>

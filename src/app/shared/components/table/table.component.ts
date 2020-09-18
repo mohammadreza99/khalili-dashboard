@@ -104,7 +104,7 @@ export class TableComponent implements OnInit {
     if (this.selectedRows) {
       this.gridApi.forEachNode((node) => {
         for (const n of this.selectedRows) {
-          if (node.data === n) node.setSelected(true);
+          if(node.data === n)node.setSelected(true);
         }
       });
     }
