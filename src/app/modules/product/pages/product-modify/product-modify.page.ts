@@ -56,7 +56,6 @@ export class ProductModifyPage implements OnInit {
   convertedInsurance: SelectItem[];
 
   primaryFormGroup = new FormGroup({
-    categoryId: new FormControl(null),
     brandId: new FormControl(null),
     commission: new FormControl(null),
     name: new FormControl(null),
@@ -66,6 +65,7 @@ export class ProductModifyPage implements OnInit {
     gainPoints: new FormControl(null),
     weakPoints: new FormControl(null),
   });
+
   secondaryFormGroup = new FormGroup({
     colorId: new FormControl(null),
     warrantyId: new FormControl(null),
@@ -83,48 +83,7 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-
-  /*
-  categoryId: number;
-  brandId: number;
-  commission: number;
-  name: string;
-  namEn: string;
-  description: string;
-  descriptionSeo: string;
-  gainPoints: string;
-  weakPoints: string;
-  point: Point;
-  info: Info[];
-  media: Media[];
-  price: Price;
-
-
- Info {
-  attributeId: number;
-  value: string;
-}
-
- Media {
-  keyMedia: string;
-  isDefault: boolean;
-}
-
-Point {
-  pointTypeId: number;
-}
-
- Price {
-  colorId: number;
-  warrantyId: number;
-  InsuranceId: number;
-  isReference: boolean;
-  period: number;
-  localCode: string;
-  qty: number;
-  maxQty: number;
-}
-   */
+  product
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -173,10 +132,76 @@ Point {
       return { label: item.title, value: item.id };
     });
   }
+  onSaveClick(){
 
+  }
+  createProduct(){
+    this.product.categoryId=this.selectedCategory.data.id;
+    this.product.brandId=this.primaryFormGroup.controls['brandId'].value;
+    this.product.commission=this.primaryFormGroup.controls['commission'].value;
+    this.product.name=this.primaryFormGroup.controls['name'].value;
+    this.product.namEn=this.primaryFormGroup.controls['namEn'].value;
+    this.product.description=this.primaryFormGroup.controls['description'].value;
+    this.product.descriptionSeo=this.primaryFormGroup.controls['descriptionSeo'].value;
+    this.product.gainPoints=this.primaryFormGroup.controls['gainPoints'].value;
+    this.product.weakPoints=this.primaryFormGroup.controls['weakPoints'].value;
+    this.product.media=this.productImages;
+    this.product.price.colorId=this.secondaryFormGroup.controls['colorId'].value;
+    this.product.price.warrantyId=this.secondaryFormGroup.controls['warrantyId'].value;
+    this.product.price.insuranceId=this.secondaryFormGroup.controls['insuranceId'].value;
+    this.product.price.period=this.secondaryFormGroup.controls['period'].value;
+    this.product.price.localCode=this.secondaryFormGroup.controls['localCode'].value;
+    this.product.price.qty=this.secondaryFormGroup.controls['qty'].value;
+    this.product.price.maxQty=this.secondaryFormGroup.controls['maxQty'].value;
+  }
+  
   updateProduct() {}
 
-  onDefaultImageChange($event) {}
-  onImageSelect($event) {}
-  onImageDelete($event) {}
+  onImageChange(args) {
+    this.productImages=args;
+  }
+
 }
+
+
+  /*
+  categoryId: number;
+  brandId: number;
+  commission: number;
+  name: string;
+  namEn: string;
+  description: string;
+  descriptionSeo: string;
+  gainPoints: string;
+  weakPoints: string;
+  point: Point;
+  info: Info[];
+  media: Media[];
+  price: Price;
+
+
+ Info {
+  attributeId: number;
+  value: string;
+}
+
+ Media {
+  keyMedia: string;
+  isDefault: boolean;
+}
+
+Point {
+  pointTypeId: number;
+}
+
+ Price {
+  colorId: number;
+  warrantyId: number;
+  InsuranceId: number;
+  isReference: boolean;
+  period: number;
+  localCode: string;
+  qty: number;
+  maxQty: number;
+}
+   */

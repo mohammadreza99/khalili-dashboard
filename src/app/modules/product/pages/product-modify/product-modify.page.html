@@ -5,17 +5,6 @@
         <div class="row">
           <div class="col-12">
             <form [formGroup]="primaryFormGroup" class="form-row">
-              <prm-tree
-                *ngIf="convertedCategories"
-                [filter]="false"
-                label="دسته بندی"
-                labelWidth="110"
-                [items]="convertedCategories"
-                [(selected)]="selectedCategory"
-                formControlName="categoryId"
-                class="col-12 mb-4"
-              >
-              </prm-tree>
               <prm-input-dropdown
                 *ngIf="convertedBrands"
                 formControlName="brandId"
@@ -69,6 +58,7 @@
 
               <div
                 class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
+                (click)="onSaveClick()"
               >
                 <button class="col-12 btn btn-block btn-success">ذخیره</button>
               </div>
@@ -77,14 +67,29 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="فیلدها"> Content 2 </p-tabPanel>
+    <p-tabPanel header="فیلدها">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <p-tree
+              *ngIf="convertedCategories"
+              class="col-12 mb-4"
+              selectionMode="single"
+              [(selection)]="selectedCategory"
+              [value]="convertedCategories"
+              dir="rtl"
+              formControlName="categoryId"
+            >
+            </p-tree>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
     <p-tabPanel header="عکس ها">
       <multi-image-picker
         [images]="productImages"
         [defaultImage]="productDefaultImage"
-        (defaultChange)="onDefaultImageChange($event)"
-        (imageSelect)="onImageSelect($event)"
-        (imageDelete)="onImageDelete($event)"
+        (onChange)="onImageChange($event)"
       ></multi-image-picker>
     </p-tabPanel>
     <p-tabPanel header="سوالات سنجشی">
