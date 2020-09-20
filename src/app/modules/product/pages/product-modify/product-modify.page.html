@@ -97,14 +97,15 @@
         <div class="row">
           <div class="col-12">
             <form [formGroup]="poitTypeFormGroup" class="form-row">
-              <prm-input-dropdown
+              <prm-input-multi-select
                 *ngIf="convertedPointTypes"
                 formControlName="pointTypeId"
                 class="col-12 mb-4"
                 label="سوال سنجشی"
                 labelWidth="110"
                 [items]="convertedPointTypes"
-              ></prm-input-dropdown>
+            
+              ></prm-input-multi-select>
             </form>
           </div>
         </div>

@@ -83,7 +83,7 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-  product
+  product: Product;
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -132,39 +132,64 @@ export class ProductModifyPage implements OnInit {
       return { label: item.title, value: item.id };
     });
   }
-  onSaveClick(){
+  onSaveClick() {
+    this.productService
+      .insertProduct<Product>(this.product).subscribe((res) => {
+     
+        
+      });
+  }
+  createProduct() {
+    this.product.categoryId = this.selectedCategory.data.id;
+    this.product.brandId = this.primaryFormGroup.controls['brandId'].value;
+    this.product.commission = this.primaryFormGroup.controls[
+      'commission'
+    ].value;
+    this.product.name = this.primaryFormGroup.controls['name'].value;
+    this.product.namEn = this.primaryFormGroup.controls['namEn'].value;
+    this.product.description = this.primaryFormGroup.controls[
+      'description'
+    ].value;
+    this.product.descriptionSeo = this.primaryFormGroup.controls[
+      'descriptionSeo'
+    ].value;
+    this.product.gainPoints = this.primaryFormGroup.controls[
+      'gainPoints'
+    ].value.toString();
+    this.product.weakPoints = this.primaryFormGroup.controls[
+      'weakPoints'
+    ].value.toString();
+    this.product.media = this.productImages;
+    this.product.price.colorId = this.secondaryFormGroup.controls[
+      'colorId'
+    ].value;
+    this.product.price.warrantyId = this.secondaryFormGroup.controls[
+      'warrantyId'
+    ].value;
+    this.product.price.insuranceId = this.secondaryFormGroup.controls[
+      'insuranceId'
+    ].value;
+    this.product.price.period = this.secondaryFormGroup.controls[
+      'period'
+    ].value;
+    this.product.price.localCode = this.secondaryFormGroup.controls[
+      'localCode'
+    ].value;
+    this.product.price.qty = this.secondaryFormGroup.controls['qty'].value;
+    this.product.price.maxQty = this.secondaryFormGroup.controls[
+      'maxQty'
+    ].value;
+    this.product.point = this.poitTypeFormGroup.value;
+  }
 
-  }
-  createProduct(){
-    this.product.categoryId=this.selectedCategory.data.id;
-    this.product.brandId=this.primaryFormGroup.controls['brandId'].value;
-    this.product.commission=this.primaryFormGroup.controls['commission'].value;
-    this.product.name=this.primaryFormGroup.controls['name'].value;
-    this.product.namEn=this.primaryFormGroup.controls['namEn'].value;
-    this.product.description=this.primaryFormGroup.controls['description'].value;
-    this.product.descriptionSeo=this.primaryFormGroup.controls['descriptionSeo'].value;
-    this.product.gainPoints=this.primaryFormGroup.controls['gainPoints'].value;
-    this.product.weakPoints=this.primaryFormGroup.controls['weakPoints'].value;
-    this.product.media=this.productImages;
-    this.product.price.colorId=this.secondaryFormGroup.controls['colorId'].value;
-    this.product.price.warrantyId=this.secondaryFormGroup.controls['warrantyId'].value;
-    this.product.price.insuranceId=this.secondaryFormGroup.controls['insuranceId'].value;
-    this.product.price.period=this.secondaryFormGroup.controls['period'].value;
-    this.product.price.localCode=this.secondaryFormGroup.controls['localCode'].value;
-    this.product.price.qty=this.secondaryFormGroup.controls['qty'].value;
-    this.product.price.maxQty=this.secondaryFormGroup.controls['maxQty'].value;
-  }
-  
   updateProduct() {}
 
   onImageChange(args) {
-    this.productImages=args;
+    this.productImages = args;
   }
-
 }
 
-
-  /*
+/*
   categoryId: number;
   brandId: number;
   commission: number;

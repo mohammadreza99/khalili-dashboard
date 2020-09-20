@@ -115,7 +115,7 @@ sortable: false,
             price: discount.price,
             maxPrice: discount.maxPrice,
             percent: discount.percent,
-          } as Discount;
+           } as Discount;
           this.productService
             .insertDiscount(d)
             .subscribe((res) => this.table.addTransaction(discount));

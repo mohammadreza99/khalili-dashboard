@@ -44,6 +44,12 @@ export class ProductService extends BaseService {
     );
   }
 
+  insertProduct<Product>(product: Product): Observable<Product> {
+    return this.post('/Base/Admin/ProductInsert/', product, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
   getProductsView(): Observable<ProductView[]> {
     return this.get<ProductView[]>(
       '/Base/Admin/ProductViewSelect/',

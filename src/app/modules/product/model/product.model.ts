@@ -11,7 +11,7 @@ export class Product {
   descriptionSeo: string;
   gainPoints: string;
   weakPoints: string;
-  point: Point;
+  point: string[];
   info: Info[];
   media: Media[];
   price: Price;
@@ -53,14 +53,11 @@ export class Media {
   isDefault: boolean;
 }
 
-export class Point {
-  pointTypeId: number;
-}
 
 export class Price {
   colorId: number;
   warrantyId: number;
-  InsuranceId: number;
+  insuranceId: number;
   isReference: boolean;
   period: number;
   localCode: string;
