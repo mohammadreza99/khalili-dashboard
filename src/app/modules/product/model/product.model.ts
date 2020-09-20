@@ -2,6 +2,21 @@
 //                        Product                           //
 //////////////////////////////////////////////////////////////
 export class Product {
+  constructor() {
+    this.categoryId = null;
+    this.brandId = null;
+    this.commission = null;
+    this.name = null;
+    this.namEn = null;
+    this.description = null;
+    this.descriptionSeo = null;
+    this.gainPoints = null;
+    this.weakPoints = null;
+    this.point = null;
+    this.info = new Array<Info>();
+    this.media = new Array<Media>();
+    this.price = new Price();
+  }
   categoryId: number;
   brandId: number;
   commission: number;
@@ -52,7 +67,6 @@ export class Media {
   keyMedia: string;
   isDefault: boolean;
 }
-
 
 export class Price {
   colorId: number;
