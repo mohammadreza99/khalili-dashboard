@@ -83,7 +83,8 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-  product: Product ;
+  product = new Product();
+
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -132,12 +133,17 @@ export class ProductModifyPage implements OnInit {
       return { label: item.title, value: item.id };
     });
   }
+
   onSaveClick() {
+    this.createProduct();
+    console.log(this.product);
+
     this.productService
       .insertProduct<Product>(this.product).subscribe((res) => {
         console.log(res);
       });
   }
+
   createProduct() {
     this.product.categoryId = this.selectedCategory.data.id;
     this.product.brandId = this.primaryFormGroup.controls['brandId'].value;
