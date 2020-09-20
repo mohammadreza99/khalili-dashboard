@@ -65,7 +65,6 @@ export class ProductModifyPage implements OnInit {
     gainPoints: new FormControl(null),
     weakPoints: new FormControl(null),
   });
-
   secondaryFormGroup = new FormGroup({
     colorId: new FormControl(null),
     warrantyId: new FormControl(null),
@@ -79,11 +78,12 @@ export class ProductModifyPage implements OnInit {
   poitTypeFormGroup = new FormGroup({
     pointTypeId: new FormControl(null),
   });
+
   activeIndex = 0;
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-  product: Product;
+  product: Product ;
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -135,8 +135,7 @@ export class ProductModifyPage implements OnInit {
   onSaveClick() {
     this.productService
       .insertProduct<Product>(this.product).subscribe((res) => {
-     
-        
+        console.log(res);
       });
   }
   createProduct() {
@@ -189,44 +188,3 @@ export class ProductModifyPage implements OnInit {
   }
 }
 
-/*
-  categoryId: number;
-  brandId: number;
-  commission: number;
-  name: string;
-  namEn: string;
-  description: string;
-  descriptionSeo: string;
-  gainPoints: string;
-  weakPoints: string;
-  point: Point;
-  info: Info[];
-  media: Media[];
-  price: Price;
-
-
- Info {
-  attributeId: number;
-  value: string;
-}
-
- Media {
-  keyMedia: string;
-  isDefault: boolean;
-}
-
-Point {
-  pointTypeId: number;
-}
-
- Price {
-  colorId: number;
-  warrantyId: number;
-  InsuranceId: number;
-  isReference: boolean;
-  period: number;
-  localCode: string;
-  qty: number;
-  maxQty: number;
-}
-   */
