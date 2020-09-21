@@ -9,10 +9,9 @@ import { ColDef } from 'ag-grid-community';
 @Component({
   selector: 'districts',
   templateUrl: './districts.page.html',
-  styleUrls: ['./districts.page.scss']
+  styleUrls: ['./districts.page.scss'],
 })
 export class DistrictsPage implements OnInit {
-
   @ViewChild(TableComponent, { static: true }) table: TableComponent;
 
   rowData$: Observable<BaseDistrict[]>;
@@ -49,13 +48,20 @@ export class DistrictsPage implements OnInit {
         cellEditorParams: {
           values: this.availabeCitys.map((city) => city.title),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
-          params.data.cityId=getByTitleCellRenderer(params.data.cityId,this.availabeCitys);
+          params.data.cityId = getByTitleCellRenderer(
+            params.data.cityId,
+            this.availabeCitys
+          );
         },
       },
       {
         field: 'isActive',
         headerName: 'وضعیت',
+        filter: false,
+        sortable: false,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],

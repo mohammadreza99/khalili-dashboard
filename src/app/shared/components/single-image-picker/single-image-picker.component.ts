@@ -11,7 +11,6 @@ import {
 import { PrimeInputBaseComponent } from '@prime/prime-element/prime-input-base/prime-input-base.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeInputFileComponent } from '@prime/prime-element/prime-input-file/prime-input-file.component';
-import { DataService } from '@app/services/data.service';
 
 @Component({
   selector: 'ag-single-image-picker',
@@ -28,19 +27,8 @@ import { DataService } from '@app/services/data.service';
 export class SingleImagePickerComponent
   extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
-  constructor(private dataService: DataService) {
-    super();
-  }
-
   @ViewChild(PrimeInputFileComponent, { static: true })
   upload: PrimeInputFileComponent;
-  @Input('urlToShow') set showImage(url: string) {
-    if (url) {
-      this.getImage(url).subscribe((data: any) => {
-        this.createImageFromBlob(data);
-      });
-    }
-  }
   @Output() onSelect = new EventEmitter();
 
   imageToShow: any;
@@ -58,11 +46,6 @@ export class SingleImagePickerComponent
     this.value = file;
     this.createImageFromBlob(file);
     this.onSelect.emit(this.value);
-  }
-
-  getImage(imageUrl: string) {
-    const headers = { responseType: 'blob' };
-    return this.dataService.getImage(imageUrl, headers);
   }
 
   createImageFromBlob(image: Blob) {

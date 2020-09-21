@@ -49,6 +49,8 @@ export class CitiesPage implements OnInit {
         cellEditorParams: {
           values: this.availabeStates.map((state) => state.title),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
           params.data.stateId = getByTitleCellRenderer(
             params.data.stateId,
@@ -59,6 +61,8 @@ export class CitiesPage implements OnInit {
       {
         field: 'isActive',
         headerName: 'وضعیت',
+        filter: false,
+        sortable: false,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],

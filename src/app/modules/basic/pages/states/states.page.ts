@@ -23,6 +23,8 @@ export class StatesPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -89,9 +91,9 @@ export class StatesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseState>('State', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseState>('State', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

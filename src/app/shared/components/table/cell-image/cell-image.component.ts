@@ -9,9 +9,12 @@ import { DataService } from '@app/services/data.service';
 })
 export class CellImageComponent implements ICellRendererAngularComp, OnInit {
   params: any;
+  selectedImage;
   imageToShow;
   field: string;
   id: string;
+
+  constructor(public dataService: DataService) {}
 
   agInit(params: any): void {
     this.params = params;
@@ -28,11 +31,11 @@ export class CellImageComponent implements ICellRendererAngularComp, OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.imageToShow = reader.result;
+      this.selectedImage = reader.result;
       const params = {
         field: this.field,
         event,
-        file: this.imageToShow,
+        file: this.selectedImage,
         rowData: this.params.node.data,
       };
       this.params.onSelect(params);

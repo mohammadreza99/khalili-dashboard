@@ -1,1 +1,15 @@
-<p>products works!</p>
+<page-container title="محصولات">
+  <prm-button
+    label="افزودن"
+    icon="fa fa-plus"
+    color="success"
+    routerLink="/product/modify"
+  >
+  </prm-button>
+  <ag-table
+    [rowData]="rowData$ | async"
+    [actionsConfig]="[{action:'edit',color:'primary'}]"
+    [columnDefs]="columnDefs"
+    (actionClick)="onActionClick($event)"
+  ></ag-table>
+</page-container>

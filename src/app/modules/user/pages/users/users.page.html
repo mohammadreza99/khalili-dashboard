@@ -1,0 +1,10 @@
+<page-container title="کابران">
+  <prm-input-dropdown
+    (onChange)="onRoleChange($event)"
+    label="فیلتر بر اساس  نقش"
+    labelWidth="110"
+    [items]="convertedRoles"
+    *ngIf="convertedRoles"
+  ></prm-input-dropdown>
+  <ag-table [rowData]="rowData$ | async" [columnDefs]="columnDefs"></ag-table>
+</page-container>

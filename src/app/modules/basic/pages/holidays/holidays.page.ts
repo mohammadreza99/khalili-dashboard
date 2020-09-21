@@ -37,9 +37,9 @@ export class HolidaysPage implements OnInit {
               title: params.rowData.title,
             };
             this.basicService
-            .update<BaseHoliday>('Holiday', holiday)
-            .subscribe(() => this.table.updateTransaction(holiday));
-          }
+              .update<BaseHoliday>('Holiday', holiday)
+              .subscribe(() => this.table.updateTransaction(holiday));
+          },
         };
       },
       cellRenderer: (data) => {
@@ -52,6 +52,8 @@ export class HolidaysPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],

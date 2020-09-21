@@ -24,6 +24,8 @@ export class AttachmentTypesPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],
@@ -92,9 +94,9 @@ export class AttachmentTypesPage implements OnInit {
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else
-    this.basicService
-      .update<BaseAttachmentType>('AttachmentType', updatedData)
-      .subscribe(() => this.table.updateTransaction(updatedData));
+      this.basicService
+        .update<BaseAttachmentType>('AttachmentType', updatedData)
+        .subscribe(() => this.table.updateTransaction(updatedData));
   }
 }
 

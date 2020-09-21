@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '@app/services/base.service';
 import { Observable } from 'rxjs';
-import { Result } from '@app/app.global';
+import { map } from 'rxjs/operators';
+import { SecurityRole, SiteUser } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +11,24 @@ export class UserService extends BaseService {
   constructor() {
     super();
   }
-  public getProducts(): Observable<any[]> {
-    return new Observable<any[]>((observer) => {
-      this.get<Result<any[]>>('Base/Admin/ColorSelect', 'json').subscribe(
-        (data) => {
-          observer.next(data.data);
-        }
-      );
-    });
+
+  getRoles(): Observable<SecurityRole[]> {
+    return this.get<SecurityRole[]>('/Base/Admin/RoleSelect/', 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  getUsers(roleId?: string): Observable<SiteUser[]> {
+    return this.get<SiteUser[]>(
+      '/Base/Admin/UserSelectWithRoleId/?roleId=' + roleId,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
+  changeRoleToSupport(userId: string) {
+    return this.get<SiteUser[]>(
+      '/Base/Admin/UserRoleChangeToSupport/?userId=' + userId,
+      'json'
+    ).pipe(map((res: any) => res.data));
   }
 }

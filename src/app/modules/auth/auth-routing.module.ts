@@ -5,6 +5,7 @@ import { AuthPage } from './pages/auth/auth.page';
 const routes: Routes = [
   {
     path: '',
+    data: { title: 'ورود' },
     component: AuthPage,
   },
 ];

@@ -1,6 +1,5 @@
 import { Type } from '@angular/core';
 import { DialogFormComponent } from './components/dialog-form/dialog-form.component';
-import { ImagePickerComponent } from './components/image-picker/image-picker.component';
 import { TagComponent } from './components/tag/tag.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavMenuComponent } from './components/sidenav-menu/sidenav-menu.component';
@@ -13,9 +12,12 @@ import { CellButtonComponent } from './components/table/cell-button/cell-button.
 import { CellImageComponent } from './components/table/cell-image/cell-image.component';
 import { CellDatepickerComponent } from './components/table/cell-datepicker/cell-datepicker.component';
 import { CellTimepickerComponent } from './components/table/cell-timepicker/cell-timepicker.component';
+import { SafePipe } from './directives/safe.pipe';
+import { MultiImagePickerComponent } from './components/multi-image-picker/multi-image-picker.component';
+import { CategorySliderComponent } from './components/category-slider/category-slider.component';
 export const COMPONENTS: Type<any>[] = [
   DialogFormComponent,
-  ImagePickerComponent,
+  MultiImagePickerComponent,
   TagComponent,
   ToolbarComponent,
   SidenavMenuComponent,
@@ -27,5 +29,7 @@ export const COMPONENTS: Type<any>[] = [
   CellButtonComponent,
   CellImageComponent,
   CellDatepickerComponent,
-  CellTimepickerComponent
+  CellTimepickerComponent,
+  SafePipe,
+  CategorySliderComponent,
 ];

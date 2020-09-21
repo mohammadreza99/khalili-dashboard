@@ -1,5 +1,5 @@
 @import "./fonts/fonts.scss";
-@import "bootstrap.scss";
+@import "./vendor/bootstrap.scss";
 @import "theme.scss";
 
 html,
@@ -20,10 +20,15 @@ body {
     box-shadow: none !important;
   }
 
-  // body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content {
-  //   padding-left: 0 !important;
-  //   padding-right: 1.5em !important;
-  // }
+  body
+    .ui-panelmenu
+    .ui-panelmenu-content
+    .ui-menuitem
+    .ui-menuitem-link
+    .ui-menuitem-icon {
+    margin-right: 0;
+    margin-left: 0.5em;
+  }
 
   p-panelmenusub ::ng-deep > ul {
     margin-left: 0;

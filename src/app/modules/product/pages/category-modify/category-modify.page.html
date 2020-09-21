@@ -1,0 +1,64 @@
+<page-container title="درج/ویرایش دسته بندی" *ngIf="originalCategories">
+  <prm-button
+    label="ذخیره"
+    icon="fa fa-plus"
+    color="success"
+    (click)="onSubmitClick()"
+  >
+  </prm-button>
+  <form [formGroup]="form">
+    <prm-input-text
+      formControlName="title"
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="عنوان دسته بندی"
+    ></prm-input-text>
+    <prm-input-text
+      formControlName="icon"
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="آیکن"
+    ></prm-input-text>
+    <prm-input-text
+      formControlName="link"
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="لینک"
+    ></prm-input-text>
+  </form>
+
+  <div class="d-flex mb-3">
+    <p-tree
+      selectionMode="single"
+      [(selection)]="selectedParentCategory"
+      (onNodeSelect)="onParentCategorySelect($event)"
+      [value]="convertedCategories"
+      dir="rtl"
+      class="rtl ui-rtl flex-grow-1"
+    >
+    </p-tree>
+    <div class="ml-3 label">انتخاب دسته بندی والد</div>
+  </div>
+
+  <div class="d-flex mb-3">
+    <ag-table
+      *ngIf="loadCategoryAttributes"
+      class="flex-grow-1"
+      rowSelection="multiple"
+      [rowData]="convertedAttributes"
+      [columnDefs]="attributesColumnDefs"
+      [selectedRows]="firstSelectedAttributes"
+      (rowSelected)="onAttributeSelected($event)"
+    ></ag-table>
+    <div class="ml-3 label">انتخاب فیلدها</div>
+  </div>
+
+  <div class="d-flex mb-3" *ngIf="categorySlider">
+    <category-slider
+      (onChange)="onSliderChange($event)"
+      [images]="categorySlider"
+      class="flex-grow-1"
+    ></category-slider>
+    <div class="ml-3 label">انتخاب اسلایدر</div>
+  </div>
+</page-container>

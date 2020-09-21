@@ -6,7 +6,6 @@ import { AttributeCategoriesPage } from './pages/attribute-categories/attribute-
 import { AttributeValuesPage } from './pages/attribute-values/attribute-values.page';
 import { AttributesPage } from './pages/attributes/attributes.page';
 import { BrandsPage } from './pages/brands/brands.page';
-import { CategoriesPage } from './pages/categories/categories.page';
 import { CitiesPage } from './pages/cities/cities.page';
 import { DistrictsPage } from './pages/districts/districts.page';
 import { HolidaysPage } from './pages/holidays/holidays.page';
@@ -34,127 +33,122 @@ const routes: Routes = [
   },
   {
     path: 'attachment-types',
-    data: { title: 'attachment-types' },
+    data: { title: 'الحاقیات فروشگاه' },
     component: AttachmentTypesPage,
   },
   {
     path: 'attribute-categories',
-    data: { title: 'attribute-categories' },
+    data: { title: 'دسته بندی فیلد' },
     component: AttributeCategoriesPage,
   },
   {
     path: 'attribute-values',
-    data: { title: 'attribute-values' },
+    data: { title: 'مقادیر فیلد' },
     component: AttributeValuesPage,
   },
   {
     path: 'attributes',
-    data: { title: 'attributes' },
+    data: { title: 'فیلد' },
     component: AttributesPage,
   },
   {
     path: 'brands',
-    data: { title: 'brands' },
+    data: { title: 'برند' },
     component: BrandsPage,
   },
   {
-    path: 'categories',
-    data: { title: 'categories' },
-    component: CategoriesPage,
-  },
-  {
     path: 'cities',
-    data: { title: 'cities' },
+    data: { title: 'شهر' },
     component: CitiesPage,
   },
   {
     path: 'colors',
-    data: { title: 'colors' },
+    data: { title: 'رنگ' },
     component: ColorsPage,
   },
   {
     path: 'districts',
-    data: { title: 'districts' },
+    data: { title: 'محله' },
     component: DistrictsPage,
   },
   {
     path: 'holidays',
-    data: { title: 'holidays' },
+    data: { title: 'تعطیلات فروشگاه' },
     component: HolidaysPage,
   },
   {
     path: 'insurances',
-    data: { title: 'insurances' },
+    data: { title: 'بیمه' },
     component: InsurancesPage,
   },
   {
     path: 'jobs',
-    data: { title: 'jobs' },
+    data: { title: 'شغل' },
     component: JobsPage,
   },
   {
     path: 'point-types',
-    data: { title: 'point-types' },
+    data: { title: 'نظرسنجی امتیازی' },
     component: PointTypesPage,
   },
   {
     path: 'shipping-hours',
-    data: { title: 'shipping-hours' },
+    data: { title: 'ساعات تحویل' },
     component: ShippingHoursPage,
   },
   {
     path: 'states',
-    data: { title: 'states' },
+    data: { title: 'استان' },
     component: StatesPage,
   },
   {
     path: 'warranties',
-    data: { title: 'warranties' },
+    data: { title: 'گارانتی' },
     component: WarrantiesPage,
   },
   {
     path: 'about',
-    data: { title: 'about' },
+    data: { title: 'درباره ما' },
     component: AboutPage,
   },
   {
     path: 'faq-categories',
-    data: { title: 'about' },
+    data: { title: 'دسته بندی سوالات متداول' },
     component: FaqCategoriesPage,
   },
   {
     path: 'faq',
-    data: { title: 'about' },
+    data: { title: 'سوالات متداول' },
     component: FaqPage,
   },
   {
     path: 'phones',
-    data: { title: 'about' },
+    data: { title: 'تلفن' },
     component: PhonesPage,
   },
   {
     path: 'privacy',
-    data: { title: 'about' },
+    data: { title: 'حریم خصوصی' },
     component: PrivacyPage,
   },
   {
     path: 'terms',
-    data: { title: 'about' },
+    data: { title: 'مقررات' },
     component: TermsPage,
   },
   {
     path: 'socials',
-    data: { title: 'about' },
+    data: { title: 'شبکه اجتماعی' },
     component: SocialsPage,
   },
   {
     path: 'slider',
-    data: { title: 'about' },
+    data: { title: 'اسلایدر' },
     component: SliderPage,
   },
   {
     path: 'main-setting',
-    data: { title: 'about' },
+    data: { title: 'تنظیمات اصلی' },
     component: MainSettingPage,
   },
 ];

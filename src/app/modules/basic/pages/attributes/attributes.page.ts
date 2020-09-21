@@ -64,6 +64,8 @@ export class AttributesPage implements OnInit {
         cellEditorParams: {
           values: this.availableAttributeCategories.map((c) => c.title),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
           params.data.attributeCategoryId = getByTitleCellRenderer(
             params.data.attributeCategoryId,
@@ -81,6 +83,8 @@ export class AttributesPage implements OnInit {
         cellEditorParams: {
           values: this.availableAttributeTypes.map((t) => t.title),
         },
+        filter: false,
+        sortable: false,
         onCellValueChanged: (params) => {
           params.data.attributeTypeId = getByTitleCellRenderer(
             params.data.attributeTypeId,
@@ -91,6 +95,8 @@ export class AttributesPage implements OnInit {
       {
         field: 'isActive',
         headerName: 'وضعیت',
+        filter: false,
+        sortable: false,
         cellEditor: 'agSelectCellEditor',
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],
@@ -104,6 +110,8 @@ export class AttributesPage implements OnInit {
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],
         },
+        filter: false,
+        sortable: false,
         cellRenderer: this.requiredCellRenderer,
       },
       {
@@ -113,6 +121,8 @@ export class AttributesPage implements OnInit {
         cellEditorParams: {
           values: ['فعال', 'غیرفعال'],
         },
+        filter: false,
+        sortable: false,
         cellRenderer: this.systemicCellRenderer,
       },
     ];
@@ -183,11 +193,11 @@ export class AttributesPage implements OnInit {
         .subscribe(() => this.table.updateTransaction(updatedData));
     }
   }
-    
+
   async onActionClick(event) {
     this.availableAttributeValues = await this.basicService
-    .select<BaseAttributeValue>('AttributeValue')
-    .toPromise();
+      .select<BaseAttributeValue>('AttributeValue')
+      .toPromise();
     this.attribute = event.rowData as BaseAttribute;
     this.attributeType = this.availableAttributeTypes.find(
       (a) => a.id == event.rowData.attributeTypeId
@@ -208,7 +218,7 @@ export class AttributesPage implements OnInit {
             },
           ])
           .onClose.subscribe((value) => {
-            if(value) this.onChangeAttributeValue(value.attributeValue);
+            if (value) this.onChangeAttributeValue(value.attributeValue);
           });
         break;
       case 'Date':
@@ -216,15 +226,20 @@ export class AttributesPage implements OnInit {
           .show('ثبت مقدار اولیه', [
             {
               type: 'date-picker',
-              value: moment(this.attributeValue[0]?.value,'jYYYY-jMM-jDD'),
+              value: moment(this.attributeValue[0]?.value, 'jYYYY-jMM-jDD'),
               formControlName: 'attributeValue',
             },
           ])
           .onClose.subscribe((value) => {
-            if(value?.attributeValue){
-              let date=value.attributeValue.year+'/'+value.attributeValue.month+'/'+value.attributeValue.day;
+            if (value?.attributeValue) {
+              let date =
+                value.attributeValue.year +
+                '/' +
+                value.attributeValue.month +
+                '/' +
+                value.attributeValue.day;
               this.onChangeAttributeValue(date);
-            } 
+            }
           });
         break;
       case 'Checkbox':
@@ -235,31 +250,33 @@ export class AttributesPage implements OnInit {
     }
   }
 
-  onChangeAttributeValue(value){
+  onChangeAttributeValue(value) {
     const attributeValue = {
       attributeId: this.attribute.id,
       value: value,
     } as BaseAttributeValue;
-    if(this.attributeValue.length==0)
-    this.basicService
-    .insert<BaseAttributeValue>('AttributeValue', attributeValue)
-    .subscribe();
-    else{
-      attributeValue.id=this.attributeValue[0].id;
+    if (this.attributeValue.length == 0)
       this.basicService
-      .update<BaseAttributeValue>('AttributeValue', attributeValue)
-      .subscribe();
+        .insert<BaseAttributeValue>('AttributeValue', attributeValue)
+        .subscribe();
+    else {
+      attributeValue.id = this.attributeValue[0].id;
+      this.basicService
+        .update<BaseAttributeValue>('AttributeValue', attributeValue)
+        .subscribe();
     }
   }
 
-  onRemoveTag(args){
-    let attributeValue=this.attributeValue.find(a => a.value == args.deletedTag);
+  onRemoveTag(args) {
+    let attributeValue = this.attributeValue.find(
+      (a) => a.value == args.deletedTag
+    );
     // this.basicService
     // .insert<BaseAttributeValue>('AttributeValue', attributeValue)
     // .subscribe();
   }
 
-  onAddTag(args){
+  onAddTag(args) {
     const attributeValue = {
       attributeId: this.attribute.id,
       value: args.addedTag,
@@ -267,9 +284,7 @@ export class AttributesPage implements OnInit {
     this.basicService
       .insert<BaseAttributeValue>('AttributeValue', attributeValue)
       .subscribe();
-
   }
-
 
   formConfig(): DialogFormConfig[] {
     const config: DialogFormConfig[] = [

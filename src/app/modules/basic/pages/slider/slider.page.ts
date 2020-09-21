@@ -34,13 +34,13 @@ export class SliderPage implements OnInit {
               isActive: params.rowData.isActive,
               alt: params.rowData.alt,
               userId: params.rowData.userId,
-              insertDate:params.rowData.insertDate,
-              keyMedia:params.rowData.keyMedia
+              insertDate: params.rowData.insertDate,
+              keyMedia: params.rowData.keyMedia,
             };
             this.basicService
-            .update<SiteSlider>('Slider', slider)
-            .subscribe(() => this.table.updateTransaction(slider));
-          }
+              .update<SiteSlider>('Slider', slider)
+              .subscribe(() => this.table.updateTransaction(slider));
+          },
         };
       },
       cellRenderer: (data) => {
@@ -53,6 +53,8 @@ export class SliderPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
+      filter: false,
+      sortable: false,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: ['فعال', 'غیرفعال'],

@@ -1,0 +1,59 @@
+p-tree {
+  & ::ng-deep {
+    .ui-tree {
+      width: 100%;
+    }
+    .ui-tree-filter-container .ui-tree-filter.ui-inputtext {
+      border-width: 1px;
+      border-radius: 3px;
+    }
+    .ui-tree-filter-container {
+      .ui-tree-filter-icon {
+        left: 0.8em;
+        right: auto;
+      }
+
+      .ui-tree-filter {
+        padding-left: 2em;
+        padding-right: 0.429em;
+      }
+    }
+    .ui-tree-container {
+      .ui-treenode .ui-treenode-content {
+        .ui-treenode-icon {
+          margin: 0 0 0 0.143em;
+        }
+        .ui-tree-toggler {
+          margin: 0 0 0 0.143em;
+          &.pi-caret-right:before {
+            content: "\e904";
+          }
+        }
+      }
+    }
+    .ui-treenode-children {
+      padding: 0 1em 0 0;
+    }
+    .ui-tree-horizontal {
+      .ui-treenode {
+        &.ui-treenode-collapsed {
+          padding-left: 0;
+          padding-right: 35px;
+        }
+      }
+      .ui-treenode-children {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}
+
+ag-table {
+  height: 500px;
+}
+
+.label {
+  width: 150px;
+  text-align: right;
+}

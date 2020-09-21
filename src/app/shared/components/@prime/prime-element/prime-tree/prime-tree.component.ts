@@ -20,10 +20,11 @@ import { PrimeInputBaseComponent } from '../prime-input-base/prime-input-base.co
   templateUrl: './prime-tree.component.html',
   styleUrls: ['./prime-tree.component.scss'],
 })
-export class PrimeTreeComponent extends PrimeInputBaseComponent
+export class PrimeTreeComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
   @Input() items: PrimeTree[];
-  @Input() hasFilter: boolean = true;
+  @Input() hasFilter: boolean = false;
   @Input() metaKeySelection: boolean = true;
   @Input() filterPlaceholder: string = 'جستجو';
   @Input() filterMode: PrimeTreeFilterMode = 'lenient';

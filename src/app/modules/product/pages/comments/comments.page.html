@@ -1,0 +1,13 @@
+<page-container title="نظرات کاربران">
+  <ag-table
+    [rowData]="rowData$ | async"
+    [columnDefs]="columnDefs"
+    [actionsConfig]="[{
+        action: 'verify',
+        icon: 'fa fa-check',
+        color: 'primary',
+        headerName: 'تایید نظر'
+      }]"
+    (actionClick)="onActionClick($event)"
+  ></ag-table>
+</page-container>
