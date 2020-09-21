@@ -42,8 +42,6 @@ export class AuthPage implements OnInit {
     control: new FormControl(null, [Validators.required, Validators.minLength(6)])
   });
 
-
-
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmitRegister() {

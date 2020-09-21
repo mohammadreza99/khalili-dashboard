@@ -16,7 +16,10 @@ export class CellDatepickerComponent implements ICellEditorAngularComp {
   agInit(params: any): void {
     this.params = params;
     this.value=moment(new Date(params.value));
-
+    this.date={
+      selectedDate: this.value._d,
+      rowData: this.params.data,
+    }
   }
 
   getValue(): any {

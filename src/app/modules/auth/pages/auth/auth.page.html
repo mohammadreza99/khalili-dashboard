@@ -1,7 +1,8 @@
 <div class="container-fluid h-100" dir="rtl">
   <div class="row align-items-center justify-content-center h-100">
     <div class="col-4">
-      <div class="border p-4 rounded-lg register" *ngIf="showRegister">
+      <div *ngIf="showRegister"
+      class="border p-4 rounded-lg register" >
         <div class="text-center logo mb-5">
           <img src="https://www.digikala.com/static/files/bc60cf05.svg" />
         </div>
@@ -28,7 +29,8 @@
         </small>
       </div>
 
-      <div class="border p-4 rounded-lg login-confirm" *ngIf="showLoginConfirm">
+      <div *ngIf="showLoginConfirm"
+      class="border p-4 rounded-lg login-confirm" >
         <div class="d-flex justify-content-between mb-5">
           <div class="back-icon">
             <i class="fa fa-chevron-right"></i>
@@ -50,9 +52,9 @@
         <button class="btn btn-lg btn-primary btn-block my-5">ورود</button>
       </div>
 
-      <div
+      <div *ngIf="showRegisterConfirm"
         class="border p-4 rounded-lg register-confirm"
-        *ngIf="showRegisterConfirm"
+        
       >
         <div class="d-flex justify-content-between mb-5">
           <div class="back-icon">
@@ -81,7 +83,8 @@
         </form>
       </div>
 
-      <div class="border p-4 rounded-lg forget" *ngIf="showForget">
+      <div *ngIf="showForget"
+      class="border p-4 rounded-lg forget" >
         <div class="d-flex justify-content-between mb-5">
           <div class="back-icon">
             <i class="fa fa-chevron-right"></i>
@@ -106,7 +109,8 @@
         </button>
       </div>
 
-      <div class="border p-4 rounded-lg changePassword" *ngIf="showChangePassword">
+      <div *ngIf="showChangePassword"
+      class="border p-4 rounded-lg changePassword" >
         <div class="d-flex justify-content-between mb-5">
           <div class="back-icon">
             <i class="fa fa-chevron-right"></i>
