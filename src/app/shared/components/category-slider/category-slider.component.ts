@@ -71,7 +71,7 @@ export class CategorySliderComponent implements OnInit,OnChanges {
     this.selectedImages.splice(index, 1);
   }
 
-  onexpireDateTimeChange(event, index) {    
+  onExpireDateTimeChange(event, index) {    
     this.selectedImages[index].expireDateTime = event.dateObj as Date;
     this.onChange.emit(this.selectedImages);
   }
