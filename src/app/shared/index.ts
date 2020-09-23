@@ -15,6 +15,7 @@ import { CellTimepickerComponent } from './components/table/cell-timepicker/cell
 import { SafePipe } from './directives/safe.pipe';
 import { MultiImagePickerComponent } from './components/multi-image-picker/multi-image-picker.component';
 import { CategorySliderComponent } from './components/category-slider/category-slider.component';
+import { FieldsComponent } from './components/fields/fields.component';
 export const COMPONENTS: Type<any>[] = [
   DialogFormComponent,
   MultiImagePickerComponent,
@@ -32,4 +33,5 @@ export const COMPONENTS: Type<any>[] = [
   CellTimepickerComponent,
   SafePipe,
   CategorySliderComponent,
+  FieldsComponent,
 ];
