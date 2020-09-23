@@ -145,6 +145,7 @@ export class ProductModifyPage implements OnInit {
   }
 
   createProduct() {
+    this.product.info =[{ attributeId: 2, value: 'string'}];
     this.product.categoryId = this.selectedCategory.data.id;
     this.product.brandId = this.primaryFormGroup.controls['brandId'].value;
     this.product.commission = this.primaryFormGroup.controls[
@@ -184,7 +185,7 @@ export class ProductModifyPage implements OnInit {
     this.product.price.maxQty = this.secondaryFormGroup.controls[
       'maxQty'
     ].value;
-    this.product.point = this.poitTypeFormGroup.value;
+    this.product.point = this.poitTypeFormGroup.value.pointTypeId;
   }
 
   updateProduct() {}

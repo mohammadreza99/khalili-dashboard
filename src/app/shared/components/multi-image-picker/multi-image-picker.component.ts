@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'multi-image-picker',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./multi-image-picker.component.scss'],
 })
 export class MultiImagePickerComponent implements OnInit {
+
   @Input() images: { keyMedia?: any; isDefault?: any }[];
   @Output() onChange = new EventEmitter();
   @Output() onSelect = new EventEmitter();
@@ -14,7 +15,6 @@ export class MultiImagePickerComponent implements OnInit {
   selectedImages: { keyMedia?: any; isDefault?: any }[] = [];
 
   ngOnInit() {}
-
   onImageClick(i) {
     for (const item of this.selectedImages) {
       item.isDefault = false;
