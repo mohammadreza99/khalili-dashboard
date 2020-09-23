@@ -5,12 +5,14 @@ import { PrimeConfirmService } from '@prime/prime-service/prime-confirm.service'
 import { PrimeToastService } from '@prime/prime-service/prime-toast.service';
 import { BaseService } from './base.service';
 import { Config } from '@app/app.config';
+import { AuthService } from '@app/modules/auth/business/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataService extends BaseService {
   constructor(
     private confirmer: PrimeConfirmService,
-    private toaster: PrimeToastService
+    private toaster: PrimeToastService,
+    private authService: AuthService
   ) {
     super();
   }
@@ -217,6 +219,8 @@ export class DataService extends BaseService {
     };
     xhr.open('GET', fullUrl);
     xhr.responseType = 'blob';
+    xhr.setRequestHeader('Authorization',this.authService.getToken())
     xhr.send();
+
   }
 }

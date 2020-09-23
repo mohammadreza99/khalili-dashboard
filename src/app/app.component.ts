@@ -13,8 +13,8 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   constructor(
     private errorService: ErrorService,
-    private toastService: PrimeToastService,
     private vcRef: ViewContainerRef,
+    private toastService: PrimeToastService,
     private router: Router,
     private title: Title,
     private route: ActivatedRoute
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe((titleString) => {
-        title.setTitle(titleString?.toString());
+        title.setTitle(titleString.toString());
       });
   }
 
@@ -46,7 +46,12 @@ export class AppComponent implements OnInit {
     this.errorService.getError().subscribe((error) => {
       if (error) {
         this.toastService.show(
-          { summary: 'خطا', detail: error, severity: 'error' },
+          {
+            summary: error.title,
+            detail: error.message,
+            severity: 'error',
+            life: 10000,
+          },
           this.vcRef
         );
       }

@@ -1,5 +1,7 @@
 <prm-input-container [config]="containerConfig">
   <input
+    [numberOnly]="numberOnly"
+    [type]="type"
     [dir]="layout == 'ltr' ? 'ltr' : 'rtl'"
     [ngClass]="{ 'ui-rtl rtl': layout == 'rtl' }"
     pInputText

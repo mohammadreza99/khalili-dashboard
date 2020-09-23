@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Config } from '@app/app.config';
 import { DataService } from '@app/services/data.service';
 import * as moment from 'jalali-moment';
@@ -8,8 +8,12 @@ import * as moment from 'jalali-moment';
   templateUrl: './category-slider.component.html',
   styleUrls: ['./category-slider.component.scss'],
 })
-export class CategorySliderComponent implements OnInit {
+export class CategorySliderComponent implements OnInit,OnChanges {
   constructor(private dataService: DataService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log(this.images);
+
+  }
 
   @Input() images: { keyMedia?: any; expireDateTime?: any; alt?: any }[];
   @Output() onChange = new EventEmitter();
@@ -33,6 +37,7 @@ export class CategorySliderComponent implements OnInit {
         });
       }
     }
+    
   }
 
   onSelectImage(event: any) {
@@ -66,7 +71,7 @@ export class CategorySliderComponent implements OnInit {
     this.selectedImages.splice(index, 1);
   }
 
-  onExpireDateTimeChange(event, index) {
+  onexpireDateTimeChange(event, index) {    
     this.selectedImages[index].expireDateTime = event.dateObj as Date;
     this.onChange.emit(this.selectedImages);
   }
