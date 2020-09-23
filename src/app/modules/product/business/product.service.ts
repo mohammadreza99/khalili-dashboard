@@ -122,23 +122,24 @@ export class ProductService extends BaseService {
     );
   }
 
-
-  activeCategory<AppCategory>(category: AppCategory):Observable<AppCategory> {
+  activeCategory<AppCategory>(category: AppCategory): Observable<AppCategory> {
     return this.put('/Base/Admin/CategoryActive/', category, 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-  deActiveCategory<AppCategory>(category: AppCategory):Observable<AppCategory> {
+  deActiveCategory<AppCategory>(
+    category: AppCategory
+  ): Observable<AppCategory> {
     return this.put('/Base/Admin/CategoryDeActive/', category, 'json').pipe(
       map((res: any) => res.data)
     );
   }
 
-
   getAttributesByCatgoryId(categoryId: number) {
     return this.get<AttributeByCategoryId[]>(
-      '/Base/Admin/AttributeSelectWithCategoryId/?categoryId=' + categoryId,
+      '/Base/Admin/CategoryAttributeSelectWithCategoryId/?categoryId=' +
+        categoryId,
       'json'
     ).pipe(map((res: any) => res.data));
   }

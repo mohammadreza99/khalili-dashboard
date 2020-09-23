@@ -33,26 +33,13 @@ enum TabIndex {
   styleUrls: ['./product-modify.page.scss'],
 })
 export class ProductModifyPage implements OnInit {
-  originalCategories: AppCategory[];
-  convertedCategories: TreeNode[];
   selectedCategory: TreeNode;
-
-  originalBrands: BaseBrand[];
+  convertedCategories: TreeNode[];
   convertedBrands: SelectItem[];
-
-  originalPointTypes: BasePointType[];
   convertedPointTypes: SelectItem[];
-
-  originalAttributes: BaseAttribute[];
   convertedAttributes: SelectItem[];
-
-  originalColors: BaseColor[];
   convertedColors: SelectItem[];
-
-  originalWarranries: BaseWarranty[];
   convertedWarranries: SelectItem[];
-
-  originalInsurance: BaseInsurance[];
   convertedInsurance: SelectItem[];
 
   primaryFormGroup = new FormGroup({
@@ -75,7 +62,7 @@ export class ProductModifyPage implements OnInit {
     qty: new FormControl(null),
     maxQty: new FormControl(null),
   });
-  poitTypeFormGroup = new FormGroup({
+  pointTypeFormGroup = new FormGroup({
     pointTypeId: new FormControl(null),
   });
 
@@ -83,7 +70,6 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-  product = new Product();
 
   constructor(
     private productService: ProductService,
@@ -96,101 +82,76 @@ export class ProductModifyPage implements OnInit {
   }
 
   async loadData() {
-    this.originalCategories = await this.productService
+    const originalCategories = await this.productService
       .getCategories()
       .toPromise();
     this.convertedCategories = this.productService.convertToTreeNodeList(
-      this.originalCategories
+      originalCategories
     );
-    this.originalBrands = await this.basicService
+    const originalBrands = await this.basicService
       .select<BaseBrand>('Brand')
       .toPromise();
-    this.convertedBrands = this.originalBrands.map((item) => {
+    this.convertedBrands = originalBrands.map((item) => {
       return { label: item.title, value: item.id };
     });
-    this.originalPointTypes = await this.basicService
+    const originalPointTypes = await this.basicService
       .select<BasePointType>('PointType')
       .toPromise();
-    this.convertedPointTypes = this.originalPointTypes.map((item) => {
+    this.convertedPointTypes = originalPointTypes.map((item) => {
       return { label: item.title, value: item.id };
     });
-    this.originalColors = await this.basicService
+    const originalColors = await this.basicService
       .select<BaseColor>('Color')
       .toPromise();
-    this.convertedColors = this.originalColors.map((item) => {
+    this.convertedColors = originalColors.map((item) => {
       return { label: item.title, value: item.id };
     });
-    this.originalWarranries = await this.basicService
+    const originalWarranries = await this.basicService
       .select<BaseWarranty>('Warranty')
       .toPromise();
-    this.convertedWarranries = this.originalWarranries.map((item) => {
+    this.convertedWarranries = originalWarranries.map((item) => {
       return { label: item.title, value: item.id };
     });
-    this.originalInsurance = await this.basicService
+    const originalInsurance = await this.basicService
       .select<BaseInsurance>('Insurance')
       .toPromise();
-    this.convertedInsurance = this.originalInsurance.map((item) => {
+    this.convertedInsurance = originalInsurance.map((item) => {
       return { label: item.title, value: item.id };
     });
   }
 
   onSaveClick() {
-    this.createProduct();
-    console.log(this.product);
-
-    this.productService
-      .insertProduct<Product>(this.product).subscribe((res) => {
-        console.log(res);
-      });
+    this.productService.insertProduct(this.createProduct()).subscribe((res) => {
+      console.log(res);
+    });
   }
 
-  createProduct() {
-    this.product.categoryId = this.selectedCategory.data.id;
-    this.product.brandId = this.primaryFormGroup.controls['brandId'].value;
-    this.product.commission = this.primaryFormGroup.controls[
-      'commission'
-    ].value;
-    this.product.name = this.primaryFormGroup.controls['name'].value;
-    this.product.namEn = this.primaryFormGroup.controls['namEn'].value;
-    this.product.description = this.primaryFormGroup.controls[
-      'description'
-    ].value;
-    this.product.descriptionSeo = this.primaryFormGroup.controls[
-      'descriptionSeo'
-    ].value;
-    this.product.gainPoints = this.primaryFormGroup.controls[
-      'gainPoints'
-    ].value.toString();
-    this.product.weakPoints = this.primaryFormGroup.controls[
-      'weakPoints'
-    ].value.toString();
-    this.product.media = this.productImages;
-    this.product.price.colorId = this.secondaryFormGroup.controls[
-      'colorId'
-    ].value;
-    this.product.price.warrantyId = this.secondaryFormGroup.controls[
-      'warrantyId'
-    ].value;
-    this.product.price.insuranceId = this.secondaryFormGroup.controls[
-      'insuranceId'
-    ].value;
-    this.product.price.period = this.secondaryFormGroup.controls[
-      'period'
-    ].value;
-    this.product.price.localCode = this.secondaryFormGroup.controls[
-      'localCode'
-    ].value;
-    this.product.price.qty = this.secondaryFormGroup.controls['qty'].value;
-    this.product.price.maxQty = this.secondaryFormGroup.controls[
-      'maxQty'
-    ].value;
-    this.product.point = this.poitTypeFormGroup.value;
+  createProduct(): Product {
+    const p = new Product();
+    const primary = this.primaryFormGroup.controls;
+    const secondary = this.secondaryFormGroup.controls;
+    p.categoryId = this.selectedCategory.data.id;
+    p.brandId = primary['brandId'].value;
+    p.commission = primary['commission'].value;
+    p.name = primary['name'].value;
+    p.namEn = primary['namEn'].value;
+    p.description = primary['description'].value;
+    p.descriptionSeo = primary['descriptionSeo'].value;
+    p.gainPoints = primary['gainPoints'].value.toString();
+    p.weakPoints = primary['weakPoints'].value.toString();
+    p.media = this.productImages;
+    p.price.colorId = secondary['colorId'].value;
+    p.price.warrantyId = secondary['warrantyId'].value;
+    p.price.insuranceId = secondary['insuranceId'].value;
+    p.price.period = secondary['period'].value;
+    p.price.localCode = secondary['localCode'].value;
+    p.price.qty = secondary['qty'].value;
+    p.price.maxQty = secondary['maxQty'].value;
+    p.point = this.pointTypeFormGroup.value;
+    return p;
   }
-
-  updateProduct() {}
 
   onImageChange(args) {
     this.productImages = args;
   }
 }
-

@@ -6,7 +6,11 @@ import { BaseAttribute } from '@app/modules/basic/model/basic.model';
 import { ColDef } from 'ag-grid-community';
 import { TreeNode } from 'primeng';
 import { ProductService } from '../../business/product.service';
-import { AppCategory, CategoryAttribute } from '../../model/product.model';
+import {
+  AppCategory,
+  AppCategorySlider,
+  CategoryAttribute,
+} from '../../model/product.model';
 
 @Component({
   selector: 'category-modify',
@@ -25,7 +29,7 @@ export class CategoryModifyPage implements OnInit {
   loadCategoryAttributes = false;
   newSelectedAttributes: CategoryAttribute[] = [];
   newSelectedAttributeIds: any[] = [];
-  categorySlider;
+  categorySlider: AppCategorySlider[];
   form = new FormGroup({
     id: new FormControl(null),
     title: new FormControl(null, Validators.required),
@@ -74,9 +78,9 @@ export class CategoryModifyPage implements OnInit {
     if (this.categoryId) {
       this.editMode = true;
       this.loadCategory(this.categoryId);
-    } else{
-       this.loadCategoryAttributes = true;
-       this.categorySlider=[];
+    } else {
+      this.loadCategoryAttributes = true;
+      this.categorySlider = [];
     }
   }
 
@@ -91,7 +95,7 @@ export class CategoryModifyPage implements OnInit {
       isActive: category.isActive,
       isSubMenu: category.isSubMenu,
     });
-    this.categorySlider=category.slider
+    this.categorySlider = category.slider;
     this.selectedParentCategory = this.productService.convertToTreeNode(
       this.originalCategories.find((c) => c.id == category.parentId),
       this.originalCategories
