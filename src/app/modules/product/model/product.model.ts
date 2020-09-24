@@ -7,7 +7,7 @@ export class Product {
     this.brandId = null;
     this.commission = null;
     this.name = null;
-    this.namEn = null;
+    this.nameEn = null;
     this.description = null;
     this.descriptionSeo = null;
     this.gainPoints = null;
@@ -21,7 +21,7 @@ export class Product {
   brandId: number;
   commission: number;
   name: string;
-  namEn: string;
+  nameEn: string;
   description: string;
   descriptionSeo: string;
   gainPoints: string;
@@ -77,6 +77,8 @@ export class Price {
   localCode: string;
   qty: number;
   maxQty: number;
+  price:number;
+  disCountPrice:number;
 }
 
 export class Discount {

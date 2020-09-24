@@ -8,12 +8,8 @@ import * as moment from 'jalali-moment';
   templateUrl: './category-slider.component.html',
   styleUrls: ['./category-slider.component.scss'],
 })
-export class CategorySliderComponent implements OnInit,OnChanges {
+export class CategorySliderComponent implements OnInit {
   constructor(private dataService: DataService) {}
-  ngOnChanges(changes: SimpleChanges): void {
-   console.log(this.images);
-
-  }
 
   @Input() images: { keyMedia?: any; expireDateTime?: any; alt?: any }[];
   @Output() onChange = new EventEmitter();
@@ -70,8 +66,6 @@ export class CategorySliderComponent implements OnInit,OnChanges {
   }
 
   onexpireDateTimeChange(event, index) {
-    console.log(   this.selectedImages[index]);
-    
     this.selectedImages[index].expireDateTime = event.dateObj as Date;
     this.onChange.emit(this.selectedImages);
   }

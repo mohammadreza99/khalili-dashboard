@@ -59,7 +59,7 @@ export class ProductModifyPage implements OnInit {
     brandId: new FormControl(null),
     commission: new FormControl(null),
     name: new FormControl(null),
-    namEn: new FormControl(null),
+    nameEn: new FormControl(null),
     description: new FormControl(null),
     descriptionSeo: new FormControl(null),
     gainPoints: new FormControl(null),
@@ -71,6 +71,8 @@ export class ProductModifyPage implements OnInit {
     insuranceId: new FormControl(null),
     isReference: new FormControl(null),
     period: new FormControl(null),
+    price: new FormControl(null),
+    disCountPrice: new FormControl(null),
     localCode: new FormControl(null),
     qty: new FormControl(null),
     maxQty: new FormControl(null),
@@ -152,7 +154,7 @@ export class ProductModifyPage implements OnInit {
       'commission'
     ].value;
     this.product.name = this.primaryFormGroup.controls['name'].value;
-    this.product.namEn = this.primaryFormGroup.controls['namEn'].value;
+    this.product.nameEn = this.primaryFormGroup.controls['nameEn'].value;
     this.product.description = this.primaryFormGroup.controls[
       'description'
     ].value;
@@ -178,6 +180,12 @@ export class ProductModifyPage implements OnInit {
     this.product.price.period = this.secondaryFormGroup.controls[
       'period'
     ].value;
+    this.product.price.price = this.secondaryFormGroup.controls[
+      'price'
+    ].value;
+    this.product.price.disCountPrice = this.secondaryFormGroup.controls[
+      'disCountPrice'
+    ].value;
     this.product.price.localCode = this.secondaryFormGroup.controls[
       'localCode'
     ].value;
@@ -192,6 +200,13 @@ export class ProductModifyPage implements OnInit {
 
   onImageChange(args) {
     this.productImages = args;
+  }
+  onCategorySelect(args){
+    console.log(args.data.id);
+    this.productService.getAttributesByCatgoryId(args.data.id).subscribe(res=>{
+      console.log(res);
+      
+    })
   }
 }
 

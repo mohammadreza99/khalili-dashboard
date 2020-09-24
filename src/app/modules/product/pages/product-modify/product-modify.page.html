@@ -26,7 +26,7 @@
                 labelWidth="110"
               ></prm-input-text>
               <prm-input-text
-                formControlName="namEn"
+                formControlName="nameEn"
                 class="col-12 mb-4"
                 label="نام انگلیسی"
                 labelWidth="110"
@@ -76,10 +76,14 @@
               class="col-12 mb-4"
               selectionMode="single"
               [(selection)]="selectedCategory"
+              (selectionChange)="onCategorySelect($event)"
               [value]="convertedCategories"
               dir="rtl"
             >
             </p-tree>
+            <div class="col-12">
+              
+            </div>
           </div>
         </div>
       </div>
@@ -146,6 +150,18 @@
                 label="قیمت مرجع"
                 labelWidth="110"
               ></prm-input-checkbox-single>
+              <prm-input-text
+                formControlName="price"
+                class="col-12 mb-4"
+                label="قیمت"
+                labelWidth="110"
+              ></prm-input-text>
+              <prm-input-text
+                formControlName="disCountPrice"
+                class="col-12 mb-4"
+                label="تخفیف"
+                labelWidth="110"
+              ></prm-input-text>
               <prm-input-text
                 formControlName="period"
                 class="col-12 mb-4"

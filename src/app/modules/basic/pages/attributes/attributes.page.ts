@@ -92,17 +92,17 @@ export class AttributesPage implements OnInit {
           );
         },
       },
-      {
-        field: 'isActive',
-        headerName: 'وضعیت',
-        filter: false,
-        sortable: false,
-        cellEditor: 'agSelectCellEditor',
-        cellEditorParams: {
-          values: ['فعال', 'غیرفعال'],
-        },
-        cellRenderer: this.activityCellRenderer,
-      },
+      // {
+      //   field: 'isActive',
+      //   headerName: 'وضعیت',
+      //   filter: false,
+      //   sortable: false,
+      //   cellEditor: 'agSelectCellEditor',
+      //   cellEditorParams: {
+      //     values: ['فعال', 'غیرفعال'],
+      //   },
+      //   cellRenderer: this.activityCellRenderer,
+      // },
       {
         field: 'isRequired',
         headerName: 'الزامی',
@@ -161,7 +161,10 @@ export class AttributesPage implements OnInit {
         if (attribute)
           this.basicService
             .insert<BaseAttribute>('Attribute', attribute)
-            .subscribe((res) => this.table.addTransaction(attribute));
+            .subscribe((res) => {
+              this.table.addTransaction(attribute);
+              this.generateColumns();
+            });
       });
   }
 
@@ -173,12 +176,12 @@ export class AttributesPage implements OnInit {
       if (value === 'فعال') {
         updatedData.isActive = true;
         this.basicService
-          .activate('Attribute', updatedData)
+          .activate('Attribute', updatedData.id)
           .subscribe(() => this.table.updateTransaction(updatedData));
       } else if (value === 'غیرفعال') {
         updatedData.isActive = false;
         this.basicService
-          .deactivate('Attribute', updatedData)
+          .deactivate('Attribute', updatedData.id)
           .subscribe(() => this.table.updateTransaction(updatedData));
       }
     } else {
@@ -242,7 +245,7 @@ export class AttributesPage implements OnInit {
             }
           });
         break;
-      case 'Checkbox':
+      case 'CheckBox':
       case 'Select':
       case 'Multi Select':
         this.showAttributeValueDialog = true;
