@@ -10,6 +10,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '@app/modules/product/business/product.service';
 import { AttributeByCategoryId } from '@app/modules/product/model/product.model';
+import { TreeNode } from 'primeng';
 
 @Component({
   selector: 'fields',
@@ -41,34 +42,33 @@ export class FieldsComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.generateForm();
     this.form.valueChanges.subscribe((res) => {
-      console.log('dddddd');
+      console.log(res);
       this.valueChange.emit(res);
     });
   }
 
   generateForm() {
     for (const categoryAttribute of this.categoryAttributes) {
-    this.form.addControl(
-   categoryAttribute.attributeTitle.toString(),
-      new FormControl(undefined)
-    );
-    if (categoryAttribute.isRequired) {
-      this.form.controls[
-        categoryAttribute.attributeTitle.toString()
-      ].setValidators(Validators.required);
+      this.form.addControl(
+        categoryAttribute.attributeTitle.toString(),
+        new FormControl(undefined)
+      );
+      if (categoryAttribute.isRequired) {
+        this.form.controls[
+          categoryAttribute.attributeTitle.toString()
+        ].setValidators(Validators.required);
+      }
+      if (
+        categoryAttribute.attributeTypeId == 5 ||
+        categoryAttribute.attributeTypeId == 6
+      ) {
+        this.productService
+          .getAttributesValue(+categoryAttribute.attributeId)
+          .subscribe((res) => {
+            this.items = res;
+          });
+      }
     }
-    if (
-    categoryAttribute.attributeTypeId == 5 ||
-     categoryAttribute.attributeTypeId == 6
-    ) {
-      this.productService
-        .getAttributesValue(+categoryAttribute.attributeId)
-        .subscribe((res) => {
-          this.items = res;
-        });
-    } 
-    }
-    
   }
 
   onSubmit() {
