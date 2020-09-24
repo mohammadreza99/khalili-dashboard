@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ColorsPage } from './pages/colors/colors.page';
 import { AttachmentTypesPage } from './pages/attachment-types/attachment-types.page';
 import { AttributeCategoriesPage } from './pages/attribute-categories/attribute-categories.page';
-import { AttributeValuesPage } from './pages/attribute-values/attribute-values.page';
 import { AttributesPage } from './pages/attributes/attributes.page';
 import { BrandsPage } from './pages/brands/brands.page';
 import { CitiesPage } from './pages/cities/cities.page';
@@ -40,11 +39,6 @@ const routes: Routes = [
     path: 'attribute-categories',
     data: { title: 'دسته بندی فیلد' },
     component: AttributeCategoriesPage,
-  },
-  {
-    path: 'attribute-values',
-    data: { title: 'مقادیر فیلد' },
-    component: AttributeValuesPage,
   },
   {
     path: 'attributes',

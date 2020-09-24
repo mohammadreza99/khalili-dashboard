@@ -1,12 +1,13 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProductService } from '@app/modules/product/business/product.service';
 import { AttributeByCategoryId } from '@app/modules/product/model/product.model';
 
 @Component({
@@ -15,35 +16,10 @@ import { AttributeByCategoryId } from '@app/modules/product/model/product.model'
   styleUrls: ['./fields.component.scss'],
 })
 export class FieldsComponent implements OnInit, OnChanges {
-  @Input() attributes: AttributeByCategoryId[];
-  @Input() category;
+  @Input() categoryAttribute: AttributeByCategoryId;
+  @Output() valueChange = new EventEmitter();
 
   form = new FormGroup({});
-
-  constructor(private productService: ProductService) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.productService
-      .getAttributesByCatgoryId(this.category.data.id)
-      .subscribe((res: AttributeByCategoryId[]) => {
-        for (const item of res) {
-          //   this.form.addControl(item.id.toString(), new FormControl(undefined));
-          //   if (item.isRequired) {
-          //     this.form.controls[item.id.toString()].setValidators(
-          //       Validators.required
-          //     );
-          //   }
-          //   if (this.attributeTypes[item.attributeTypeId] == 'Select') {
-          //     (item.dropdownItems as Array<any>).unshift({
-          //       label: 'انتخاب کنید',
-          //       value: null,
-          //     });
-          //   }
-          //   if (item.value) this.form.get(item.formControlName).setValue(item.value);
-        }
-      });
-  }
-
   attributeTypes = {
     1: 'Text',
     2: 'Number',
@@ -54,22 +30,33 @@ export class FieldsComponent implements OnInit, OnChanges {
     7: 'CheckBox',
   };
 
+  constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.form.addControl(
+      this.categoryAttribute.attributeTitle.toString(),
+      new FormControl(undefined)
+    );
+    if (this.categoryAttribute.isRequired) {
+      this.form.controls[
+        this.categoryAttribute.attributeTitle.toString()
+      ].setValidators(Validators.required);
+    }
+  }
+
   ngOnInit() {
-    // for (const item of this.attributes) {
-    //   this.form.addControl(item.id.toString(), new FormControl(undefined));
-    //   if (item.isRequired) {
-    //     this.form.controls[item.id.toString()].setValidators(
-    //       Validators.required
-    //     );
-    //   }
-    //   if (this.attributeTypes[item.attributeTypeId] == 'Select') {
-    //     (item.dropdownItems as Array<any>).unshift({
-    //       label: 'انتخاب کنید',
-    //       value: null,
-    //     });
-    //   }
-    //   if (item.value) this.form.get(item.formControlName).setValue(item.value);
-    // }
+    this.form.addControl(
+      this.categoryAttribute.attributeTitle.toString(),
+      new FormControl(undefined)
+    );
+    if (this.categoryAttribute.isRequired) {
+      this.form.controls[
+        this.categoryAttribute.attributeTitle.toString()
+      ].setValidators(Validators.required);
+    }
+    this.form.valueChanges.subscribe((res) => {
+      this.valueChange.emit(res);
+    });
   }
 
   onSubmit() {

@@ -77,12 +77,16 @@
               selectionMode="single"
               [(selection)]="selectedCategory"
               [value]="convertedCategories"
+              (selectionChange)="onSelectCategory($event)"
               dir="rtl"
             >
             </p-tree>
           </div>
         </div>
-        <fields [category]="selectedCategory"></fields>
+        <fields
+          [categoryAttribute]="item"
+          *ngFor="let item of selectedCategoryFields"
+        ></fields>
       </div>
     </p-tabPanel>
     <p-tabPanel header="عکس ها">

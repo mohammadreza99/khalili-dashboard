@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode, SelectItem } from 'primeng';
 import { ProductService } from '../../business/product.service';
-import {
-  AppCategory,
-  Info,
-  Media,
-  Price,
-  Product,
-} from '../../model/product.model';
+import { AttributeByCategoryId, Product } from '../../model/product.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
-  BaseAttribute,
   BaseBrand,
   BaseColor,
   BaseInsurance,
@@ -70,6 +63,7 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
+  selectedCategoryFields: AttributeByCategoryId[];
 
   constructor(
     private productService: ProductService,
@@ -153,5 +147,13 @@ export class ProductModifyPage implements OnInit {
 
   onImageChange(args) {
     this.productImages = args;
+  }
+
+  onSelectCategory(event) {
+    this.productService
+      .getAttributesByCatgoryId(event.data.id)
+      .subscribe((res: AttributeByCategoryId[]) => {
+        this.selectedCategoryFields = res;
+      });
   }
 }
