@@ -3,7 +3,6 @@ import { WarrantiesPage } from './pages/warranties/warranties.page';
 import { InsurancesPage } from './pages/insurances/insurances.page';
 import { AttributeCategoriesPage } from './pages/attribute-categories/attribute-categories.page';
 import { AttributesPage } from './pages/attributes/attributes.page';
-import { AttributeValuesPage } from './pages/attribute-values/attribute-values.page';
 import { JobsPage } from './pages/jobs/jobs.page';
 import { StatesPage } from './pages/states/states.page';
 import { CitiesPage } from './pages/cities/cities.page';
@@ -29,7 +28,6 @@ export const COMPONENTS = [
   InsurancesPage,
   AttributeCategoriesPage,
   AttributesPage,
-  AttributeValuesPage,
   JobsPage,
   StatesPage,
   CitiesPage,

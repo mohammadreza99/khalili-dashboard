@@ -156,13 +156,16 @@ export class AppCategorySlider {
 }
 
 export class AttributeByCategoryId {
-  id: Object;
-  title: string;
+  id: number;
+  categoryId: number;
+  attributeId: number;
+  attributeTitle: string;
   attributeCategoryId: number;
   attributeCategoryTitle: string;
   attributeTypeId: number;
+  attributeTypeTitle: string;
   isRequired: boolean;
-  attributeValueId: number;
-  attributeValueValue: string;
-  apiValue: string;
+  isSystem: boolean;
+  isFilter: boolean;
+  order: number;
 }

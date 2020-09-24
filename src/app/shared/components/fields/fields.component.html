@@ -1,41 +1,56 @@
-<!-- <form class="form-row" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <ng-container *ngFor="let item of attributes">
-    <div [ngSwitch]="attributeTypes[item.attributeTypeId]" class="mb-2">
-      <prm-input-text
-        *ngSwitchCase="'Text'"
-        [label]="item.label ? item.label : ''"
-        [labelWidth]="item.labelWidth"
-        [placeholder]="item.placeholder ? item.placeholder : ''"
-        [readonly]="item.readonly"
-        [formControlName]="item.formControlName"
-        [errors]="item.errors"
-      ></prm-input-text>
-      <prm-input-dropdown
-        *ngSwitchCase="'dropdown'"
-        [label]="item.label ? item.label : ''"
-        [labelWidth]="item.labelWidth"
-        [placeholder]="item.placeholder ? item.placeholder : ''"
-        [readonly]="item.readonly"
-        [formControlName]="item.formControlName"
-        [errors]="item.errors"
-        [items]="item.dropdownItems"
-      ></prm-input-dropdown>
-      <prm-input-multi-select
-        *ngSwitchCase="'dropdown'"
-        [label]="item.label ? item.label : ''"
-        [labelWidth]="item.labelWidth"
-        [placeholder]="item.placeholder ? item.placeholder : ''"
-        [readonly]="item.readonly"
-        [formControlName]="item.formControlName"
-        [errors]="item.errors"
-        [items]="item.dropdownItems"
-      ></prm-input-multi-select>
-      <prm-input-checkbox-single
-        *ngSwitchCase="'checkbox'"
-        [label]="item.label ? item.label : ''"
-        [labelWidth]="item.labelWidth"
-        [formControl]="form.get(item.formControlName)"
-      ></prm-input-checkbox-single>
-    </div>
+<form class="form-row" [formGroup]="form">
+  <ng-container [ngSwitch]="attributeTypes[categoryAttribute.attributeTypeId]">
+    <prm-input-text
+      class="col-12 mb-3"
+      *ngSwitchCase="'Text'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+    ></prm-input-text>
+    <prm-input-text
+      class="col-12 mb-3"
+      *ngSwitchCase="'Number'"
+      [numberOnly]="true"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+    ></prm-input-text>
+    <prm-input-date-time-picker
+      class="col-12 mb-3"
+      *ngSwitchCase="'Date'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+    ></prm-input-date-time-picker>
+    <prm-input-textarea
+      class="col-12 mb-3"
+      *ngSwitchCase="'Text Area'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+    ></prm-input-textarea>
+    <prm-input-dropdown
+      class="col-12 mb-3"
+      *ngSwitchCase="'Select'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+      [items]="[]"
+    ></prm-input-dropdown>
+    <prm-input-multi-select
+      class="col-12 mb-3"
+      *ngSwitchCase="'Multi Select'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+      [items]="[]"
+    ></prm-input-multi-select>
+    <prm-input-checkbox-single
+      class="col-12 mb-3"
+      *ngSwitchCase="'CheckBox'"
+      [label]="categoryAttribute.attributeTitle"
+      [labelWidth]="110"
+      [formControlName]="categoryAttribute.attributeTitle"
+    ></prm-input-checkbox-single>
   </ng-container>
-</form> -->
+</form>

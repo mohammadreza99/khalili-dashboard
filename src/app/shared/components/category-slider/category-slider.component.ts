@@ -39,8 +39,10 @@ export class CategorySliderComponent implements OnInit {
   onSelectImage(event: any) {
     const file: File = event.target.files[0];
     this.createImageFromBlob(file);
-    this.onSelect.emit(file);
-    this.onChange.emit(this.selectedImages);
+    if (file) {
+      this.onSelect.emit(file);
+      this.onChange.emit(this.selectedImages);
+    }
   }
 
   createImageFromBlob(image: Blob) {
@@ -65,7 +67,7 @@ export class CategorySliderComponent implements OnInit {
     this.selectedImages.splice(index, 1);
   }
 
-  onexpireDateTimeChange(event, index) {
+  onExpireDateTimeChange(event, index) {    
     this.selectedImages[index].expireDateTime = event.dateObj as Date;
     this.onChange.emit(this.selectedImages);
   }

@@ -1,4 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AttributeByCategoryId } from '@app/modules/product/model/product.model';
 
@@ -7,13 +15,11 @@ import { AttributeByCategoryId } from '@app/modules/product/model/product.model'
   templateUrl: './fields.component.html',
   styleUrls: ['./fields.component.scss'],
 })
-export class FieldsComponent implements OnInit {
-  @Input() attributes: AttributeByCategoryId[];
+export class FieldsComponent implements OnInit, OnChanges {
+  @Input() categoryAttribute: AttributeByCategoryId;
+  @Output() valueChange = new EventEmitter();
 
   form = new FormGroup({});
-
-  constructor() {}
-
   attributeTypes = {
     1: 'Text',
     2: 'Number',
@@ -24,22 +30,33 @@ export class FieldsComponent implements OnInit {
     7: 'CheckBox',
   };
 
+  constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.form.addControl(
+      this.categoryAttribute.attributeTitle.toString(),
+      new FormControl(undefined)
+    );
+    if (this.categoryAttribute.isRequired) {
+      this.form.controls[
+        this.categoryAttribute.attributeTitle.toString()
+      ].setValidators(Validators.required);
+    }
+  }
+
   ngOnInit() {
-    // for (const item of this.attributes) {
-    //   this.form.addControl(item.id.toString(), new FormControl(undefined));
-    //   if (item.isRequired) {
-    //     this.form.controls[item.id.toString()].setValidators(
-    //       Validators.required
-    //     );
-    //   }
-    //   if (this.attributeTypes[item.attributeTypeId] == 'Select') {
-    //     (item.dropdownItems as Array<any>).unshift({
-    //       label: 'انتخاب کنید',
-    //       value: null,
-    //     });
-    //   }
-    //   if (item.value) this.form.get(item.formControlName).setValue(item.value);
-    // }
+    this.form.addControl(
+      this.categoryAttribute.attributeTitle.toString(),
+      new FormControl(undefined)
+    );
+    if (this.categoryAttribute.isRequired) {
+      this.form.controls[
+        this.categoryAttribute.attributeTitle.toString()
+      ].setValidators(Validators.required);
+    }
+    this.form.valueChanges.subscribe((res) => {
+      this.valueChange.emit(res);
+    });
   }
 
   onSubmit() {

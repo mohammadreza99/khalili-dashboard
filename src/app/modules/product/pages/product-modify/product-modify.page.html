@@ -67,7 +67,7 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="فیلدها">
+    <p-tabPanel header="دسته بندی و فیلدها">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
@@ -78,6 +78,7 @@
               [(selection)]="selectedCategory"
               (selectionChange)="onCategorySelect($event)"
               [value]="convertedCategories"
+              (selectionChange)="onSelectCategory($event)"
               dir="rtl"
             >
             </p-tree>
@@ -86,8 +87,12 @@
             </div>
           </div>
         </div>
+        <fields
+        (valueChange)="onChangeFields($event)"
+          [categoryAttribute]="item"
+          *ngFor="let item of selectedCategoryFields"
+        ></fields>
       </div>
-      <fields></fields>
     </p-tabPanel>
     <p-tabPanel header="عکس ها">
       <multi-image-picker
@@ -100,7 +105,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <form [formGroup]="poitTypeFormGroup" class="form-row">
+            <form [formGroup]="pointTypeFormGroup" class="form-row">
               <prm-input-multi-select
                 *ngIf="convertedPointTypes"
                 formControlName="pointTypeId"
@@ -108,7 +113,6 @@
                 label="سوال سنجشی"
                 labelWidth="110"
                 [items]="convertedPointTypes"
-            
               ></prm-input-multi-select>
             </form>
           </div>
