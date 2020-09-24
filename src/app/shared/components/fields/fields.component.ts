@@ -41,7 +41,6 @@ export class FieldsComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.generateForm();
     this.form.valueChanges.subscribe((res) => {
-      console.log('dddddd');
       this.valueChange.emit(res);
     });
   }

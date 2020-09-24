@@ -1,5 +1,5 @@
 <form class="form-row" [formGroup]="form">
-  <ng-container  *ngFor="let categoryAttribute of categoryAttributes" [ngSwitch]="attributeTypes[categoryAttribute.attributeTypeId]">
+  <ng-container *ngFor="let categoryAttribute of categoryAttributes" [ngSwitch]="attributeTypes[categoryAttribute.attributeTypeId]">
     <prm-input-text
       class="col-12 mb-3"
       *ngSwitchCase="'Text'"
