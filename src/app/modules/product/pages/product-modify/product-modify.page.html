@@ -84,6 +84,7 @@
           </div>
         </div>
         <fields
+        (valueChange)="onChangeFields($event)"
           [categoryAttribute]="item"
           *ngFor="let item of selectedCategoryFields"
         ></fields>

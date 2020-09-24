@@ -156,4 +156,8 @@ export class ProductModifyPage implements OnInit {
         this.selectedCategoryFields = res;
       });
   }
+
+  onChangeFields(event) {
+    console.log(event);
+  }
 }
