@@ -84,8 +84,9 @@
           </div>
         </div>
         <fields
-        (valueChange)="onChangeFields($event)"
-        [categoryAttributes]="selectedCategoryFields"
+          *ngIf="selectedCategoryFields"
+          (valueChange)="onChangeFields($event)"
+          [categoryAttributes]="selectedCategoryFields"
         ></fields>
       </div>
     </p-tabPanel>
