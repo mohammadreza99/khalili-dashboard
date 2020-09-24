@@ -76,21 +76,17 @@
               class="col-12 mb-4"
               selectionMode="single"
               [(selection)]="selectedCategory"
-              (selectionChange)="onCategorySelect($event)"
               [value]="convertedCategories"
               (selectionChange)="onSelectCategory($event)"
               dir="rtl"
             >
             </p-tree>
-            <div class="col-12">
-              
-            </div>
           </div>
         </div>
         <fields
         (valueChange)="onChangeFields($event)"
-          [categoryAttribute]="item"
-          *ngFor="let item of selectedCategoryFields"
+          [categoryAttributes]="selectedCategoryFields"
+        
         ></fields>
       </div>
     </p-tabPanel>

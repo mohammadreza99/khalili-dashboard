@@ -144,6 +144,14 @@ export class ProductService extends BaseService {
     ).pipe(map((res: any) => res.data));
   }
 
+  getAttributesValue(attributeId: number){
+    return this.get(
+      'Base/Admin/AttributeValueSelectWithAttributeId//?' +
+      attributeId,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+
   convertToTreeNodeList(items: AppCategory[]) {
     let result: TreeNode[] = [];
     items.forEach((item) => {
