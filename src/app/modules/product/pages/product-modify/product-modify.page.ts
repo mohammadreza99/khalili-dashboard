@@ -69,8 +69,8 @@ export class ProductModifyPage implements OnInit {
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
-  selectedCategoryFields: AttributeByCategoryId[];
-  fields: Info[];
+  selectedCategoryAttributes: AttributeByCategoryId[];
+  attributes: Info[];
 
   constructor(
     private productService: ProductService,
@@ -81,6 +81,8 @@ export class ProductModifyPage implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.activeIndex = +this.route.snapshot.paramMap.get('index');
+    console.log(this.activeIndex);
+
     this.loadData();
   }
 
@@ -123,12 +125,6 @@ export class ProductModifyPage implements OnInit {
     });
   }
 
-  onSaveClick() {
-    this.productService.insertProduct(this.createProduct()).subscribe((res) => {
-      console.log(res);
-    });
-  }
-
   createProduct(): Product {
     const p = new Product();
     const primary = this.primaryFormGroup.controls;
@@ -143,7 +139,7 @@ export class ProductModifyPage implements OnInit {
     p.gainPoints = primary['gainPoints'].value.toString();
     p.weakPoints = primary['weakPoints'].value.toString();
     p.media = this.productImages;
-    p.info = this.fields;
+    p.info = this.attributes;
     p.price.colorId = secondary['colorId'].value;
     p.price.warrantyId = secondary['warrantyId'].value;
     p.price.insuranceId = secondary['insuranceId'].value;
@@ -165,11 +161,27 @@ export class ProductModifyPage implements OnInit {
     this.productService
       .getAttributesByCatgoryId(event.data.id)
       .subscribe((res: AttributeByCategoryId[]) => {
-        this.selectedCategoryFields = res;
+        this.selectedCategoryAttributes = res;
       });
   }
 
-  onChangeFields(event) {
-    this.fields = event;
+  onChangeAttributes(event) {
+    this.attributes = event;
   }
+
+  addProduct() {
+    this.productService.insertProduct(this.createProduct()).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  onEditPrimary() {}
+
+  onEditAttributes() {}
+
+  onEditImages() {}
+
+  onEditPoints() {}
+
+  onEditSecondary() {}
 }
