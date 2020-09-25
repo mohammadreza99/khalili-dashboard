@@ -13,6 +13,7 @@ import {
   ProductView,
   ProductFavorite,
   ProductComment,
+  Info
 } from '../model/product.model';
 import { TreeNode } from 'primeng';
 
@@ -94,6 +95,54 @@ export class ProductService extends BaseService {
       map((res: any) => res.data)
     );
   }
+
+  getProductPrimaryData(productId): Observable<any> {
+    return this.get('/Base/Admin/ProductSelectWithId/?id='+productId ,'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  updateProductPrimaryData(product){
+    return this.put('/Base/Admin/ProductUpdate/', product, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+  getProductPointData(productId): Observable<any> {
+    return this.get('/Base/Admin/ProductPointSelectWithProductId/?productId='+productId ,'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  updateProductPointData(pointList){
+    return this.put('Base/Admin/ProductPointUpdate/', pointList, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+  getProductPriceData(productId): Observable<any> {
+    return this.get('/Base/Admin/ProductPriceSelectWithProductId/?productId='+productId ,'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+  updateProductPriceData(pointList){
+    return this.put('/Base/Admin/ProductPriceUpdate/', pointList, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+  getProductImageData(productId): Observable<any> {
+    return this.get('/Base/Admin/ProductMediaSelectWithProductId/?productId='+productId ,'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+
+  getProductAttributes(ProductId): Observable<Info[]> {
+    return this.get('/Base/Admin/ProductInfoSelectWithId/?id='+ProductId ,'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
+
   /////////////////////////////////////////////////////////////
   //                       Category                          //
   /////////////////////////////////////////////////////////////
@@ -109,6 +158,7 @@ export class ProductService extends BaseService {
       'json'
     ).pipe(map((res: any) => res.data));
   }
+
 
   insertCategory<AppCategory>(category: AppCategory): Observable<AppCategory> {
     return this.post('/Base/Admin/CategoryInsert/', category, 'json').pipe(

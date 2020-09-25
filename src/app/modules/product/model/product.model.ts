@@ -168,4 +168,5 @@ export class AttributeByCategoryId {
   isSystem: boolean;
   isFilter: boolean;
   order: number;
+  value?:any;
 }

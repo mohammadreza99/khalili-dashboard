@@ -66,7 +66,16 @@
                 label="نقاط ضعف"
                 labelWidth="110"
               ></prm-input-tags>
-
+              <p-tree
+                *ngIf="convertedCategories"
+                class="col-12 mb-4"
+                selectionMode="single"
+                [(selection)]="selectedCategory"
+                [value]="convertedCategories"
+                (selectionChange)="onSelectCategory($event)"
+                dir="rtl"
+              >
+              </p-tree>
               <div
                 *ngIf="activeIndex && activeIndex == 0"
                 class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
@@ -79,25 +88,8 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel
-      header="دسته بندی و فیلدها"
-      [disabled]="activeIndex && activeIndex != 1"
-    >
+    <p-tabPanel header="فیلدها" [disabled]="activeIndex && activeIndex != 1">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <p-tree
-              *ngIf="convertedCategories"
-              class="col-12 mb-4"
-              selectionMode="single"
-              [(selection)]="selectedCategory"
-              [value]="convertedCategories"
-              (selectionChange)="onSelectCategory($event)"
-              dir="rtl"
-            >
-            </p-tree>
-          </div>
-        </div>
         <fields
           *ngIf="selectedCategoryAttributes"
           (valueChange)="onChangeAttributes($event)"
