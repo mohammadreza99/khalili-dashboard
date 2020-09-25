@@ -65,7 +65,7 @@ export class ProductModifyPage implements OnInit {
     pointTypeId: new FormControl(null),
   });
 
-  activeIndex;
+  activeIndex = null;
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
@@ -80,8 +80,9 @@ export class ProductModifyPage implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.activeIndex = +this.route.snapshot.paramMap.get('index');
-    console.log(this.activeIndex);
+    if (this.route.snapshot.paramMap.get('index'))
+      this.activeIndex = this.route.snapshot.paramMap.get('index');
+    console.log(typeof this.activeIndex);
 
     this.loadData();
   }
