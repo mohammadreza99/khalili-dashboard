@@ -42,20 +42,26 @@ export class FieldsComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.generateForm();
     this.form.valueChanges.subscribe((res) => {
-      console.log(res);
-      this.valueChange.emit(res);
+      let values = [];
+        for (const key in res) {
+        values.push(  {
+          attributeId : +(key),
+          value:""+(res[key])+""
+         })
+        }
+      this.valueChange.emit(values);
     });
   }
 
   generateForm() {
     for (const categoryAttribute of this.categoryAttributes) {
       this.form.addControl(
-        categoryAttribute.attributeTitle.toString(),
+        categoryAttribute.attributeId.toString(),
         new FormControl(undefined)
       );
       if (categoryAttribute.isRequired) {
         this.form.controls[
-          categoryAttribute.attributeTitle.toString()
+          categoryAttribute.attributeId.toString()
         ].setValidators(Validators.required);
       }
       if (

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode, SelectItem } from 'primeng';
 import { ProductService } from '../../business/product.service';
-import { AttributeByCategoryId, Product } from '../../model/product.model';
+import { AttributeByCategoryId, Info, Product } from '../../model/product.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -66,7 +66,7 @@ export class ProductModifyPage implements OnInit {
   productImages: any;
   productDefaultImage: any;
   selectedCategoryFields: AttributeByCategoryId[];
-
+  fields:Info[];
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -136,14 +136,17 @@ export class ProductModifyPage implements OnInit {
     p.gainPoints = primary['gainPoints'].value.toString();
     p.weakPoints = primary['weakPoints'].value.toString();
     p.media = this.productImages;
+    p.info = this.fields;
     p.price.colorId = secondary['colorId'].value;
     p.price.warrantyId = secondary['warrantyId'].value;
     p.price.insuranceId = secondary['insuranceId'].value;
     p.price.period = secondary['period'].value;
+    p.price.price = secondary['price'].value;
+    p.price.disCountPrice = secondary['disCountPrice'].value;
     p.price.localCode = secondary['localCode'].value;
     p.price.qty = secondary['qty'].value;
     p.price.maxQty = secondary['maxQty'].value;
-    p.point = this.pointTypeFormGroup.value;
+    p.point = this.pointTypeFormGroup.value.pointTypeId;
     return p;
   }
 
@@ -160,6 +163,6 @@ export class ProductModifyPage implements OnInit {
   }
 
   onChangeFields(event) {
-    console.log(event);
+    this.fields=event;
   }
 }

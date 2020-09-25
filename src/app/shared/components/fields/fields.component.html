@@ -8,7 +8,7 @@
       *ngSwitchCase="'Text'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
     ></prm-input-text>
     <prm-input-text
       class="col-12 mb-3"
@@ -16,28 +16,28 @@
       [numberOnly]="true"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
     ></prm-input-text>
     <prm-input-date-time-picker
       class="col-12 mb-3"
       *ngSwitchCase="'Date'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
     ></prm-input-date-time-picker>
     <prm-input-textarea
       class="col-12 mb-3"
       *ngSwitchCase="'Text Area'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
     ></prm-input-textarea>
     <prm-input-dropdown
       class="col-12 mb-3"
       *ngSwitchCase="'Select'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
       [items]="items"
     ></prm-input-dropdown>
     <prm-input-multi-select
@@ -45,7 +45,7 @@
       *ngSwitchCase="'Multi Select'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
       [items]="items"
     ></prm-input-multi-select>
     <prm-input-checkbox-single
@@ -53,7 +53,7 @@
       *ngSwitchCase="'CheckBox'"
       [label]="categoryAttribute.attributeTitle"
       [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeTitle"
+      [formControlName]="categoryAttribute.attributeId"
     ></prm-input-checkbox-single>
   </ng-container>
 </form>
