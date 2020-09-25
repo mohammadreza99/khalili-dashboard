@@ -8,7 +8,12 @@
   </prm-button>
   <ag-table
     [rowData]="rowData$ | async"
-    [actionsConfig]="[{action:'edit',color:'primary'}]"
+    [actionsConfig]="[
+    {action:'primary/0',color:'primary',icon:'fa fa-pen',tooltip:'ویرایش اطلاعات پایه'},
+    {action:'attributes/1',color:'primary',icon:'fa fa-pen',tooltip:'ویرایش فیلدها'},
+    {action:'images/2',color:'primary',icon:'fa fa-pen',tooltip:'ویرایش عکس ها'},
+    {action:'points/3',color:'primary',icon:'fa fa-pen',tooltip:'ویرایش نظرسنجی'},
+    {action:'secondary/4',color:'primary',icon:'fa fa-pen',tooltip:'ویرایش قیمت'}]"
     [columnDefs]="columnDefs"
     (actionClick)="onActionClick($event)"
   ></ag-table>

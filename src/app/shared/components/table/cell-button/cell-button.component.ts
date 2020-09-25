@@ -12,6 +12,7 @@ export class CellButtonComponent implements ICellRendererAngularComp {
   action: string;
   color: string;
   icon: string;
+  tooltip: string;
 
   agInit(params): void {
     this.params = params;
@@ -19,6 +20,7 @@ export class CellButtonComponent implements ICellRendererAngularComp {
     this.action = this.params.action || null;
     this.color = this.params.color || 'primary';
     this.icon = this.params.icon || null;
+    this.tooltip = this.params.tooltip || null;
   }
 
   refresh(params?: any): boolean {

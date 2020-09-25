@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode, SelectItem } from 'primeng';
 import { ProductService } from '../../business/product.service';
-import { AttributeByCategoryId, Info, Product } from '../../model/product.model';
+import {
+  AttributeByCategoryId,
+  Info,
+  Product,
+} from '../../model/product.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -61,12 +65,13 @@ export class ProductModifyPage implements OnInit {
     pointTypeId: new FormControl(null),
   });
 
-  activeIndex = 0;
+  activeIndex;
   editMode: boolean = false;
   productImages: any;
   productDefaultImage: any;
   selectedCategoryFields: AttributeByCategoryId[];
-  fields:Info[];
+  fields: Info[];
+
   constructor(
     private productService: ProductService,
     private basicService: BasicService,
@@ -74,6 +79,8 @@ export class ProductModifyPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.activeIndex = +this.route.snapshot.paramMap.get('index');
     this.loadData();
   }
 
@@ -163,6 +170,6 @@ export class ProductModifyPage implements OnInit {
   }
 
   onChangeFields(event) {
-    this.fields=event;
+    this.fields = event;
   }
 }

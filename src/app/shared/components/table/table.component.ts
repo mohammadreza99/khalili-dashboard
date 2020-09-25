@@ -68,6 +68,7 @@ export class TableComponent implements OnInit {
             label: action.label,
             icon: action.icon,
             color: action.color,
+            tooltip: action.tooltip,
           },
         });
       });

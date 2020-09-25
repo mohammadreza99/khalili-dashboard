@@ -36,8 +36,8 @@ export class ProductsPage implements OnInit {
     {
       field: 'isActive',
       headerName: 'وضعیت',
-filter: false,
-sortable: false,
+      filter: false,
+      sortable: false,
       cellRenderer: this.activityCellRenderer,
     },
   ];
@@ -52,7 +52,7 @@ sortable: false,
   }
 
   onActionClick(event) {
-    this.router.navigate(['/product/modify', event.rowData.id]);
+    this.router.navigate(['/product/modify/' + event.action, event.rowData.id]);
   }
 }
 

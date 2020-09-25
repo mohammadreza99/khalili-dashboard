@@ -43,12 +43,12 @@ export class FieldsComponent implements OnInit, OnChanges {
     this.generateForm();
     this.form.valueChanges.subscribe((res) => {
       let values = [];
-        for (const key in res) {
-        values.push(  {
-          attributeId : +(key),
-          value:""+(res[key])+""
-         })
-        }
+      for (const key in res) {
+        values.push({
+          attributeId: +key,
+          value: '' + res[key] + '',
+        });
+      }
       this.valueChange.emit(values);
     });
   }

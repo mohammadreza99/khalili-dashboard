@@ -26,7 +26,27 @@ const routes: Routes = [
     component: ProductModifyPage,
   },
   {
-    path: 'modify/:id',
+    path: 'modify/primary/:index/:id',
+    data: { title: 'ویرایش محصول' },
+    component: ProductModifyPage,
+  },
+  {
+    path: 'modify/attributes/:index/:id',
+    data: { title: 'ویرایش محصول' },
+    component: ProductModifyPage,
+  },
+  {
+    path: 'modify/images/:index/:id',
+    data: { title: 'ویرایش محصول' },
+    component: ProductModifyPage,
+  },
+  {
+    path: 'modify/points/:index/:id',
+    data: { title: 'ویرایش محصول' },
+    component: ProductModifyPage,
+  },
+  {
+    path: 'modify/secondary/:index/:id',
     data: { title: 'ویرایش محصول' },
     component: ProductModifyPage,
   },
