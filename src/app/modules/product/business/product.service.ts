@@ -142,7 +142,11 @@ export class ProductService extends BaseService {
     );
   }
 
-
+  updateProductAttributes(attributes){
+    return this.put('/Base/Admin/ProductInfoUpdate/', attributes, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
   /////////////////////////////////////////////////////////////
   //                       Category                          //
   /////////////////////////////////////////////////////////////
