@@ -9,8 +9,8 @@ import {
 import { CellButtonComponent } from './cell-button/cell-button.component';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { CellImageComponent } from './cell-image/cell-image.component';
-import { CellDatepickerComponent } from './cell-datepicker/cell-datepicker.component';
 import { CellTimepickerComponent } from './cell-timepicker/cell-timepicker.component';
+import { CellDatepickerComponent } from './cell-datepicker/cell-datepicker.component';
 
 @Component({
   selector: 'ag-table',
@@ -24,6 +24,7 @@ export class TableComponent implements OnInit {
     buttonRenderer: CellButtonComponent,
     imageRenderer: CellImageComponent,
     datepickerEditor: CellDatepickerComponent,
+    datepickerRenderer: CellDatepickerComponent,
     timepickerEditor: CellTimepickerComponent,
   };
 

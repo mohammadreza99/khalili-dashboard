@@ -160,10 +160,40 @@
       header="قیمت و رنگ"
       [disabled]="activeIndex && activeIndex != 4"
     >
+      <page-container title="لیست قیمت ها">
+        <prm-button
+          label="افزودن"
+          icon="fa fa-plus"
+          color="success"
+          (click)="addPrice()"
+        >
+        </prm-button>
+      </page-container>
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <form [formGroup]="secondaryFormGroup" class="form-row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">کد</th>
+                  <th scope="col">قیمت</th>
+                  <th scope="col">ویرایش</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let price of selectedPrices">
+                  <th scope="row">{{price.localCode}}</th>
+                  <td>{{price.colorId}}</td>
+                  <td>
+                    <prm-button
+                      icon="fa fa-pen"
+                      (click)="editPrice(price)"
+                    ></prm-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <form [formGroup]="secondaryFormGroup" class="form-row">
               <prm-input-dropdown
                 *ngIf="convertedColors"
                 formControlName="colorId"
@@ -229,15 +259,15 @@
                 class="col-12 mb-4"
                 label="بیشترین تعداد درخواست"
                 labelWidth="110"
-              ></prm-input-text>
-              <div
-                *ngIf="activeIndex && activeIndex == 4"
-                class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
-                (click)="onEditSecondary()"
-              >
-                <button class="col-12 btn btn-block btn-success">ذخیره</button>
-              </div>
-            </form>
+              ></prm-input-text> -->
+            <!-- </form> -->
+            <div
+              *ngIf="activeIndex && activeIndex == 4"
+              class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
+              (click)="onEditSecondary()"
+            >
+              <button class="col-12 btn btn-block btn-success">ذخیره</button>
+            </div>
           </div>
         </div>
       </div>
