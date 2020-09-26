@@ -18,6 +18,7 @@ import {
 import { BasicService } from '@app/modules/basic/business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
+import { DataService } from '@app/services/data.service';
 
 enum TabIndex {
   primary,
@@ -32,6 +33,13 @@ enum TabIndex {
   styleUrls: ['./product-modify.page.scss'],
 })
 export class ProductModifyPage implements OnInit {
+  id;
+  activeIndex = null;
+  editMode: boolean = false;
+  productImages: any;
+  productDefaultImage: any;
+  selectedCategoryAttributes: AttributeByCategoryId[];
+  attributes: Info[];
   selectedCategory: TreeNode;
   convertedCategories: TreeNode[];
   convertedBrands: SelectItem[];
@@ -67,28 +75,141 @@ export class ProductModifyPage implements OnInit {
     pointTypeId: new FormControl(null),
   });
 
-  activeIndex = null;
-  editMode: boolean = false;
-  productImages: any;
-  productDefaultImage: any;
-  selectedCategoryAttributes: AttributeByCategoryId[];
-  attributes: Info[];
-
   constructor(
     private productService: ProductService,
+    private dataService: DataService,
     private basicService: BasicService,
     private route: ActivatedRoute,
     private dialogFormService: DialogFormService
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
     if (this.route.snapshot.paramMap.get('index'))
       this.activeIndex = this.route.snapshot.paramMap.get('index');
-    console.log(typeof this.activeIndex);
-
     this.loadData();
+    if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
+    if (this.activeIndex == '1') this.getProductAttributes(this.id);
+    if (this.activeIndex == '2') this.getProductImageData(this.id);
+    if (this.activeIndex == '3') this.getProductPointData(this.id);
+    if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
+  getProductPriceData(productId) {
+    const secondary = this.secondaryFormGroup.controls;
+    this.productService.getProductPriceData(productId).subscribe((res) => {
+      console.log(res);
+
+      // secondary['colorId']
+    });
+  }
+
+  getProductImageData(productId) {
+    this.productService.getProductImageData(productId).subscribe((res) => {
+      console.log(res);
+      res.forEach((img) => {
+        this.dataService.getBase64ImageFromUrl(img.keyMedia, (dataUrl) => {
+          this.productImages.push({
+            keyMedia: dataUrl,
+          });
+        });
+      });
+    });
+  }
+
+  getProductPointData(productId) {
+    this.productService.getProductPointData(productId).subscribe((res) => {
+      let points = [];
+      res.forEach((point) => {
+        points.push(point.pointTypeId);
+      });
+      this.pointTypeFormGroup.controls['pointTypeId'].setValue(points);
+    });
+  }
+
+  getProductAttributes(productId) {
+    this.productService.getProductAttributes(productId).subscribe((result:Info[]) => {
+      this.productService
+        .getProductPrimaryData(productId)
+        .subscribe((product) => {
+          this.productService
+            .getAttributesByCatgoryId(product.categoryId)
+            .subscribe((attributes: AttributeByCategoryId[]) => {
+              let selectedCategoryAttributes=[];
+                for (let i = 0; i < attributes.length; i++) {
+                  Object.assign(attributes[i],{value:result[i].value});
+                  selectedCategoryAttributes.push(attributes[i]);
+                }
+                this.selectedCategoryAttributes=selectedCategoryAttributes;
+              })
+            });
+        });
+
+  }
+
+  getProductPrimaryData(productId) {
+    this.productService.getProductPrimaryData(productId).subscribe((res) => {
+      console.log(res);
+      const primary = this.primaryFormGroup.controls;
+      primary['brandId'].setValue(res.brandId);
+      primary['commission'].setValue(res.commission);
+      primary['name'].setValue(res.name);
+      primary['nameEn'].setValue(res.nameEn);
+      primary['description'].setValue(res.description);
+      primary['descriptionSeo'].setValue(res.descriptionSeo);
+      primary['gainPoints'].setValue(res.gainPoints.split(','));
+      primary['weakPoints'].setValue(res.weakPoints.split(','));
+      this.selectedCategory = res.categoryId;
+      this.productService
+        .getCategoryById(res.categoryId)
+        .subscribe((category) => {
+          let convertedCategories = this.productService.convertToTreeNodeList([
+            category,
+          ]);
+          this.selectedCategory = convertedCategories[0];
+        });
+    });
+  }
+
+  onEditPrimary() {
+    const p = {
+      id: null,
+      categoryId: null,
+      brandId: null,
+      commission: null,
+      name: '',
+      nameEn: '',
+      description: '',
+      descriptionSeo: '',
+      gainPoints: '',
+      weakPoints: '',
+    };
+    const primary = this.primaryFormGroup.controls;
+    p.id = this.id;
+    p.categoryId = this.selectedCategory.data.id;
+    p.brandId = primary['brandId'].value;
+    p.commission = primary['commission'].value;
+    p.name = primary['name'].value;
+    p.nameEn = primary['nameEn'].value;
+    p.description = primary['description'].value;
+    p.descriptionSeo = primary['descriptionSeo'].value;
+    p.gainPoints = primary['gainPoints'].value.toString();
+    p.weakPoints = primary['weakPoints'].value.toString();
+    this.productService.updateProductPrimaryData(p).subscribe();
+  }
+
+  onEditPoints() {
+    let point = {
+      productId: this.id,
+      pointTypeId: this.pointTypeFormGroup.value.pointTypeId,
+    };
+    this.productService.updateProductPointData(point).subscribe();
+  }
+
+  onEditAttributes() {}
+
+  onEditImages() {}
+
+  onEditSecondary() {}
 
   async loadData() {
     const originalCategories = await this.productService
@@ -165,6 +286,8 @@ export class ProductModifyPage implements OnInit {
     this.productService
       .getAttributesByCatgoryId(event.data.id)
       .subscribe((res: AttributeByCategoryId[]) => {
+        console.log(res);
+
         this.selectedCategoryAttributes = res;
       });
   }
@@ -179,15 +302,6 @@ export class ProductModifyPage implements OnInit {
     });
   }
 
-  onEditPrimary() {}
-
-  onEditAttributes() {}
-
-  onEditImages() {}
-
-  onEditPoints() {}
-
-  onEditSecondary() {}
 
   //////////////////////////////////////////////
   selectedPrices = [];

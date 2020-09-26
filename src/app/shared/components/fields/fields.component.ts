@@ -57,7 +57,7 @@ export class FieldsComponent implements OnInit, OnChanges {
     for (const categoryAttribute of this.categoryAttributes) {
       this.form.addControl(
         categoryAttribute.attributeId.toString(),
-        new FormControl(undefined)
+        new FormControl(categoryAttribute.value)
       );
       if (categoryAttribute.isRequired) {
         this.form.controls[
