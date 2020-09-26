@@ -16,6 +16,8 @@ import {
   BaseWarranty,
 } from '@app/modules/basic/model/basic.model';
 import { BasicService } from '@app/modules/basic/business/basic.service';
+import { DialogFormService } from '@app/services/dialog-form.service';
+import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import { DataService } from '@app/services/data.service';
 import { JsonPipe } from '@angular/common';
 
@@ -78,7 +80,8 @@ export class ProductModifyPage implements OnInit {
     private productService: ProductService,
     private dataService: DataService,
     private basicService: BasicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialogFormService: DialogFormService
   ) {}
 
   ngOnInit(): void {
@@ -303,5 +306,106 @@ export class ProductModifyPage implements OnInit {
     this.productService.insertProduct(this.createProduct()).subscribe((res) => {
       console.log(res);
     });
+  }
+
+
+  //////////////////////////////////////////////
+  selectedPrices = [];
+  getPriceConfig(value?: any) {
+    return [
+      {
+        type: 'dropdown',
+        formControlName: 'colorId',
+        label: 'رنگ',
+        labelWidth: 110,
+        value: value?.colorId,
+        dropdownItems: this.convertedColors,
+      },
+      {
+        type: 'dropdown',
+        formControlName: 'warrantyId',
+        label: 'گارانتی',
+        value: value?.colorId,
+        labelWidth: 110,
+        dropdownItems: this.convertedWarranries,
+      },
+      {
+        type: 'dropdown',
+        formControlName: 'insuranceId',
+        value: value?.colorId,
+        label: 'بیمه',
+        labelWidth: 110,
+        dropdownItems: this.convertedInsurance,
+      },
+      {
+        type: 'dropdown',
+        formControlName: 'isReference',
+        label: 'قیمت مرجع',
+        value: value?.colorId,
+        labelWidth: 110,
+        dropdownItems: [
+          { label: 'بله', value: true },
+          { label: 'خیر', value: false },
+        ],
+      },
+      {
+        type: 'text',
+        formControlName: 'price',
+        value: value?.colorId,
+        label: 'قیمت',
+        labelWidth: 110,
+      },
+      {
+        type: 'text',
+        formControlName: 'disCountPrice',
+        value: value?.colorId,
+        label: 'تخفیف',
+        labelWidth: 110,
+      },
+      {
+        type: 'text',
+        formControlName: 'period',
+        value: value?.colorId,
+        label: 'حداکثر زمان ارسال',
+        labelWidth: 110,
+      },
+      {
+        type: 'text',
+        formControlName: 'localCode',
+        value: value?.colorId,
+        label: 'کد داخلی',
+        labelWidth: 110,
+      },
+      {
+        type: 'text',
+        label: 'تعداد',
+        value: value?.colorId,
+        formControlName: 'qty',
+        labelWidth: 110,
+      },
+      {
+        type: 'text',
+        formControlName: 'maxQty',
+        value: value?.colorId,
+        label: 'بیشترین تعداد درخواست',
+        labelWidth: 110,
+      },
+    ] as DialogFormConfig[];
+  }
+
+  addPrice() {
+    this.dialogFormService
+      .show('افزودن قیمت', this.getPriceConfig(), '1000px')
+      .onClose.subscribe((res) => {
+        this.selectedPrices.push(res);
+      });
+  }
+
+  editPrice(price) {
+    this.dialogFormService
+      .show('افزودن قیمت', this.getPriceConfig(price), '1000px')
+      .onClose.subscribe((res) => {
+        this.selectedPrices.push(res);
+      });
   }
 }

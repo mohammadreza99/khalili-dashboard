@@ -22,31 +22,44 @@ export class HolidaysPage implements OnInit {
       field: 'title',
       headerName: 'عنوان',
     },
+    // {
+    //   field: 'date',
+    //   headerName: 'تاریخ',
+    //   editable: true,
+    //   cellEditor: 'datepickerEditor',
+    //   cellEditorParams: (data) => {
+    //     return {
+    //       onChange: (params) => {
+    //         const holiday: BaseHoliday = {
+    //           id: params.rowData.id,
+    //           date: params.selectedDate,
+    //           isActive: params.rowData.isActive,
+    //           title: params.rowData.title,
+    //         };
+    //         this.basicService
+    //           .update<BaseHoliday>('Holiday', holiday)
+    //           .subscribe(() => this.table.updateTransaction(holiday));
+    //       },
+    //     };
+    //   },
     {
       field: 'date',
       headerName: 'تاریخ',
-      editable: true,
-      cellEditor: 'datepickerEditor',
-      cellEditorParams: (data) => {
-        return {
-          onChange: (params) => {
-            const holiday: BaseHoliday = {
-              id: params.rowData.id,
-              date: params.selectedDate,
-              isActive: params.rowData.isActive,
-              title: params.rowData.title,
-            };
-            this.basicService
-              .update<BaseHoliday>('Holiday', holiday)
-              .subscribe(() => this.table.updateTransaction(holiday));
-          },
-        };
-      },
-      cellRenderer: (data) => {
-        if (data && data.value.selectedDate) {
-          return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
-        }
-        return moment(data.value).format('jYYYY/jMM/jDD');
+      editable: false,
+      cellRenderer: 'datepickerRenderer',
+      cellRendererParams: {
+        editable: true,
+        onChange: (params) => {
+          const holiday: BaseHoliday = {
+            id: params.rowData.id,
+            date: params.selectedDate,
+            isActive: params.rowData.isActive,
+            title: params.rowData.title,
+          };
+          this.basicService
+            .update<BaseHoliday>('Holiday', holiday)
+            .subscribe(() => this.table.updateTransaction(holiday));
+        },
       },
     },
     {
