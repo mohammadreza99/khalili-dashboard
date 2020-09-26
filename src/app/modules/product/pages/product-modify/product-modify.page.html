@@ -174,8 +174,8 @@
               </thead>
               <tbody>
                 <tr *ngFor="let price of selectedPrices">
-                  <th scope="row">{{price.localCode}}</th>
-                  <td>{{price.colorId}}</td>
+                  <th scope="row">{{price?.localCode}}</th>
+                  <td>{{price?.colorId}}</td>
                   <td>
                     <prm-button
                       icon="fa fa-pen"
