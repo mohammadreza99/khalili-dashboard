@@ -32,22 +32,30 @@
       [labelWidth]="110"
       [formControlName]="categoryAttribute.attributeId"
     ></prm-input-textarea>
-    <prm-input-dropdown
+    <div
       class="col-12 mb-3"
-      *ngSwitchCase="'Select'"
-      [label]="categoryAttribute.attributeTitle"
-      [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeId"
-      [items]="items"
-    ></prm-input-dropdown>
-    <prm-input-multi-select
+      *ngIf="formItems.controls[categoryAttribute.attributeId + 'items']"
+    >
+      <prm-input-dropdown
+        *ngSwitchCase="'Select'"
+        [label]="categoryAttribute.attributeTitle"
+        [labelWidth]="110"
+        [formControlName]="categoryAttribute.attributeId"
+        [items]="formItems.controls[categoryAttribute.attributeId + 'items'].value"
+      ></prm-input-dropdown>
+    </div>
+    <div
       class="col-12 mb-3"
-      *ngSwitchCase="'Multi Select'"
-      [label]="categoryAttribute.attributeTitle"
-      [labelWidth]="110"
-      [formControlName]="categoryAttribute.attributeId"
-      [items]="items"
-    ></prm-input-multi-select>
+      *ngIf="formItems.controls[categoryAttribute.attributeId + 'items']"
+    >
+      <prm-input-multi-select
+        *ngSwitchCase="'Multi Select'"
+        [label]="categoryAttribute.attributeTitle"
+        [labelWidth]="110"
+        [formControlName]="categoryAttribute.attributeId"
+        [items]="formItems.controls[categoryAttribute.attributeId + 'items'].value"
+      ></prm-input-multi-select>
+    </div>
     <prm-input-checkbox-single
       class="col-12 mb-3"
       *ngSwitchCase="'CheckBox'"

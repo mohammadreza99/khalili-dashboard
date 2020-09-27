@@ -274,6 +274,8 @@ export class ProductModifyPage implements OnInit {
     p.price.qty = secondary['qty'].value;
     p.price.maxQty = secondary['maxQty'].value;
     p.point = this.pointTypeFormGroup.value.pointTypeId;
+    console.log(p);
+    
     return p;
   }
 
@@ -285,8 +287,6 @@ export class ProductModifyPage implements OnInit {
     this.productService
       .getAttributesByCatgoryId(event.data.id)
       .subscribe((res: AttributeByCategoryId[]) => {
-        console.log(res);
-
         this.selectedCategoryAttributes = res;
       });
   }
