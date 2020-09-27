@@ -29,7 +29,8 @@ import { PrimeFilterMatchMode } from '../../prime-type/prime-filter-match-mode';
     },
   ],
 })
-export class PrimeInputDropdownComponent extends PrimeInputBaseComponent
+export class PrimeInputDropdownComponent
+  extends PrimeInputBaseComponent
   implements OnInit, AfterViewInit {
   // constructor() { super() }
 

@@ -264,10 +264,10 @@ export class ProductModifyPage implements OnInit {
     p.weakPoints = primary['weakPoints'].value.toString();
     p.media = this.productImages;
     p.info = this.attributes;
-    p.price=this.selectedPrices
+    p.price = this.selectedPrices;
     p.point = this.pointTypeFormGroup.value.pointTypeId;
     console.log(p);
-    
+
     return p;
   }
 
@@ -331,15 +331,15 @@ export class ProductModifyPage implements OnInit {
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'dropdown',
+        type: 'checkbox',
         formControlName: 'isReference',
         label: 'قیمت مرجع',
         value: value?.isReference,
         labelWidth: 110,
-        dropdownItems: [
-          { label: 'بله', value: true },
-          { label: 'خیر', value: false },
-        ],
+        // dropdownItems: [
+        //   { label: 'بله', value: 'true' },
+        //   { label: 'خیر', value: 'false' },
+        // ],
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
@@ -399,18 +399,24 @@ export class ProductModifyPage implements OnInit {
       .onClose.subscribe((priceObj) => {
         if (priceObj) {
           for (const key in priceObj) {
-            let prop=null;
-            if(key=="price" || key=="disCountPrice" || key=="qty"|| key=="maxQty"){
-              prop=priceObj[key];
-              priceObj[key]=+prop;
+            let prop = null;
+            if (
+              key == 'price' ||
+              key == 'disCountPrice' ||
+              key == 'qty' ||
+              key == 'maxQty'
+            ) {
+              prop = priceObj[key];
+              priceObj[key] = +prop;
             }
           }
           this.selectedPrices.push(priceObj);
         }
       });
   }
+
   editPrice(price) {
-    price;
+    console.log(price);
     this.dialogFormService
       .show('افزودن قیمت', this.getPriceConfig(price), '1000px')
       .onClose.subscribe((res) => {});
