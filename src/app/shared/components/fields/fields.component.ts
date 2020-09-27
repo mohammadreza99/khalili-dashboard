@@ -50,7 +50,6 @@ export class FieldsComponent implements OnInit, OnChanges {
             values.push({
               attributeId: +key,
               value: res[key].year + '-' + res[key].month + '-' + res[key].day,
-              // value: res[key].momentObj._d
             });
           else {
             values.push({

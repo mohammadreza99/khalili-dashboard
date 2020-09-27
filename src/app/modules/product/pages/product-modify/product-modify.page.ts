@@ -137,7 +137,18 @@ export class ProductModifyPage implements OnInit {
               .subscribe((attributes: AttributeByCategoryId[]) => {
                 let selectedCategoryAttributes = [];
                 for (let i = 0; i < attributes.length; i++) {
-                  Object.assign(attributes[i], { value: result[i].value });
+                  let type=attributes[i].attributeTypeTitle;
+                  if (type == 'CheckBox') {
+                    if (result[i].value == 'true') Object.assign(attributes[i], { value: true });
+                    else Object.assign(attributes[i], { value: false });
+                  }
+                  else if(type=="Select") Object.assign(attributes[i], { value: +(result[i].value) });
+                  else if(type=="Multi Select") {
+                    let values=[];
+                    for (const value of result[i].value.split(',')) values.push(+value);
+                    Object.assign(attributes[i], { value: values })
+                  }
+                  else Object.assign(attributes[i], { value: result[i].value });
                   selectedCategoryAttributes.push(attributes[i]);
                 }
                 this.selectedCategoryAttributes = selectedCategoryAttributes;
@@ -264,10 +275,10 @@ export class ProductModifyPage implements OnInit {
     p.weakPoints = primary['weakPoints'].value.toString();
     p.media = this.productImages;
     p.info = this.attributes;
-    p.price=this.selectedPrices
+    p.price = this.selectedPrices;
     p.point = this.pointTypeFormGroup.value.pointTypeId;
     console.log(p);
-    
+
     return p;
   }
 
@@ -399,10 +410,15 @@ export class ProductModifyPage implements OnInit {
       .onClose.subscribe((priceObj) => {
         if (priceObj) {
           for (const key in priceObj) {
-            let prop=null;
-            if(key=="price" || key=="disCountPrice" || key=="qty"|| key=="maxQty"){
-              prop=priceObj[key];
-              priceObj[key]=+prop;
+            let prop = null;
+            if (
+              key == 'price' ||
+              key == 'disCountPrice' ||
+              key == 'qty' ||
+              key == 'maxQty'
+            ) {
+              prop = priceObj[key];
+              priceObj[key] = +prop;
             }
           }
           this.selectedPrices.push(priceObj);
