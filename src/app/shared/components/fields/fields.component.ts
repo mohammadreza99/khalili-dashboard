@@ -45,16 +45,23 @@ export class FieldsComponent implements OnInit, OnChanges {
     this.form.valueChanges.subscribe((res) => {
       let values = [];
       for (const key in res) {
-        if (typeof res[key] == 'object' && res[key] != null && res[key].length == undefined) {
-          values.push({
-            attributeId: +key,
-            value: res[key].year + '-' + res[key].month + '-' + res[key].day,
-            // value: res[key].momentObj._d
-          });
+        if (typeof res[key] == 'object' && res[key] != null) {
+          if (res[key].length == undefined)
+            values.push({
+              attributeId: +key,
+              value: res[key].year + '-' + res[key].month + '-' + res[key].day,
+              // value: res[key].momentObj._d
+            });
+          else {
+            values.push({
+              attributeId: +key,
+              value:(res[key]).toString(),
+            });
+          }
         } else {
           values.push({
             attributeId: +key,
-            value: res[key],
+            value: ''+res[key]+'',
           });
         }
       }
