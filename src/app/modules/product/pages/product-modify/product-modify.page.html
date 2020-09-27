@@ -164,7 +164,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <table class="table">
+            <table class="table" *ngIf="selectedPrices.length != 0">
               <thead>
                 <tr>
                   <th scope="col">کد</th>
@@ -173,13 +173,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let price of selectedPrices">
-                  <th scope="row">{{price?.localCode}}</th>
-                  <td>{{price?.colorId}}</td>
+                <tr *ngFor="let item of selectedPrices">
+                  <th scope="row">{{item.localCode}}</th>
+                  <td>{{item.price}}</td>
                   <td>
                     <prm-button
                       icon="fa fa-pen"
-                      (click)="editPrice(price)"
+                      (click)="editPrice(item)"
                     ></prm-button>
                   </td>
                 </tr>

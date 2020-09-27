@@ -99,7 +99,6 @@ export class ProductModifyPage implements OnInit {
     const secondary = this.secondaryFormGroup.controls;
     this.productService.getProductPriceData(productId).subscribe((res) => {
       console.log(res);
-
     });
   }
 
@@ -207,11 +206,13 @@ export class ProductModifyPage implements OnInit {
   }
 
   onEditAttributes() {
-    let attributes={ 
-      id:this.id,
-      productInfo:this.attributes
+    let attributes = {
+      id: this.id,
+      productInfo: this.attributes,
     };
-    this.productService.updateProductAttributes(attributes).subscribe(res=>{})
+    this.productService
+      .updateProductAttributes(attributes)
+      .subscribe((res) => {});
   }
 
   onEditImages() {}
@@ -319,7 +320,7 @@ export class ProductModifyPage implements OnInit {
         type: 'dropdown',
         formControlName: 'warrantyId',
         label: 'گارانتی',
-        value: value?.colorId,
+        value: value?.warrantyId,
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
         dropdownItems: this.originalWarranries.map((item) => {
@@ -329,7 +330,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'dropdown',
         formControlName: 'insuranceId',
-        value: value?.colorId,
+        value: value?.insuranceId,
         label: 'بیمه',
         labelWidth: 110,
         dropdownItems: this.originalInsurance.map((item) => {
@@ -341,7 +342,7 @@ export class ProductModifyPage implements OnInit {
         type: 'dropdown',
         formControlName: 'isReference',
         label: 'قیمت مرجع',
-        value: value?.colorId,
+        value: value?.isReference,
         labelWidth: 110,
         dropdownItems: [
           { label: 'بله', value: true },
@@ -352,7 +353,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'price',
-        value: value?.colorId,
+        value: value?.price,
         label: 'قیمت',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -360,7 +361,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'disCountPrice',
-        value: value?.colorId,
+        value: value?.disCountPrice,
         label: 'تخفیف',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -368,7 +369,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'period',
-        value: value?.colorId,
+        value: value?.period,
         label: 'حداکثر زمان ارسال',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -376,7 +377,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'localCode',
-        value: value?.colorId,
+        value: value?.localCode,
         label: 'کد داخلی',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -384,7 +385,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         label: 'تعداد',
-        value: value?.colorId,
+        value: value?.qty,
         formControlName: 'qty',
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
         labelWidth: 110,
@@ -392,7 +393,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'maxQty',
-        value: value?.colorId,
+        value: value?.maxQty,
         label: 'بیشترین تعداد درخواست',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
@@ -405,16 +406,17 @@ export class ProductModifyPage implements OnInit {
       .show('افزودن قیمت', this.getPriceConfig(), '1000px', 'scroll')
       .onClose.subscribe((res) => {
         if (res) {
+          console.log(res);
+
           this.selectedPrices.push(res);
         }
       });
   }
 
   editPrice(price) {
+    price;
     this.dialogFormService
       .show('افزودن قیمت', this.getPriceConfig(price), '1000px')
-      .onClose.subscribe((res) => {
-        this.selectedPrices.push(res);
-      });
+      .onClose.subscribe((res) => {});
   }
 }
