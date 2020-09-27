@@ -46,9 +46,9 @@ export class ProductModifyPage implements OnInit {
   convertedBrands: SelectItem[];
   convertedPointTypes: SelectItem[];
   convertedAttributes: SelectItem[];
-  convertedColors: SelectItem[];
-  convertedWarranries: SelectItem[];
-  convertedInsurance: SelectItem[];
+  originalColors: any[];
+  originalWarranries: any[];
+  originalInsurance: any[];
 
   primaryFormGroup = new FormGroup({
     brandId: new FormControl(null),
@@ -127,23 +127,24 @@ export class ProductModifyPage implements OnInit {
   }
 
   getProductAttributes(productId) {
-    this.productService.getProductAttributes(productId).subscribe((result:Info[]) => {
-      this.productService
-        .getProductPrimaryData(productId)
-        .subscribe((product) => {
-          this.productService
-            .getAttributesByCatgoryId(product.categoryId)
-            .subscribe((attributes: AttributeByCategoryId[]) => {
-              let selectedCategoryAttributes=[];
+    this.productService
+      .getProductAttributes(productId)
+      .subscribe((result: Info[]) => {
+        this.productService
+          .getProductPrimaryData(productId)
+          .subscribe((product) => {
+            this.productService
+              .getAttributesByCatgoryId(product.categoryId)
+              .subscribe((attributes: AttributeByCategoryId[]) => {
+                let selectedCategoryAttributes = [];
                 for (let i = 0; i < attributes.length; i++) {
-                  Object.assign(attributes[i],{value:result[i].value});
+                  Object.assign(attributes[i], { value: result[i].value });
                   selectedCategoryAttributes.push(attributes[i]);
                 }
-                this.selectedCategoryAttributes=selectedCategoryAttributes;
-              })
-            });
-        });
-
+                this.selectedCategoryAttributes = selectedCategoryAttributes;
+              });
+          });
+      });
   }
 
   getProductPrimaryData(productId) {
@@ -236,24 +237,15 @@ export class ProductModifyPage implements OnInit {
     this.convertedPointTypes = originalPointTypes.map((item) => {
       return { label: item.title, value: item.id };
     });
-    const originalColors = await this.basicService
+    this.originalColors = await this.basicService
       .select<BaseColor>('Color')
       .toPromise();
-    this.convertedColors = originalColors.map((item) => {
-      return { label: item.title, value: item.id };
-    });
-    const originalWarranries = await this.basicService
+    this.originalWarranries = await this.basicService
       .select<BaseWarranty>('Warranty')
       .toPromise();
-    this.convertedWarranries = originalWarranries.map((item) => {
-      return { label: item.title, value: item.id };
-    });
-    const originalInsurance = await this.basicService
+    this.originalInsurance = await this.basicService
       .select<BaseInsurance>('Insurance')
       .toPromise();
-    this.convertedInsurance = originalInsurance.map((item) => {
-      return { label: item.title, value: item.id };
-    });
   }
 
   createProduct(): Product {
@@ -308,7 +300,6 @@ export class ProductModifyPage implements OnInit {
     });
   }
 
-
   //////////////////////////////////////////////
   selectedPrices = [];
   getPriceConfig(value?: any) {
@@ -319,7 +310,10 @@ export class ProductModifyPage implements OnInit {
         label: 'رنگ',
         labelWidth: 110,
         value: value?.colorId,
-        dropdownItems: this.convertedColors,
+        dropdownItems: this.originalColors.map((item) => {
+          return { label: item.title, value: item.id };
+        }),
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'dropdown',
@@ -327,7 +321,10 @@ export class ProductModifyPage implements OnInit {
         label: 'گارانتی',
         value: value?.colorId,
         labelWidth: 110,
-        dropdownItems: this.convertedWarranries,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
+        dropdownItems: this.originalWarranries.map((item) => {
+          return { label: item.title, value: item.id };
+        }),
       },
       {
         type: 'dropdown',
@@ -335,7 +332,10 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'بیمه',
         labelWidth: 110,
-        dropdownItems: this.convertedInsurance,
+        dropdownItems: this.originalInsurance.map((item) => {
+          return { label: item.title, value: item.id };
+        }),
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'dropdown',
@@ -347,6 +347,7 @@ export class ProductModifyPage implements OnInit {
           { label: 'بله', value: true },
           { label: 'خیر', value: false },
         ],
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -354,6 +355,7 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'قیمت',
         labelWidth: 110,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -361,6 +363,7 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'تخفیف',
         labelWidth: 110,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -368,6 +371,7 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'حداکثر زمان ارسال',
         labelWidth: 110,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -375,12 +379,14 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'کد داخلی',
         labelWidth: 110,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
         label: 'تعداد',
         value: value?.colorId,
         formControlName: 'qty',
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
         labelWidth: 110,
       },
       {
@@ -389,15 +395,18 @@ export class ProductModifyPage implements OnInit {
         value: value?.colorId,
         label: 'بیشترین تعداد درخواست',
         labelWidth: 110,
+        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
     ] as DialogFormConfig[];
   }
 
   addPrice() {
     this.dialogFormService
-      .show('افزودن قیمت', this.getPriceConfig(), '1000px')
+      .show('افزودن قیمت', this.getPriceConfig(), '1000px', 'scroll')
       .onClose.subscribe((res) => {
-        this.selectedPrices.push(res);
+        if (res) {
+          this.selectedPrices.push(res);
+        }
       });
   }
 

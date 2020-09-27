@@ -12,12 +12,14 @@ export class DialogFormService {
   show(
     header: string,
     config: DialogFormConfig[],
-    width = '400px'
+    width = '400px',
+    overflowY: 'scroll' | 'visible' = 'visible'
   ): DynamicDialogRef {
     return this.dialogService.open(DialogFormComponent, {
       header: header,
       data: config,
       width: width,
+      contentStyle: { 'overflow-y': overflowY },
     });
   }
 }
