@@ -19,6 +19,7 @@ import { BasicService } from '@app/modules/basic/business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import { DataService } from '@app/services/data.service';
+import { JsonPipe } from '@angular/common';
 
 enum TabIndex {
   primary,
@@ -99,7 +100,6 @@ export class ProductModifyPage implements OnInit {
     this.productService.getProductPriceData(productId).subscribe((res) => {
       console.log(res);
 
-      // secondary['colorId']
     });
   }
 
@@ -206,7 +206,13 @@ export class ProductModifyPage implements OnInit {
     this.productService.updateProductPointData(point).subscribe();
   }
 
-  onEditAttributes() {}
+  onEditAttributes() {
+    let attributes={ 
+      id:this.id,
+      productInfo:this.attributes
+    };
+    this.productService.updateProductAttributes(attributes).subscribe(res=>{})
+  }
 
   onEditImages() {}
 
