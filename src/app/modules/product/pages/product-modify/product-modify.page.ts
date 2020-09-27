@@ -264,15 +264,7 @@ export class ProductModifyPage implements OnInit {
     p.weakPoints = primary['weakPoints'].value.toString();
     p.media = this.productImages;
     p.info = this.attributes;
-    p.price.colorId = secondary['colorId'].value;
-    p.price.warrantyId = secondary['warrantyId'].value;
-    p.price.insuranceId = secondary['insuranceId'].value;
-    p.price.period = secondary['period'].value;
-    p.price.price = secondary['price'].value;
-    p.price.disCountPrice = secondary['disCountPrice'].value;
-    p.price.localCode = secondary['localCode'].value;
-    p.price.qty = secondary['qty'].value;
-    p.price.maxQty = secondary['maxQty'].value;
+    p.price=this.selectedPrices
     p.point = this.pointTypeFormGroup.value.pointTypeId;
     console.log(p);
     
@@ -404,15 +396,19 @@ export class ProductModifyPage implements OnInit {
   addPrice() {
     this.dialogFormService
       .show('افزودن قیمت', this.getPriceConfig(), '1000px', 'scroll')
-      .onClose.subscribe((res) => {
-        if (res) {
-          console.log(res);
-
-          this.selectedPrices.push(res);
+      .onClose.subscribe((priceObj) => {
+        if (priceObj) {
+          for (const key in priceObj) {
+            let prop=null;
+            if(key=="price" || key=="disCountPrice" || key=="qty"|| key=="maxQty"){
+              prop=priceObj[key];
+              priceObj[key]=+prop;
+            }
+          }
+          this.selectedPrices.push(priceObj);
         }
       });
   }
-
   editPrice(price) {
     price;
     this.dialogFormService

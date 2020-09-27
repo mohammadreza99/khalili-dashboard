@@ -15,7 +15,7 @@ export class Product {
     this.point = null;
     this.info = new Array<Info>();
     this.media = new Array<Media>();
-    this.price = new Price();
+    this.price = new Array<Price>();
   }
   categoryId: number;
   brandId: number;
@@ -29,7 +29,7 @@ export class Product {
   point: string[];
   info: Info[];
   media: Media[];
-  price: Price;
+  price: Price[];
 }
 
 export class ProductSearch {
