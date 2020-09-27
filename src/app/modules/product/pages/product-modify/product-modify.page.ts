@@ -342,15 +342,11 @@ export class ProductModifyPage implements OnInit {
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
-        type: 'dropdown',
+        type: 'checkbox',
         formControlName: 'isReference',
         label: 'قیمت مرجع',
         value: value?.isReference,
         labelWidth: 110,
-        dropdownItems: [
-          { label: 'بله', value: true },
-          { label: 'خیر', value: false },
-        ],
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
@@ -425,8 +421,9 @@ export class ProductModifyPage implements OnInit {
         }
       });
   }
+
   editPrice(price) {
-    price;
+    console.log(price);
     this.dialogFormService
       .show('افزودن قیمت', this.getPriceConfig(price), '1000px')
       .onClose.subscribe((res) => {});
