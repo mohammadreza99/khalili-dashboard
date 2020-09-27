@@ -336,10 +336,6 @@ export class ProductModifyPage implements OnInit {
         label: 'قیمت مرجع',
         value: value?.isReference,
         labelWidth: 110,
-        // dropdownItems: [
-        //   { label: 'بله', value: 'true' },
-        //   { label: 'خیر', value: 'false' },
-        // ],
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
