@@ -200,7 +200,7 @@ export class ProductService extends BaseService {
 
   getAttributesValue(attributeId: number){
     return this.get(
-      'Base/Admin/AttributeValueSelectWithAttributeId//?' +
+      'Base/Admin/AttributeValueSelectWithAttributeId/?attributeId=' +
       attributeId,
       'json'
     ).pipe(map((res: any) => res.data));

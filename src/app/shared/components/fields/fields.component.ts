@@ -22,6 +22,7 @@ export class FieldsComponent implements OnInit, OnChanges {
   @Output() valueChange = new EventEmitter();
 
   form = new FormGroup({});
+  formItems = new FormGroup({});
   items = [];
   attributeTypes = {
     1: 'Text',
@@ -44,10 +45,18 @@ export class FieldsComponent implements OnInit, OnChanges {
     this.form.valueChanges.subscribe((res) => {
       let values = [];
       for (const key in res) {
-        values.push({
-          attributeId: +key,
-          value: '' + res[key] + '',
-        });
+        if (typeof res[key] == 'object' && res[key] != null && res[key].length == undefined) {
+          values.push({
+            attributeId: +key,
+            value: res[key].year + '-' + res[key].month + '-' + res[key].day,
+            // value: res[key].momentObj._d
+          });
+        } else {
+          values.push({
+            attributeId: +key,
+            value: res[key],
+          });
+        }
       }
       this.valueChange.emit(values);
     });
@@ -71,12 +80,22 @@ export class FieldsComponent implements OnInit, OnChanges {
         this.productService
           .getAttributesValue(+categoryAttribute.attributeId)
           .subscribe((res) => {
-            this.items = res;
+            let items = [];
+            res.forEach((item) => {
+              items.push({
+                label: item.value,
+                value: item.id,
+              });
+            });
+            this.formItems.addControl(
+              categoryAttribute.attributeId.toString() + 'items',
+              new FormControl(items)
+            );
           });
       }
     }
   }
-
+  getItems() {}
   onSubmit() {
     // if (this.form.valid) {
     //   this.dialogRef.close(this.form.value);
