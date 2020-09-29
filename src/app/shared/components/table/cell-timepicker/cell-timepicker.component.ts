@@ -1,7 +1,5 @@
-import {
-  Component,
-} from '@angular/core';
-import { ICellEditorAngularComp } from 'ag-grid-angular';
+import { Component } from '@angular/core';
+import { ICellRendererAngularComp } from 'ag-grid-angular';
 import * as moment from 'jalali-moment';
 
 @Component({
@@ -9,59 +7,41 @@ import * as moment from 'jalali-moment';
   templateUrl: './cell-timepicker.component.html',
   styleUrls: ['./cell-timepicker.component.scss'],
 })
-export class CellTimepickerComponent implements ICellEditorAngularComp {
+export class CellTimepickerComponent implements ICellRendererAngularComp {
   params: any;
-  time;
-  value;
-  agInit(params: any): void {
+  showDialog = false;
+  cellValue: any;
+  timepickerValue;
+  editable = false;
+  selectedTime: any;
+
+  agInit(params): void {
     this.params = params;
-    this.value=moment(new Date("2020-02-02T"+params.value));
+    this.editable = params.editable;
+    const field = params.colDef.field;
+    this.cellValue = moment(params.data[field], 'HH:mm:ss').format('HH:mm:ss');
+    this.timepickerValue = moment(this.cellValue, 'HH:mm:ss');
   }
 
-  getValue(): any {
-    return this.time;
-  }
-
-  isPopup(): boolean {
+  refresh(params?: any): boolean {
     return true;
   }
 
-  onChange(event) {
+  onClick(event) {
+    this.showDialog = true;
+  }
 
-    let hour=(event.date._d as Date).getHours() <10 ? '0'+(event.date._d as Date).getHours() : (event.date._d as Date).getHours();
-    let min=(event.date._d as Date).getMinutes() <10 ? '0'+(event.date._d as Date).getMinutes() : (event.date._d as Date).getMinutes();
-    this.time= `${hour}:${min}:00`
-    this.params.onChange(this.time);
+  timeChange(event) {
+    this.selectedTime = event.date._d as Date;
+  }
+
+  submitTime() {
+    this.showDialog = false;
+    const result = {
+      selectedDate: moment(this.selectedTime).format('HH:mm:ss'),
+      rowData: this.params.data,
+    };
+    this.cellValue = moment(this.selectedTime).format('HH:mm:ss');
+    this.params.onChange(result);
   }
 }
-
-// getValue() {
-//   throw new Error("Method not implemented.");
-// }
-// isPopup?(): boolean {
-//   throw new Error("Method not implemented.");
-// }
-// getPopupPosition?(): string {
-//   throw new Error("Method not implemented.");
-// }
-// isCancelBeforeStart?(): boolean {
-//   throw new Error("Method not implemented.");
-// }
-// isCancelAfterEnd?(): boolean {
-//   throw new Error("Method not implemented.");
-// }
-// focusIn?(): void {
-//   throw new Error("Method not implemented.");
-// }
-// focusOut?(): void {
-//   throw new Error("Method not implemented.");
-// }
-// getFrameworkComponentInstance?() {
-//   throw new Error("Method not implemented.");
-// }
-// agInit(params: ICellEditorParams): void {
-//   throw new Error("Method not implemented.");
-// }
-// afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
-//   throw new Error("Method not implemented.");
-// }

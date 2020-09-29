@@ -23,31 +23,45 @@ export class ShippingHoursPage implements OnInit {
     {
       field: 'startTime',
       headerName: 'ساعت شروع',
-      cellEditor: 'timepickerEditor',
-      cellEditorParams: (data) => {
-        return {
-          onChange: (params) => {
-            // const holiday: BaseHoliday = {
-            //   id: params.rowData.id,
-            //   date: params.selectedDate,
-            //   isActive: params.rowData.isActive,
-            //   title: params.rowData.title,
-            // };
-            // this.basicService
-            // .update<BaseHoliday>('Holiday', holiday)
-            // .subscribe(() => this.table.updateTransaction(holiday));
-          },
-        };
-      },
-      cellRenderer: (params) => {
-        return params.value;
+      editable: false,
+      cellRenderer: 'timepickerRenderer',
+      cellRendererParams: {
+        editable: true,
+        onChange: (params) => {
+          const s: BaseShippingHour = {
+            id: params.rowData.id,
+            startTime: params.selectedDate,
+            endTime: params.rowData.endTime,
+            isActive: params.rowData.isActive,
+            title: params.rowData.title,
+            maxOrder: params.rowData.maxOrder,
+          };
+          this.basicService
+            .update<BaseShippingHour>('ShippingHour', s)
+            .subscribe(() => this.table.updateTransaction(s));
+        },
       },
     },
     {
       field: 'endTime',
       headerName: 'ساعت پایان',
-      cellRenderer: (params) => {
-        return params.value;
+      editable: false,
+      cellRenderer: 'timepickerRenderer',
+      cellRendererParams: {
+        editable: true,
+        onChange: (params) => {
+          const s: BaseShippingHour = {
+            id: params.rowData.id,
+            startTime: params.rowData.startTime,
+            endTime: params.selectedDate,
+            isActive: params.rowData.isActive,
+            title: params.rowData.title,
+            maxOrder: params.rowData.maxOrder,
+          };
+          this.basicService
+            .update<BaseShippingHour>('ShippingHour', s)
+            .subscribe(() => this.table.updateTransaction(s));
+        },
       },
     },
     {

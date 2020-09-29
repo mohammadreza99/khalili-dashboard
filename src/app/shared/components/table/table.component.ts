@@ -26,6 +26,7 @@ export class TableComponent implements OnInit {
     datepickerEditor: CellDatepickerComponent,
     datepickerRenderer: CellDatepickerComponent,
     timepickerEditor: CellTimepickerComponent,
+    timepickerRenderer: CellTimepickerComponent,
   };
 
   constructor() {}

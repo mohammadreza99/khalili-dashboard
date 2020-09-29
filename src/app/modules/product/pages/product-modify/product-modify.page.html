@@ -107,10 +107,16 @@
     </p-tabPanel>
     <p-tabPanel header="عکس ها" [disabled]="activeIndex && activeIndex != 2">
       <multi-image-picker
+        *ngIf="productImages.length != 0"
         [images]="productImages"
         [defaultImage]="productDefaultImage"
         (onChange)="onImageChange($event)"
       ></multi-image-picker>
+      <!-- <category-slider
+        (onChange)="onSliderChange($event)"
+        [images]="categorySlider"
+        class="flex-grow-1"
+      ></category-slider> -->
       <div class="row" *ngIf="activeIndex && activeIndex == 2">
         <div
           class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
@@ -185,74 +191,6 @@
                 </tr>
               </tbody>
             </table>
-            <!-- <form [formGroup]="secondaryFormGroup" class="form-row">
-              <prm-input-dropdown
-                *ngIf="convertedColors"
-                formControlName="colorId"
-                class="col-12 mb-4"
-                label="رنگ"
-                labelWidth="110"
-                [items]="convertedColors"
-              ></prm-input-dropdown>
-              <prm-input-dropdown
-                *ngIf="convertedWarranries"
-                formControlName="warrantyId"
-                class="col-12 mb-4"
-                label="گارانتی"
-                labelWidth="110"
-                [items]="convertedWarranries"
-              ></prm-input-dropdown>
-              <prm-input-dropdown
-                *ngIf="convertedInsurance"
-                formControlName="insuranceId"
-                class="col-12 mb-4"
-                label="بیمه"
-                labelWidth="110"
-                [items]="convertedInsurance"
-              ></prm-input-dropdown>
-              <prm-input-checkbox-single
-                formControlName="isReference"
-                class="col-12 mb-4"
-                label="قیمت مرجع"
-                labelWidth="110"
-              ></prm-input-checkbox-single>
-              <prm-input-text
-                formControlName="price"
-                class="col-12 mb-4"
-                label="قیمت"
-                labelWidth="110"
-              ></prm-input-text>
-              <prm-input-text
-                formControlName="disCountPrice"
-                class="col-12 mb-4"
-                label="تخفیف"
-                labelWidth="110"
-              ></prm-input-text>
-              <prm-input-text
-                formControlName="period"
-                class="col-12 mb-4"
-                label="حداکثر زمان ارسال"
-                labelWidth="110"
-              ></prm-input-text>
-              <prm-input-text
-                formControlName="localCode"
-                class="col-12 mb-4"
-                label="کد داخلی"
-                labelWidth="110"
-              ></prm-input-text>
-              <prm-input-text
-                formControlName="qty"
-                class="col-12 mb-4"
-                label="تعداد"
-                labelWidth="110"
-              ></prm-input-text>
-              <prm-input-text
-                formControlName="maxQty"
-                class="col-12 mb-4"
-                label="بیشترین تعداد درخواست"
-                labelWidth="110"
-              ></prm-input-text> -->
-            <!-- </form> -->
             <div
               *ngIf="activeIndex && activeIndex == 4"
               class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"

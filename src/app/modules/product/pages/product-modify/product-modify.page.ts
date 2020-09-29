@@ -37,7 +37,7 @@ export class ProductModifyPage implements OnInit {
   id;
   activeIndex = null;
   editMode: boolean = false;
-  productImages: any;
+  productImages: any = [];
   productDefaultImage: any;
   selectedCategoryAttributes: AttributeByCategoryId[];
   attributes: Info[];
@@ -104,14 +104,15 @@ export class ProductModifyPage implements OnInit {
 
   getProductImageData(productId) {
     this.productService.getProductImageData(productId).subscribe((res) => {
-      console.log(res);
-      res.forEach((img) => {
-        this.dataService.getBase64ImageFromUrl(img.keyMedia, (dataUrl) => {
-          this.productImages.push({
-            keyMedia: dataUrl,
-          });
-        });
-      });
+      this.productImages = res;
+      console.log(this.productImages);
+      // res.forEach((img) => {
+      //   this.dataService.getBase64ImageFromUrl(img.keyMedia, (dataUrl) => {
+      //     this.productImages.push({
+      //       keyMedia: dataUrl,
+      //     });
+      //   });
+      // });
     });
   }
 

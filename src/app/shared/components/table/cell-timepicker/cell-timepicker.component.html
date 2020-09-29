@@ -1,6 +1,20 @@
-<prm-date-time-picker
-  (onChange)="onChange($event)"
-  [inline]="true"
-  [date]="value"
-  [datePickerMode]="'time'"
-></prm-date-time-picker>
+<span>{{ cellValue }}</span>
+<label
+  *ngIf="editable"
+  style="cursor: pointer"
+  class="p-1 mr-2 border bg-light"
+  (click)="onClick($event)"
+  >تغییر</label
+>
+
+<p-dialog [appendTo]="'body'" [modal]="true" [(visible)]="showDialog">
+  <prm-date-time-picker
+    (onChange)="timeChange($event)"
+    [inline]="true"
+    [date]="timepickerValue"
+    [datePickerMode]="'time'"
+  ></prm-date-time-picker>
+  <p-footer>
+    <prm-button (click)="submitTime()" label="ثبت"></prm-button>
+  </p-footer>
+</p-dialog>

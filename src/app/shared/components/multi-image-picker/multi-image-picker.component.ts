@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { DataService } from '@app/services/data.service';
 
 @Component({
   selector: 'multi-image-picker',
@@ -6,6 +15,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
   styleUrls: ['./multi-image-picker.component.scss'],
 })
 export class MultiImagePickerComponent implements OnInit {
+  constructor(private dataService: DataService) {}
 
   @Input() images: { keyMedia?: any; isDefault?: any }[];
   @Output() onChange = new EventEmitter();
@@ -14,7 +24,20 @@ export class MultiImagePickerComponent implements OnInit {
 
   selectedImages: { keyMedia?: any; isDefault?: any }[] = [];
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.images);
+    if (this.images) {
+      for (const item of this.images) {
+        this.dataService.getBase64ImageFromUrl(item.keyMedia, (dataUrl) => {
+          this.selectedImages.push({
+            keyMedia: dataUrl,
+            isDefault: item.isDefault,
+          });
+        });
+      }
+    }
+  }
+
   onImageClick(i) {
     for (const item of this.selectedImages) {
       item.isDefault = false;
@@ -35,6 +58,7 @@ export class MultiImagePickerComponent implements OnInit {
     this.createImageFromBlob(file);
     this.onSelect.emit(file);
     this.onChange.emit(this.selectedImages);
+    console.log(this.selectedImages);
   }
 
   createImageFromBlob(image: Blob) {
