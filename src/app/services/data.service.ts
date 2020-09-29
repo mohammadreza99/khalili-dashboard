@@ -28,11 +28,15 @@ export class DataService extends BaseService {
           icon: 'fa fa-minus',
         },
         {
-          label: 'بیمه ',
+          label: 'بیمه',
           routerLink: ['/base/insurances'],
           icon: 'fa fa-minus',
         },
-
+        {
+          label: 'اپلیکیشن',
+          routerLink: ['/base/apps'],
+          icon: 'fa fa-minus',
+        },
         { label: 'استان ', routerLink: ['/base/states'], icon: 'fa fa-minus' },
         { label: 'شهر', routerLink: ['/base/cities'], icon: 'fa fa-minus' },
         {
@@ -219,8 +223,7 @@ export class DataService extends BaseService {
     };
     xhr.open('GET', fullUrl);
     xhr.responseType = 'blob';
-    xhr.setRequestHeader('Authorization',this.authService.getToken())
+    xhr.setRequestHeader('Authorization', this.authService.getToken());
     xhr.send();
-
   }
 }

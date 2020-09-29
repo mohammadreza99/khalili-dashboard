@@ -195,3 +195,11 @@ export class SiteMainPage {
   insertDate?: Date;
 }
 
+export class BaseApplication {
+  id: Object;
+  title: string;
+  link: string;
+  alt: string;
+  icon: string;
+  isActive: boolean;
+}
