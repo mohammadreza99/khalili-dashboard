@@ -95,7 +95,14 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '3') this.getProductPointData(this.id);
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
-
+  tabIndexChenge(args){
+    this.activeIndex=args.index;
+    if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
+    if (this.activeIndex == '1') this.getProductAttributes(this.id);
+    if (this.activeIndex == '2') this.getProductImageData(this.id);
+    if (this.activeIndex == '3') this.getProductPointData(this.id);
+    if (this.activeIndex == '4') this.getProductPriceData(this.id);
+  }
   getProductPriceData(productId) {
     this.productService.getProductPriceData(productId).subscribe((res) => {
       this.selectedPrices = res;

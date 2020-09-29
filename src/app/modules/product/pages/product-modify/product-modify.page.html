@@ -7,10 +7,9 @@
     (click)="addProduct()"
   >
   </prm-button>
-  <p-tabView [activeIndex]="activeIndex">
+  <p-tabView [activeIndex]="activeIndex" (onChange)="tabIndexChenge($event)">
     <p-tabPanel
       header="اطلاعات پایه"
-      [disabled]="activeIndex && activeIndex != 0"
     >
       <div class="container-fluid">
         <div class="row">
@@ -88,7 +87,7 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="فیلدها" [disabled]="activeIndex && activeIndex != 1">
+    <p-tabPanel header="فیلدها">
       <div class="container-fluid">
         <fields
           *ngIf="selectedCategoryAttributes"
@@ -105,7 +104,7 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel header="عکس ها" [disabled]="activeIndex && activeIndex != 2">
+    <p-tabPanel header="عکس ها">
       <multi-image-picker
         *ngIf="productImages.length != 0"
         [images]="productImages"
@@ -121,9 +120,7 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel
-      header="سوالات سنجشی"
-      [disabled]="activeIndex && activeIndex != 3"
+    <p-tabPanel header="سوالات سنجشی"
     >
       <div class="container-fluid">
         <div class="row">
@@ -149,10 +146,7 @@
         </div>
       </div>
     </p-tabPanel>
-    <p-tabPanel
-      header="قیمت و رنگ"
-      [disabled]="activeIndex && activeIndex != 4"
-    >
+    <p-tabPanel header="قیمت و رنگ">
       <page-container title="لیست قیمت ها">
         <prm-button
           label="افزودن"
