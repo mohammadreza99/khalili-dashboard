@@ -21,6 +21,7 @@ import { TermsPage } from './pages/terms/terms.page';
 import { PrivacyPage } from './pages/privacy/privacy.page';
 import { SliderPage } from './pages/slider/slider.page';
 import { MainSettingPage } from './pages/main-setting/main-setting.page';
+import { AppsPage } from './pages/apps/apps.page';
 
 export const COMPONENTS = [
   ColorsPage,
@@ -46,4 +47,5 @@ export const COMPONENTS = [
   PrivacyPage,
   SliderPage,
   MainSettingPage,
+  AppsPage
 ];

@@ -23,6 +23,7 @@ import { FaqPage } from './pages/faq/faq.page';
 import { FaqCategoriesPage } from './pages/faq-categories/faq-categories.page';
 import { SliderPage } from './pages/slider/slider.page';
 import { MainSettingPage } from './pages/main-setting/main-setting.page';
+import { AppsPage } from './pages/apps/apps.page';
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
     path: 'jobs',
     data: { title: 'شغل' },
     component: JobsPage,
+  },
+  {
+    path: 'apps',
+    data: { title: 'اپلیکیشن' },
+    component: AppsPage,
   },
   {
     path: 'point-types',
