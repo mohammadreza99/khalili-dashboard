@@ -27,8 +27,13 @@ export class LoaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.requests.push(req);
-    this.loaderService.isLoading.next(true);
+    if (
+      !req.url.includes('SliderSelect') &&
+      !req.url.includes('DownloadMedia?key=Slider')
+    ) {
+      this.requests.push(req);
+      this.loaderService.isLoading.next(true);
+    }
     return new Observable((observer) => {
       const subscription = next.handle(req).subscribe(
         (event) => {
