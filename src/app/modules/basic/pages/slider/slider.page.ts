@@ -23,32 +23,31 @@ export class SliderPage implements OnInit {
     {
       field: 'expireDateTime',
       headerName: 'انقضا',
-      editable: true,
-      cellEditor: 'datepickerEditor',
-      cellEditorParams: (data) => {
-        return {
-          onChange: (params) => {
-            const slider: SiteSlider = {
-              id: params.rowData.id,
-              expireDateTime: params.selectedDate,
-              isActive: params.rowData.isActive,
-              alt: params.rowData.alt,
-              userId: params.rowData.userId,
-              insertDate: params.rowData.insertDate,
-              keyMedia: params.rowData.keyMedia,
-            };
-            this.basicService
-              .update<SiteSlider>('Slider', slider)
-              .subscribe(() => this.table.updateTransaction(slider));
-          },
-        };
+      editable: false,
+      cellRenderer: 'datepickerRenderer',
+      cellRendererParams: {
+        editable: true,
+        onChange: (params) => {
+          const slider: SiteSlider = {
+            id: params.rowData.id,
+            expireDateTime: params.selectedDate,
+            isActive: params.rowData.isActive,
+            alt: params.rowData.alt,
+            userId: params.rowData.userId,
+            insertDate: params.rowData.insertDate,
+            keyMedia: params.rowData.keyMedia,
+          };
+          this.basicService
+            .update<SiteSlider>('Slider', slider)
+            .subscribe(() => this.table.updateTransaction(slider));
+        },
       },
-      cellRenderer: (data) => {
-        if (data && data?.value?.selectedDate) {
-          return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
-        }
-        return moment(data.value).format('jYYYY/jMM/jDD');
-      },
+      // cellRenderer: (data) => {
+      //   if (data && data?.value?.selectedDate) {
+      //     return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
+      //   }
+      //   return moment(data.value).format('jYYYY/jMM/jDD');
+      // },
     },
     {
       field: 'isActive',

@@ -56,13 +56,14 @@ export class DiscountPage implements OnInit {
         headerName: 'تعداد استفاده شده',
         editable: false,
       },
+      
       {
         field: 'expireDate',
         headerName: 'انقضا',
         editable: true,
-        cellEditor: 'datepickerEditor',
-        cellEditorParams: (data) => {
-          return {
+        cellRenderer: 'datepickerRenderer',
+        cellRendererParams: {
+          editable: true,
             onChange: (params) => {
               const discount = {
                 id: params.rowData.id,
@@ -78,16 +79,14 @@ export class DiscountPage implements OnInit {
                 .updateDiscount(discount)
                 .subscribe(() => this.table.updateTransaction(discount));
             },
-          };
         },
-        cellRenderer: (data) => {
-          if (data && data?.value?.selectedDate) {
-            return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
-          }
-          return moment(data.value).format('jYYYY/jMM/jDD');
-        },
+        // cellRenderer: (data) => {
+        //   if (data && data?.value?.selectedDate) {
+        //     return moment(data.value.selectedDate).format('jYYYY/jMM/jDD');
+        //   }
+        //   return moment(data.value).format('jYYYY/jMM/jDD');
+        // },
       },
-
       {
         field: 'isActive',
         headerName: 'وضعیت',
