@@ -95,6 +95,7 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '3') this.getProductPointData(this.id);
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
+  
   getProductPriceData(productId) {
     const secondary = this.secondaryFormGroup.controls;
     this.productService.getProductPriceData(productId).subscribe((res) => {
@@ -105,14 +106,6 @@ export class ProductModifyPage implements OnInit {
   getProductImageData(productId) {
     this.productService.getProductImageData(productId).subscribe((res) => {
       this.productImages = res;
-      console.log(this.productImages);
-      // res.forEach((img) => {
-      //   this.dataService.getBase64ImageFromUrl(img.keyMedia, (dataUrl) => {
-      //     this.productImages.push({
-      //       keyMedia: dataUrl,
-      //     });
-      //   });
-      // });
     });
   }
 

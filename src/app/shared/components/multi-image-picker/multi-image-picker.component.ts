@@ -25,7 +25,6 @@ export class MultiImagePickerComponent implements OnInit {
   selectedImages: { keyMedia?: any; isDefault?: any }[] = [];
 
   ngOnInit() {
-    console.log(this.images);
     if (this.images) {
       for (const item of this.images) {
         this.dataService.getBase64ImageFromUrl(item.keyMedia, (dataUrl) => {
