@@ -95,11 +95,10 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '3') this.getProductPointData(this.id);
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
-  
+
   getProductPriceData(productId) {
-    const secondary = this.secondaryFormGroup.controls;
     this.productService.getProductPriceData(productId).subscribe((res) => {
-      console.log(res);
+      this.selectedPrices = res;
     });
   }
 
@@ -131,7 +130,20 @@ export class ProductModifyPage implements OnInit {
               .subscribe((attributes: AttributeByCategoryId[]) => {
                 let selectedCategoryAttributes = [];
                 for (let i = 0; i < attributes.length; i++) {
-                  Object.assign(attributes[i], { value: result[i].value });
+                  let type = attributes[i].attributeTypeTitle;
+                  if (type == 'CheckBox') {
+                    if (result[i].value == 'true')
+                      Object.assign(attributes[i], { value: true });
+                    else Object.assign(attributes[i], { value: false });
+                  } else if (type == 'Select')
+                    Object.assign(attributes[i], { value: +result[i].value });
+                  else if (type == 'Multi Select') {
+                    let values = [];
+                    for (const value of result[i].value.split(','))
+                      values.push(+value);
+                    Object.assign(attributes[i], { value: values });
+                  } else
+                    Object.assign(attributes[i], { value: result[i].value });
                   selectedCategoryAttributes.push(attributes[i]);
                 }
                 this.selectedCategoryAttributes = selectedCategoryAttributes;
@@ -142,7 +154,6 @@ export class ProductModifyPage implements OnInit {
 
   getProductPrimaryData(productId) {
     this.productService.getProductPrimaryData(productId).subscribe((res) => {
-      console.log(res);
       const primary = this.primaryFormGroup.controls;
       primary['brandId'].setValue(res.brandId);
       primary['commission'].setValue(res.commission);
@@ -209,9 +220,13 @@ export class ProductModifyPage implements OnInit {
       .subscribe((res) => {});
   }
 
-  onEditImages() {}
+  onEditPrice(index) {
+    let price = this.selectedPrices[index];
+    Object.assign(price, { productId: this.id });
+    this.productService.updateProductPriceData(price).subscribe((res) => {});
+  }
 
-  onEditSecondary() {}
+  onEditImages() {}
 
   async loadData() {
     const originalCategories = await this.productService
@@ -260,8 +275,6 @@ export class ProductModifyPage implements OnInit {
     p.info = this.attributes;
     p.price = this.selectedPrices;
     p.point = this.pointTypeFormGroup.value.pointTypeId;
-    console.log(p);
-
     return p;
   }
 
@@ -282,9 +295,7 @@ export class ProductModifyPage implements OnInit {
   }
 
   addProduct() {
-    this.productService.insertProduct(this.createProduct()).subscribe((res) => {
-      console.log(res);
-    });
+    this.productService.insertProduct(this.createProduct()).subscribe((res) => {});
   }
 
   //////////////////////////////////////////////
@@ -393,6 +404,7 @@ export class ProductModifyPage implements OnInit {
             if (
               key == 'price' ||
               key == 'disCountPrice' ||
+              key == 'period' ||
               key == 'qty' ||
               key == 'maxQty'
             ) {
@@ -405,10 +417,29 @@ export class ProductModifyPage implements OnInit {
       });
   }
 
-  editPrice(price) {
-    console.log(price);
+  editPrice(price, index) {
     this.dialogFormService
       .show('افزودن قیمت', this.getPriceConfig(price), '1000px')
-      .onClose.subscribe((res) => {});
+      .onClose.subscribe((priceObj) => {
+        if (priceObj) {
+          for (const key in priceObj) {
+            let prop = null;
+            if (
+              key == 'price' ||
+              key == 'disCountPrice' ||
+              key == 'period' ||
+              key == 'qty' ||
+              key == 'maxQty'
+            ) {
+              prop = priceObj[key];
+              priceObj[key] = +prop;
+              if (this.activeIndex != null)
+                Object.assign(priceObj, { id: this.selectedPrices[index].id });
+            }
+          }
+          this.selectedPrices[index] = priceObj;
+          if (this.activeIndex != null) this.onEditPrice(index);
+        }
+      });
   }
 }
