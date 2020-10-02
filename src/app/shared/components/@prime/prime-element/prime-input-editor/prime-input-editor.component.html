@@ -3,6 +3,6 @@
     [(ngModel)]="value"
     [placeholder]="placeholder"
     [style]="{ height: '320px' }"
-    (onTextChange)="_onTextChange()"
+    (onTextChange)="_onTextChange($event)"
   ></p-editor>
 </prm-input-container>

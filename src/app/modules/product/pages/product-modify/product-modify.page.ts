@@ -81,7 +81,8 @@ export class ProductModifyPage implements OnInit {
     private dataService: DataService,
     private basicService: BasicService,
     private route: ActivatedRoute,
-    private dialogFormService: DialogFormService
+    private dialogFormService: DialogFormService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -95,8 +96,8 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '3') this.getProductPointData(this.id);
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
-  tabIndexChenge(args){
-    this.activeIndex=args.index;
+  tabIndexChenge(args) {
+    this.activeIndex = args.index;
     if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
     if (this.activeIndex == '1') this.getProductAttributes(this.id);
     if (this.activeIndex == '2') this.getProductImageData(this.id);
@@ -233,8 +234,6 @@ export class ProductModifyPage implements OnInit {
     this.productService.updateProductPriceData(price).subscribe((res) => {});
   }
 
-  onEditImages() {}
-
   async loadData() {
     const originalCategories = await this.productService
       .getCategories()
@@ -286,7 +285,26 @@ export class ProductModifyPage implements OnInit {
   }
 
   onImageChange(args) {
+    if (this.activeIndex) {
+      let data = {
+        productId: this.id,
+        media: [args[args.length - 1]],
+      };
+      this.productService.insertProductImageData(data).subscribe();
+    }
     this.productImages = args;
+  }
+
+  onImageDelete(args) {
+    this.productService.deleteProductImageData({ id: args.id }).subscribe();
+  }
+
+  onImageSelect(args) {
+    let data = {
+      productId: this.id,
+      Id: args.id,
+    };
+    this.productService.selectProductImageDefult(data).subscribe();
   }
 
   onSelectCategory(event) {
@@ -302,7 +320,9 @@ export class ProductModifyPage implements OnInit {
   }
 
   addProduct() {
-    this.productService.insertProduct(this.createProduct()).subscribe((res) => {});
+    this.productService
+      .insertProduct(this.createProduct())
+      .subscribe((res) => {});
   }
 
   //////////////////////////////////////////////
@@ -362,7 +382,7 @@ export class ProductModifyPage implements OnInit {
         type: 'text',
         formControlName: 'disCountPrice',
         value: value?.disCountPrice,
-        label: 'تخفیف',
+        label: 'قیمت بعد از تخفیف',
         labelWidth: 110,
         errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
@@ -448,5 +468,9 @@ export class ProductModifyPage implements OnInit {
           if (this.activeIndex != null) this.onEditPrice(index);
         }
       });
+  }
+
+  addBackClick(){
+    this.router.navigate(['/product/list']);
   }
 }

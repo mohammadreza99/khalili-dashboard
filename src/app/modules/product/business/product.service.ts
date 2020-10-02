@@ -134,7 +134,21 @@ export class ProductService extends BaseService {
       map((res: any) => res.data)
     );
   }
-
+  insertProductImageData(data){
+    return this.post('/Base/Admin/ProductMediaInsert/', data, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+  deleteProductImageData(data){
+    return this.put('/Base/Admin/ProductMediaDelete/', data, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+  selectProductImageDefult(data){
+    return this.put('/Base/Admin/ProductMediaUpdateIsDefault/', data, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
 
   getProductAttributes(ProductId): Observable<Info[]> {
     return this.get('/Base/Admin/ProductInfoSelectWithId/?id='+ProductId ,'json').pipe(

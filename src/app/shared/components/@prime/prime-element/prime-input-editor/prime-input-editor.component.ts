@@ -24,8 +24,8 @@ export class PrimeInputEditorComponent extends PrimeInputBaseComponent
     super.ngAfterViewInit();
   }
 
-  _onTextChange() {
-    if (this.hasValueAccessor) this.controlOnChange(this.value);
-    this.onChange.emit(this.value);
+  _onTextChange(event) {
+    if (this.hasValueAccessor) this.controlOnChange(event.htmlValue);
+    this.onChange.emit(event.htmlValue);
   }
 }

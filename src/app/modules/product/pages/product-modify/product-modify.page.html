@@ -1,12 +1,22 @@
 <page-container title="درج / ویرایش محصول">
-  <prm-button
-    *ngIf="!activeIndex"
-    label="افزودن"
-    icon="fa fa-plus"
-    color="success"
-    (click)="addProduct()"
-  >
-  </prm-button>
+  <div class="w-100 d-flex justify-content-between">
+
+    <prm-button
+      label="بازگشت"
+      icon="fa fa-chevron-left"
+      color="danger"
+      (click)="addBackClick()"
+    >
+    </prm-button>
+    <prm-button
+      *ngIf="!activeIndex"
+      label="افزودن"
+      icon="fa fa-plus"
+      color="success"
+      (click)="addProduct()"
+    >
+    </prm-button>
+  </div>
   <p-tabView [activeIndex]="activeIndex" (onChange)="tabIndexChenge($event)">
     <p-tabPanel
       header="اطلاعات پایه"
@@ -110,15 +120,9 @@
         [images]="productImages"
         [defaultImage]="productDefaultImage"
         (onChange)="onImageChange($event)"
+        (onSelect)="onImageSelect($event)"
+        (onDelete)="onImageDelete($event)"
       ></multi-image-picker>
-      <div class="row" *ngIf="activeIndex && activeIndex == 2">
-        <div
-          class="col-12 d-flex justify-content-end align-items-center border-top mt-4 py-4"
-          (click)="onEditImages()"
-        >
-          <button class="col-12 btn btn-block btn-success">ذخیره</button>
-        </div>
-      </div>
     </p-tabPanel>
     <p-tabPanel header="سوالات سنجشی"
     >
