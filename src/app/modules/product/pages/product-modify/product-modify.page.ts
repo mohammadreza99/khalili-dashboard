@@ -439,6 +439,10 @@ export class ProductModifyPage implements OnInit {
               priceObj[key] = +prop;
             }
           }
+          if (this.activeIndex) {
+            Object.assign(priceObj,{productId:this.id});
+            this.productService.insertProductPriceData(priceObj).subscribe()
+          }
           this.selectedPrices.push(priceObj);
         }
       });
@@ -470,7 +474,7 @@ export class ProductModifyPage implements OnInit {
       });
   }
 
-  addBackClick(){
+  addBackClick() {
     this.router.navigate(['/product/list']);
   }
 }

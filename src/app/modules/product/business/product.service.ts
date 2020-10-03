@@ -129,6 +129,12 @@ export class ProductService extends BaseService {
       map((res: any) => res.data)
     );
   }
+  insertProductPriceData(pointList){
+    return this.post('/Base/Admin/ProductPriceInsert/', pointList, 'json').pipe(
+      map((res: any) => res.data)
+    );
+  }
+
   getProductImageData(productId): Observable<any> {
     return this.get('/Base/Admin/ProductMediaSelectWithProductId/?productId='+productId ,'json').pipe(
       map((res: any) => res.data)
