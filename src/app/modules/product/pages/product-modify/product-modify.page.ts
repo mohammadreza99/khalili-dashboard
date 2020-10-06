@@ -34,13 +34,13 @@ enum TabIndex {
   styleUrls: ['./product-modify.page.scss'],
 })
 export class ProductModifyPage implements OnInit {
-  id;
+  id=undefined;
   activeIndex = null;
   editMode: boolean = false;
   productImages: any = [];
   productDefaultImage: any;
   selectedCategoryAttributes: AttributeByCategoryId[];
-  attributes: Info[];
+  attributes: Info[]=[];
   selectedCategory: TreeNode;
   convertedCategories: TreeNode[];
   convertedBrands: SelectItem[];
@@ -97,12 +97,14 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
   tabIndexChenge(args) {
-    this.activeIndex = args.index;
-    if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
-    if (this.activeIndex == '1') this.getProductAttributes(this.id);
-    if (this.activeIndex == '2') this.getProductImageData(this.id);
-    if (this.activeIndex == '3') this.getProductPointData(this.id);
-    if (this.activeIndex == '4') this.getProductPriceData(this.id);
+    if(this.id){
+      this.activeIndex = args.index;
+      if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
+      if (this.activeIndex == '1') this.getProductAttributes(this.id);
+      if (this.activeIndex == '2') this.getProductImageData(this.id);
+      if (this.activeIndex == '3') this.getProductPointData(this.id);
+      if (this.activeIndex == '4') this.getProductPriceData(this.id);
+    }
   }
   getProductPriceData(productId) {
     this.productService.getProductPriceData(productId).subscribe((res) => {
@@ -368,7 +370,6 @@ export class ProductModifyPage implements OnInit {
         label: 'قیمت مرجع',
         value: value?.isReference,
         labelWidth: 110,
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -381,10 +382,9 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'disCountPrice',
-        value: value?.disCountPrice,
+        value: value?.disCountPrice ,
         label: 'قیمت بعد از تخفیف',
         labelWidth: 110,
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
