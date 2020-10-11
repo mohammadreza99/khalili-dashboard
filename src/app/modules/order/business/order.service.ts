@@ -18,4 +18,16 @@ export class OrderService extends BaseService {
       'json'
     ).pipe(map((res: any) => res.data));
   }
+  getOrderStates() {
+    return this.get(
+      '/Base/Admin/OrderStateSelect/',
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
+  getOrderWhitStatusId(id) {
+    return this.get(
+      '/Base/Admin/OrderSelectWithStatusId/?orderStatusId='+id,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
 }

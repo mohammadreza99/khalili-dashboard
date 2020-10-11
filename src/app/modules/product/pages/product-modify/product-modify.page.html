@@ -116,6 +116,7 @@
     </p-tabPanel>
     <p-tabPanel header="عکس ها">
       <multi-image-picker
+      *ngIf="(productImages.length!=0 && id) || !id"
         [images]="productImages"
         [defaultImage]="productDefaultImage"
         (onChange)="onImageChange($event)"

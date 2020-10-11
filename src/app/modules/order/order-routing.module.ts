@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { OrderPage } from './pages/order/order.page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: 'users',
     pathMatch: 'full',
+  },
+  {
+    path: 'orders',
+    component: OrderPage,
   },
 ];
 
