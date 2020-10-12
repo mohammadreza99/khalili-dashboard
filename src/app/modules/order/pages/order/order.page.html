@@ -1,1 +1,16 @@
-<p>order works!</p>
+<page-container  title="درج / ویرایش محصول">
+    <p-tabView *ngIf="statuses"
+    [activeIndex]="activeIndex" 
+     (onChange)="tabIndexChenge($event)">
+      <p-tabPanel [header]="status.title" *ngFor="let status of statuses">
+          <div class="table">
+              <ag-table
+              [rowData]="rowData$ | async"
+              [columnDefs]="columnDefs"
+              ></ag-table>
+              
+            </div>
+    </p-tabPanel>
+
+    </p-tabView>
+  </page-container>
