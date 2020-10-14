@@ -19,15 +19,7 @@ import { BasicService } from '@app/modules/basic/business/basic.service';
 import { DialogFormService } from '@app/services/dialog-form.service';
 import { DialogFormConfig } from '@app/shared/models/dialog-form-config';
 import { DataService } from '@app/services/data.service';
-import { JsonPipe } from '@angular/common';
 
-enum TabIndex {
-  primary,
-  fields,
-  images,
-  points,
-  secondary,
-}
 @Component({
   selector: 'product-modify',
   templateUrl: './product-modify.page.html',
