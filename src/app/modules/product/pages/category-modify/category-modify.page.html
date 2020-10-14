@@ -13,12 +13,19 @@
       labelWidth="150"
       label="عنوان دسته بندی"
     ></prm-input-text>
-    <prm-input-text
+    <!-- <prm-input-text
       formControlName="icon"
       class="mb-3 d-block"
       labelWidth="150"
       label="آیکن"
-    ></prm-input-text>
+    ></prm-input-text> -->
+    <ag-single-image-picker
+      class="mb-3 d-block"
+      labelWidth="150"
+      label="آیکن"
+      formControlName="icon"
+      [errors]="[]"
+    ></ag-single-image-picker>
     <prm-input-text
       formControlName="link"
       class="mb-3 d-block"

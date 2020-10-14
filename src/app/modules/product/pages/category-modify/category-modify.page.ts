@@ -175,7 +175,7 @@ export class CategoryModifyPage implements OnInit {
       if (this.newSelectedAttributeIds.includes(attr.attributeId))
         this.newSelectedAttributes.push({
           attributeId: attr.attributeId,
-          isFilter: attr.isFilter == 'فعال' ? true : false,
+          isFilter: (attr.isFilter == 'فعال' || attr.isFilter == true) ? true : false,
           order: +attr.order,
         });
     });

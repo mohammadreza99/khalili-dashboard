@@ -26,13 +26,13 @@ import { DataService } from '@app/services/data.service';
   styleUrls: ['./product-modify.page.scss'],
 })
 export class ProductModifyPage implements OnInit {
-  id;
+  id=undefined;
   activeIndex = null;
   editMode: boolean = false;
   productImages: any = [];
   productDefaultImage: any;
   selectedCategoryAttributes: AttributeByCategoryId[];
-  attributes: Info[];
+  attributes: Info[]=[];
   selectedCategory: TreeNode;
   convertedCategories: TreeNode[];
   convertedBrands: SelectItem[];
@@ -73,7 +73,8 @@ export class ProductModifyPage implements OnInit {
     private dataService: DataService,
     private basicService: BasicService,
     private route: ActivatedRoute,
-    private dialogFormService: DialogFormService
+    private dialogFormService: DialogFormService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -87,13 +88,15 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '3') this.getProductPointData(this.id);
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
-  tabIndexChenge(args){
-    this.activeIndex=args.index;
-    if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
-    if (this.activeIndex == '1') this.getProductAttributes(this.id);
-    if (this.activeIndex == '2') this.getProductImageData(this.id);
-    if (this.activeIndex == '3') this.getProductPointData(this.id);
-    if (this.activeIndex == '4') this.getProductPriceData(this.id);
+  tabIndexChenge(args) {
+    if(this.id){
+      this.activeIndex = args.index;
+      if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
+      if (this.activeIndex == '1') this.getProductAttributes(this.id);
+      if (this.activeIndex == '2') this.getProductImageData(this.id);
+      if (this.activeIndex == '3') this.getProductPointData(this.id);
+      if (this.activeIndex == '4') this.getProductPriceData(this.id);
+    }
   }
   getProductPriceData(productId) {
     this.productService.getProductPriceData(productId).subscribe((res) => {
@@ -225,8 +228,6 @@ export class ProductModifyPage implements OnInit {
     this.productService.updateProductPriceData(price).subscribe((res) => {});
   }
 
-  onEditImages() {}
-
   async loadData() {
     const originalCategories = await this.productService
       .getCategories()
@@ -278,7 +279,26 @@ export class ProductModifyPage implements OnInit {
   }
 
   onImageChange(args) {
+    if (this.activeIndex) {
+      let data = {
+        productId: this.id,
+        media: [args[args.length - 1]],
+      };
+      this.productService.insertProductImageData(data).subscribe();
+    }
     this.productImages = args;
+  }
+
+  onImageDelete(args) {
+    this.productService.deleteProductImageData({ id: args.id }).subscribe();
+  }
+
+  onImageSelect(args) {
+    let data = {
+      productId: this.id,
+      Id: args.id,
+    };
+    this.productService.selectProductImageDefult(data).subscribe();
   }
 
   onSelectCategory(event) {
@@ -294,7 +314,9 @@ export class ProductModifyPage implements OnInit {
   }
 
   addProduct() {
-    this.productService.insertProduct(this.createProduct()).subscribe((res) => {});
+    this.productService
+      .insertProduct(this.createProduct())
+      .subscribe((res) => {});
   }
 
   //////////////////////////////////////////////
@@ -340,7 +362,6 @@ export class ProductModifyPage implements OnInit {
         label: 'قیمت مرجع',
         value: value?.isReference,
         labelWidth: 110,
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -353,10 +374,9 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'disCountPrice',
-        value: value?.disCountPrice,
-        label: 'تخفیف',
+        value: value?.disCountPrice ,
+        label: 'قیمت بعد از تخفیف',
         labelWidth: 110,
-        errors: [{ type: 'required', message: 'این فیلد الزامیست' }],
       },
       {
         type: 'text',
@@ -411,6 +431,10 @@ export class ProductModifyPage implements OnInit {
               priceObj[key] = +prop;
             }
           }
+          if (this.activeIndex) {
+            Object.assign(priceObj,{productId:this.id});
+            this.productService.insertProductPriceData(priceObj).subscribe()
+          }
           this.selectedPrices.push(priceObj);
         }
       });
@@ -440,5 +464,9 @@ export class ProductModifyPage implements OnInit {
           if (this.activeIndex != null) this.onEditPrice(index);
         }
       });
+  }
+
+  addBackClick() {
+    this.router.navigate(['/product/list']);
   }
 }

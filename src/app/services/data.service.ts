@@ -157,7 +157,13 @@ export class DataService extends BaseService {
     },
     {
       label: 'مدیریت سفارشات',
-      items: [],
+      items: [
+        {
+          label: 'لیست سفارشات',
+          routerLink: ['/order/orders'],
+          icon: 'fa fa-minus',
+        },
+      ],
     },
     {
       label: 'مدیریت کاربران',
