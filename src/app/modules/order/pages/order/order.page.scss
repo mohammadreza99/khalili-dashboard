@@ -1,3 +1,8 @@
-.table{
-    height: 400px;
+.table {
+  height: 400px;
+}
+ag-table::ng-deep {
+  .ag-root-wrapper {
+      height: 400px;
+  }
 }

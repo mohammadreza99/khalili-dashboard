@@ -8,14 +8,48 @@ import { OrderService } from '../../business/order.service';
 })
 export class OrderPage implements OnInit {
   constructor(private orderService: OrderService) {}
-  statuses;
+  statuses$;
+  states;
   rowData$;
+  rowDataProducts$;
   columnDefs = [];
-  activeIndex = 0;
+  columnDefsProducts = [
+    {
+      field: 'productName',
+      headerName: 'محصول',
+    },
+    {
+      field: 'storeTitle',
+      headerName: 'فروشگاه',
+    },
+    {
+      field: 'colorTitle',
+      headerName: 'رنگ',
+    },
+    {
+      field: 'warrantyTitle',
+      headerName: 'گارانتی',
+    },
+    {
+      field: 'insuranceTitle',
+      headerName: 'بیمه',
+    },
+    {
+      field: 'localCode',
+      headerName: 'کد',
+    },
+    {
+      field: 'qty',
+      headerName: 'تعداد',
+    },
+  ];
 
+  activeIndex = 0;
+  showOrderDialog = false;
+  actionsConfig = [];
   ngOnInit(): void {
-    this.orderService.getOrderStatuses().subscribe((res) => {
-      this.statuses = res;
+    this.orderService.getOrderStates().subscribe((res) => {
+      this.states = res;
       this.columnDefs = [
         {
           field: 'address',
@@ -48,36 +82,53 @@ export class OrderPage implements OnInit {
         {
           field: 'orderStatusTitle',
           headerName: 'وضعیت سفارش',
-          cellEditor: 'agSelectCellEditor',
-          cellEditorParams: {
-            values: this.statuses.map((state) => state.title),
-          },
-          onCellValueChanged: (params) => {
-            let newStatus =this.statuses.find(s=>s.title==params.newValue);
-            this.orderService.setOrderState({
-              orderId:params.data.id,
-              orderStateId:params.data.orderStateId
-              // orderStateId:newStatus.id
-            });
-            this.rowData$ = this.orderService.getOrderWhitStatusId(this.activeIndex + 1);
-          },
         },
         {
           field: 'orderStateTitle',
           headerName: 'مرحله سفارش',
+          cellEditor: 'agSelectCellEditor',
+          cellEditorParams: {
+            values: this.states.map((state) => state.title),
+          },
+          onCellValueChanged: (params) => {
+            let newStatus = this.states.find((s) => s.title == params.newValue);
+            this.orderService
+              .setOrderState({
+                orderId: params.data.id,
+                orderStateId: params.data.orderStateId,
+              })
+              .subscribe();
+            this.rowData$ = this.orderService.getOrderWhitStatusId(
+              this.activeIndex + 1
+            );
+          },
+        },
+        {
+          headerName: 'مشاهده جزییات',
+          editable: false,
+          filter: false,
+          sortable: false,
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onActionClick.bind(this),
+            icon: 'fa fa-edit',
+          },
         },
       ];
     });
-    this.rowData$ = this.orderService.getOrderWhitStatusId(this.activeIndex + 1);
-
-    this.orderService.getOrderStates().subscribe((res) => {
-      console.log(res);
-    });
+    this.statuses$ = this.orderService.getOrderStatuses();
+    this.rowData$ = this.orderService.getOrderWhitStatusId(
+      this.activeIndex + 1
+    );
   }
   tabIndexChenge(args) {
     this.activeIndex = args.index;
     this.rowData$ = this.orderService.getOrderWhitStatusId(
       this.activeIndex + 1
     );
+  }
+  onActionClick(args) {
+    this.rowDataProducts$ = this.orderService.getOrderProducts(args.rowData.id);
+    this.showOrderDialog = true;
   }
 }
