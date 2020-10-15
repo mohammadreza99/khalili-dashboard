@@ -89,6 +89,7 @@ export class OrderPage implements OnInit {
         {
           field: 'orderStatusTitle',
           headerName: 'وضعیت سفارش',
+          editable: false,
         },
         {
           field: 'orderStateTitle',
