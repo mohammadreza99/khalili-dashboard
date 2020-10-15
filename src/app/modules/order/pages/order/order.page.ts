@@ -20,30 +20,37 @@ export class OrderPage implements OnInit {
         {
           field: 'address',
           headerName: 'آدرس',
+          editable: false,
         },
         {
           field: 'date',
           headerName: 'تاریخ ثبت ',
+          editable: false,
         },
         {
           field: 'deliveryDate',
           headerName: 'تاریخ تحویل ',
+          editable: false,
         },
         {
           field: 'shippintHourTitle',
           headerName: 'ساعت تحویل ',
+          editable: false,
         },
         {
           field: 'fullName',
           headerName: 'نام',
+          editable: false,
         },
         {
           field: 'invoiceNumber',
           headerName: 'شماره پیگیری',
+          editable: false,
         },
         {
           field: 'mobileNo',
           headerName: 'شماره موبایل',
+          editable: false,
         },
         {
           field: 'orderStatusTitle',
@@ -53,22 +60,29 @@ export class OrderPage implements OnInit {
             values: this.statuses.map((state) => state.title),
           },
           onCellValueChanged: (params) => {
-            let newStatus =this.statuses.find(s=>s.title==params.newValue);
+            let newStatus = this.statuses.find(
+              (s) => s.title == params.newValue
+            );
             this.orderService.setOrderState({
-              orderId:params.data.id,
-              orderStateId:params.data.orderStateId
+              orderId: params.data.id,
+              orderStateId: params.data.orderStateId,
               // orderStateId:newStatus.id
             });
-            this.rowData$ = this.orderService.getOrderWhitStatusId(this.activeIndex + 1);
+            this.rowData$ = this.orderService.getOrderWhitStatusId(
+              this.activeIndex + 1
+            );
           },
         },
         {
           field: 'orderStateTitle',
           headerName: 'مرحله سفارش',
+          editable: false,
         },
       ];
     });
-    this.rowData$ = this.orderService.getOrderWhitStatusId(this.activeIndex + 1);
+    this.rowData$ = this.orderService.getOrderWhitStatusId(
+      this.activeIndex + 1
+    );
 
     this.orderService.getOrderStates().subscribe((res) => {
       console.log(res);
