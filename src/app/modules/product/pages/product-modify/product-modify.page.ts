@@ -26,13 +26,13 @@ import { DataService } from '@app/services/data.service';
   styleUrls: ['./product-modify.page.scss'],
 })
 export class ProductModifyPage implements OnInit {
-  id=undefined;
+  id = undefined;
   activeIndex = null;
   editMode: boolean = false;
   productImages: any = [];
   productDefaultImage: any;
   selectedCategoryAttributes: AttributeByCategoryId[];
-  attributes: Info[]=[];
+  attributes: Info[] = [];
   selectedCategory: TreeNode;
   convertedCategories: TreeNode[];
   convertedBrands: SelectItem[];
@@ -89,7 +89,7 @@ export class ProductModifyPage implements OnInit {
     if (this.activeIndex == '4') this.getProductPriceData(this.id);
   }
   tabIndexChenge(args) {
-    if(this.id){
+    if (this.id) {
       this.activeIndex = args.index;
       if (this.activeIndex == '0') this.getProductPrimaryData(this.id);
       if (this.activeIndex == '1') this.getProductAttributes(this.id);
@@ -314,9 +314,9 @@ export class ProductModifyPage implements OnInit {
   }
 
   addProduct() {
-    this.productService
-      .insertProduct(this.createProduct())
-      .subscribe((res) => {});
+    this.productService.insertProduct(this.createProduct()).subscribe((res) => {
+      if (res) this.addBackClick();
+    });
   }
 
   //////////////////////////////////////////////
@@ -374,7 +374,7 @@ export class ProductModifyPage implements OnInit {
       {
         type: 'text',
         formControlName: 'disCountPrice',
-        value: value?.disCountPrice ,
+        value: value?.disCountPrice,
         label: 'قیمت بعد از تخفیف',
         labelWidth: 110,
       },
@@ -432,8 +432,8 @@ export class ProductModifyPage implements OnInit {
             }
           }
           if (this.activeIndex) {
-            Object.assign(priceObj,{productId:this.id});
-            this.productService.insertProductPriceData(priceObj).subscribe()
+            Object.assign(priceObj, { productId: this.id });
+            this.productService.insertProductPriceData(priceObj).subscribe();
           }
           this.selectedPrices.push(priceObj);
         }
