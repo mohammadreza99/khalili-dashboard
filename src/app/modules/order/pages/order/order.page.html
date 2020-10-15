@@ -1,12 +1,14 @@
 <page-container  title="درج / ویرایش محصول">
-    <p-tabView *ngIf="statuses"
+    <p-tabView *ngIf="statuses$ |async as statuses"
     [activeIndex]="activeIndex" 
      (onChange)="tabIndexChenge($event)">
-      <p-tabPanel [header]="status.title" *ngFor="let status of statuses">
-          <div class="table">
+      <p-tabPanel [header]="status.title" *ngFor="let status of statuses;let i=index">
+          <div class="table" *ngIf="i==activeIndex">
               <ag-table
               [rowData]="rowData$ | async"
               [columnDefs]="columnDefs"
+              [actionsConfig]="actionsConfig"
+              (actionClick)="onActionClick($event)"
               ></ag-table>
               
             </div>
@@ -14,3 +16,19 @@
 
     </p-tabView>
   </page-container>
+  <p-dialog
+  header="ویرایش مقادیر اولیه"
+  [(visible)]="showOrderDialog"
+  [modal]="true"
+  [draggable]="false"
+  [blockScroll]="true"
+  [style]="{width:'800px'}"
+>
+  <div>
+    <ag-table
+    [rowData]="rowDataProducts$ | async "
+    *ngIf="showOrderDialog && rowDataProducts$ | async"
+    [columnDefs]="columnDefsProducts"
+    ></ag-table>
+  </div>
+</p-dialog>

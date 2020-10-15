@@ -30,6 +30,12 @@ export class OrderService extends BaseService {
       'json'
     ).pipe(map((res: any) => res.data));
   }
+  getOrderProducts(id) {
+    return this.get(
+      '/Base/Admin/OrderInfoSelectWithId/?orderId='+id,
+      'json'
+    ).pipe(map((res: any) => res.data));
+  }
   setOrderState(body) {
     return this.post(
       '/Base/Admin/OrderStateInsert/',
